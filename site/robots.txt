@@ -1,0 +1,3 @@
+# Pages carry a noindex meta tag; crawlers must be allowed to fetch them to see it.
+User-agent: *
+Disallow: /data/

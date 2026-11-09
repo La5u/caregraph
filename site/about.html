@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · CareGraph</title>
+<style>body { font: 15px/1.5 system-ui, sans-serif; max-width: 760px; margin: 2em auto; padding: 0 1em; color: #222; }</style>
+</head>
+<body>
+<p><a href="index.html">← back to CareGraph</a></p>
+<h1>About CareGraph</h1>
+<p><b>Preview.</b> This site is a preview and may change or contain errors.</p>
+
+<h2>Browsing the files</h2>
+<p>Agencies opens as a paged table of every enrollment in the available files, including enrollments outside a
+multi-agency network. Addresses lists shared addresses and buildings, with the original CMS address and suite on expansion.
+Changes compares consecutive releases of the same dataset; a change between files may be a filing correction.
+Dates labelled first or last seen refer to CMS releases, not event dates. Certification and revocation effective dates
+are event dates. Revocations in Changes are observations in the published extract, rather than inferred quarterly changes.</p>
+<p>Networks opens the list and map. Advanced contains layout and release controls, one-link people, and officers and
+managers; the connection finder and legend have their own collapsed controls. An agency panel can show all its listed
+people. The first map view keeps agencies and the owner, control, company and address nodes that join them.</p>
+<h2>What it shows</h2>
+<p>Medicare hospices and home health agencies (HHAs) grouped into <b>networks</b>: agencies that share an owner,
+a person with operational control, or a practice address in CMS ownership and enrollment files. Officers, directors
+and managing employees are drawn inside networks but never join two networks. Very common links are also excluded from
+joining: people or organizations on many enrollments (chains, consultants), holding companies on more than five enrollments,
+executive-suite / virtual-office addresses, and addresses with many agencies.</p>
+
+<h2>What it does not show</h2>
+<p><b>Nothing here is an allegation of fraud or wrongdoing.</b> Shared owners and addresses are normal in health care:
+families, chains, management companies and shared office buildings all produce them. A link means only that a name or
+address appears in the listed CMS release, and links in one network or one path may date from different releases.</p>
+<p><b>People are pseudonymized.</b> The site does not show the names of people. Each person CMS lists in its owner files
+appears as a code such as "Person 7F3A2K9QX4M1B8RT". The code is a keyed hash (HMAC-SHA256) of the person's CMS associate ID, made with
+a secret that is not published, so it cannot be reversed or recomputed from a name or ID. The same code stands for the same
+CMS ID everywhere on the site, so a person's links to several agencies stay visible. Companies whose names identify a person
+(estates, trusts, or names containing a listed person's full name) are shown the same way, as "Entity …". This is
+pseudonymization, not anonymization: the underlying CMS files are public, and someone who looks up an agency there can see
+who CMS lists on it.</p>
+<p><b>Identity.</b> Each person or organization node is one CMS associate ID (the PECOS ID in the owner files), not a name.
+Different IDs stay separate, with one exception: two IDs with the same name are merged when both are listed on the same agency
+(people: same first, middle and last name, with the full middle name, not just an initial; organizations: same full name
+including the legal form). An incorrect or reused CMS ID can still produce an incorrect link.</p>
+<p><b>Roles.</b> The CMS owner files list owners, people with operational or managerial control, officers, directors and
+W-2 managing employees. A managing employee, officer or director listing does not imply ownership, and none of these
+listings implies wrongdoing.</p>
+<p>Addresses are matched after standard abbreviation (STREET = ST, NORTH = N, "1711W TEMPLE" = "1711 W TEMPLE"); a
+number that belongs to the road name (LOOP 410, STATE ROAD 7, AVENUE U) is not read as a suite. In addition, 176 spellings
+of the same building (same ZIP code and house number) are merged: 130 where the street name is the same once a missing
+street type or the direction is ignored ("4444 CORONA" = "4444 CORONA DR"), 43 near-identical spellings ("DUBLUN" =
+"DUBLIN"), and 3 joined through another spelling. Spellings with different street types (DR and PL) or opposite directions
+(N and S) are never merged directly. Each merge was checked with the U.S. Census Bureau geocoder: 154 resolve to the same address, 5 have only
+one spelling in the Census data, 16 have neither and remain unverified, and in 1 (8130 Baymeadows Way W, Jacksonville)
+the Census matched one spelling to a nearby street although both spellings name the same street.
+An address node lists its merged spellings, and each link shows the spelling CMS used.
+Names and addresses are displayed in title case for readability; CMS lists them in capitals, and the link records and
+source rows show them exactly as CMS spells them.
+A shared address joins two agencies only if CMS lists both there in at least one common release; an agency listed
+at the same address only before or after the other (a later tenant of the same suite, for example) is shown at the address
+but not joined through it. Addresses without a suite number that were checked to be multi-tenant office buildings, and
+shared office centers whose tenants all use the center's suite number, are shown but do not join networks.
+A building whose agencies use different suites gets its own building node, labeled with how many agencies CMS has
+listed there; different suites are usually separate tenants, so building nodes do not join networks either.
+Revoked agencies are shaded by the reason in the CMS Revocation Extract: abuse of billing privileges (42 CFR
+424.535(a)(8)), affiliation ((a)(19)), or other grounds.
+A matched practice address may be a residence or shared premises and does not establish a personal relationship or
+shared control.</p>
+<p>"Not in latest file" means the enrollment is missing from the newest CMS enrollment release and has no revocation row.
+It does not mean the agency closed. "Revoked" repeats the CMS Revocation Extract of 2026-10-21; the reason shown is the CMS
+reason code text. A revocation is a CMS administrative action, not a criminal finding; it can be appealed and may later be
+reversed, and a revocation of an agency is not a finding against any person listed on it. Check the
+<a href="https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/revoked-medicare-providers-and-suppliers">current
+CMS data</a> before relying on it.</p>
+
+<h2 id="sources">Data</h2>
+<ul>
+  <li><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners">CMS Hospice All Owners</a> and <a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments">Hospice Enrollments</a>, quarterly releases 2023-03-31 to 2026-09-29</li>
+  <li><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners">CMS Home Health Agency All Owners</a>, quarterly releases 2023-03-31 to 2026-09-29, and
+    <a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments">HHA Enrollments</a>, quarterly releases 2023-03-31 to 2026-09-29</li>
+  <li><a href="https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/revoked-medicare-providers-and-suppliers">CMS Revoked Medicare Providers and Suppliers</a> (Revocation Extract), 2026-10-21</li>
+  <li>CMS Post-Acute Care Utilization by Provider, CY2024 (payments, patients; for agencies without 2024 claims, the latest of CY2021-2023 is shown with its year):
+    <a href="https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider">hospice</a>,
+    <a href="https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider">home health</a></li>
+  <li><a href="https://data.cms.gov/provider-data/topics/hospice-care">CMS Care Compare hospice data</a> (phone, certification date, Hospice Care Index, live discharges), Aug 2026</li>
+  <li><a href="https://npiregistry.cms.hhs.gov/">NPPES NPI Registry</a> (authorized official), Oct 2026</li>
+</ul>
+<p>All sources are public U.S. government data. Every link lists the CMS records behind it: one entry per distinct row
+(role, ownership %, association date), with every quarterly release it appears in. Each release links to the matching
+rows in the CMS data API (JSON), filtered by enrollment ID and associate ID. Agency fields link to their public source:
+the Care Compare page for the CCN, the NPPES page for the NPI, the revocation row, and the payment row.
+The data may contain errors from the source files or from address and ID matching. A missing "revoked" marker does not mean an agency
+was never sanctioned: only the CMS Revocation Extract is checked.</p>
+
+<h2 id="report">Report suspected fraud</h2>
+<p>This site does not take or forward tips. If you have information about Medicare or Medicaid fraud, waste or abuse,
+report it directly to the government:</p>
+<ul>
+<li><a href="https://oig.hhs.gov/fraud/report-fraud/">HHS Office of Inspector General hotline</a>: online form, or
+1-800-HHS-TIPS (1-800-447-8477), TTY 1-800-377-4950.</li>
+<li><a href="https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse">Medicare.gov: reporting Medicare fraud
+and abuse</a>, or 1-800-MEDICARE (1-800-633-4227), for questions about specific Medicare claims.</li>
+<li><a href="https://oig.hhs.gov/fraud/medicaid-fraud-control-units-mfcu/">State Medicaid Fraud Control Units</a>, for
+Medicaid fraud and for abuse or neglect of patients in care facilities.</li>
+</ul>
+<p>Include the agency name, its CCN or NPI, and what you observed. A network or link on this site is not by itself
+evidence of fraud.</p>
+
+<h2 id="indicators">Indicators</h2>
+<p>A prompt to look closer, not a finding. These were tested against later CMS revocations; most agencies with an indicator
+have done nothing wrong. No check shows that any agency did anything wrong. Indicators apply to hospices only, never to people,
+companies or addresses, and there is no combined score.</p>
+<p><b>How they were tested.</b> Hospices with Medicare claims in 2023 and a CCN in the January 2024 enrollment file, not
+revoked before, were followed to see which were later revoked by CMS (any revocation in the CMS Revocation Extract effective
+after the data; for Care Compare measures, which cover 2023-24, only revocations from 2025). A hospice is flagged when its value
+is at or beyond the national 95th percentile (or 5th, for low values) of hospices, or by the fixed rule shown. The cut-offs were
+set before the results were seen and were not tuned. A check was kept only if hospices with it were later revoked more often
+than others in the same state (Mantel-Haenszel risk ratio, lower 95% limit above 1, at least 5 revoked hospices with it).
+The building check was added after the first run.</p>
+<table>
+<tr><th>Indicator</th><th>Revoked later: with it</th><th>Without it</th><th>State-adjusted risk ratio (95% CI)</th></tr>
+<tr><td>High spending per patient (Care Compare)</td><td>15.4% (37 of 241)</td><td>1.1%</td><td>3.49 (2.32–5.24)</td></tr>
+<tr><td>Few aide visits</td><td>23.3% (65 of 279)</td><td>3.2%</td><td>2.87 (2.23–3.68)</td></tr>
+<tr><td>Five or more agencies in the building</td><td>23.0% (112 of 488)</td><td>2.6%</td><td>2.73 (2.16–3.45)</td></tr>
+<tr><td>Recently began billing</td><td>14.1% (163 of 1,154)</td><td>1.9%</td><td>2.70 (2.11–3.45)</td></tr>
+<tr><td>Few visits near death</td><td>8.9% (22 of 246)</td><td>1.4%</td><td>2.41 (1.53–3.80)</td></tr>
+<tr><td>Few nursing minutes</td><td>11.8% (33 of 280)</td><td>4.0%</td><td>2.25 (1.62–3.12)</td></tr>
+<tr><td>High payment per patient</td><td>24.1% (68 of 282)</td><td>3.4%</td><td>2.16 (1.68–2.78)</td></tr>
+<tr><td>Long stays</td><td>18.8% (53 of 282)</td><td>3.6%</td><td>2.15 (1.65–2.82)</td></tr>
+<tr><td>Owner or controller added</td><td>5.7% (47 of 820)</td><td>4.2%</td><td>1.64 (1.24–2.19)</td></tr>
+</table>
+<p><b>What did not hold up.</b> Live discharge rates, a small daily census, fast payment growth, and every home health check
+did not hold up; they are shown as plain metrics with national percentiles only.</p>
+<p><b>Limits.</b> A revocation is a biased stand-in: CMS finds what it looks for, and most improper billing never leads to a
+revocation. The rates above are from the same hospices the checks were chosen on. Metrics come from the CMS Medicare Post-Acute
+Care and Hospice file by provider (2024) and Care Compare hospice measures (2023-24); a value CMS did not publish is shown as
+"not assessed", never as zero.</p>
+
+<h2 id="privacy">Privacy</h2>
+<p><b>Who is responsible.</b> This site is published by <a href="https://lasu.dev/">Lasu Shin</a>, a data scientist
+in France, acting as a private individual and as the controller for the personal data it contains. Contact: <a href="mailto:lasushin@proton.me">lasushin@proton.me</a>.</p>
+<p><b>What personal data, and from where.</b> Pseudonymized records of people listed in the public CMS Hospice and Home Health
+Agency All Owners files (their role on an agency, ownership percentage, and the CMS release dates they were listed in).
+No names, CMS IDs, contact details or other identifiers of people are published. The data is not collected from the people concerned.</p>
+<p><b>Why, and on what basis.</b> To help the public, journalists and oversight bodies understand who owns and runs Medicare
+hospices and home health agencies, a sector with documented problems of hidden ownership. The legal basis is legitimate
+interest (Article 6(1)(f) GDPR), limited by pseudonymization, by leaving out people's names and identifiers, and by keeping the
+site out of search engines.</p>
+<p><b>Who receives it.</b> Anyone who visits the site. The site is hosted by Cloudflare, which processes visitors' network
+data (such as IP addresses) to deliver the pages. The site sets no cookies, uses no analytics and makes no third-party requests.
+Your browser's local storage keeps only your display choices and any case notes you make; they never leave your browser.</p>
+<p><b>How long.</b> Each data update replaces the previous one. Data is kept as long as the site is online.</p>
+<p><b>Your rights.</b> You can ask for access, rectification, erasure or restriction, and you can object to the processing
+(Articles 15 to 21 GDPR), by writing to the address above. Entries removed on request stay removed in later updates. Requests
+are answered within one month. You can also complain to the CNIL (<a href="https://www.cnil.fr/fr/plaintes">cnil.fr/plaintes</a>).
+Corrections to the underlying records must be made with CMS.</p>
+
+<h2>Corrections</h2>
+<p>If something is wrong, please report it to <a href="mailto:lasushin@proton.me">lasushin@proton.me</a>, with the network number and the agency, code or link concerned. Requests to correct or remove an entry are answered there. Corrections to the underlying records
+must be made with CMS (PECOS).</p>
+
+<p><small>Graph drawing: a small WebGL renderer, no third-party code.</small></p>
+</body>
+</html>

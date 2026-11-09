@@ -1,0 +1,16 @@
+/data/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/data/__VERSION__/*
+  Cache-Control: public, max-age=31536000, immutable
+/graph_logic.__VERSION__.js
+  Cache-Control: public, max-age=31536000, immutable
+/renderer.__VERSION__.js
+  Cache-Control: public, max-age=31536000, immutable
+/tables.__VERSION__.js
+  Cache-Control: public, max-age=31536000, immutable
+/index.html
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache
+/about.html
+  Cache-Control: no-cache

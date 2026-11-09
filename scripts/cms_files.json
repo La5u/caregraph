@@ -1,0 +1,485 @@
+{
+ "Hospice_All_Owners_2023.03.31.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2023-03-31",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/337c2f2c-ff95-4123-b80d-903290f6331b/Hospice_All_Owners_2023.03.31.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/ca6ff95d-9f9e-4ac4-8244-d3c4fb3bcb69/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2023.07.06..csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2023-07-06",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/689c952e-531d-43e6-a7bf-928ca1707175/Hospice_All_Owners_2023.07.06..csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/0129490c-a3c6-4b74-97f8-58b188269ac5/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2023.10.02.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2023-10-02",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/1e0afa8a-8fc1-4b4c-995c-59459c221f45/Hospice_All_Owners_2023.10.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/dbeef0bb-8b32-4f6b-b015-72b954819ded/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2024.01.05.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2024-01-05",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/4f54febf-e5a5-4a29-9e97-d21f704f4029/Hospice_All_Owners_2024.01.05.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/68a2bf32-8525-457e-b414-5465fda340ec/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2024.04.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2024-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/48296231-beed-4ea3-84c3-9e3d89e5ac34/Hospice_All_Owners_2024.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/1fbcae32-d013-4a96-af80-126ca57b8527/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2024.07.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2024-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/46769a98-fd4d-496e-85a9-5e187f4745d4/Hospice_All_Owners_2024.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e9dadbb9-5714-4290-818d-e95dc2a614a6/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2024.10.07.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2024-10-07",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/30a9239a-3ce8-4ba4-a7a6-f3861f5891b4/Hospice_All_Owners_2024.10.07.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/9f201eb9-e548-43d2-9a41-e0e36f03d0b0/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2025.01.02.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2025-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2026-05/e9b55b35-4da0-4161-8af2-fb9ebf8d3368/Hospice_All_Owners_2025.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/0fd3be8e-3482-4f0a-9b41-21df128e7af8/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2025.04.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2025-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-06/56ab135d-f256-4b45-b64d-84e7afbe19a3/Hospice_All_Owners_2025.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/dcabff59-e65f-434f-b8b6-2893205ea7c4/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2025.07.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2025-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-06/29e8a57e-075d-465c-ab9c-d3f0609c6cf6/Hospice_All_Owners_2025.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/05079286-a12b-424a-a2f8-21f0ca99608e/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2025.10.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2025-10-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-06/29dad873-b3c0-4b00-ac2e-8a848fa5b143/Hospice_All_Owners_2025.10.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/88839d69-4e4c-4fc0-8b49-a5bd3d2cdda8/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2026.01.02.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2026-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2026-06/e62d5ad0-1ee3-49ec-a15b-01267068f86b/Hospice_All_Owners_2026.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/2649992c-6091-4748-8ad0-5f76e209cdf2/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2026.04.01.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2026-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-06/4495340f-f768-48fc-a4ae-f1cb43020d25/Hospice_All_Owners_2026.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/cc0e0d82-080d-4b03-8daa-ec3545b08fcc/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2026.07.17.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2026-07-17",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/a3952548-ee89-4165-90c8-36fd8a09c872/Hospice_All_Owners_2026.07.17.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/d3526876-6e11-42e5-90e5-e03caa9fba6a/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "Hospice_All_Owners_2026.09.29.csv": {
+  "ds": "Hospice All Owners",
+  "rel": "2026-09-29",
+  "csv": "https://data.cms.gov/sites/default/files/2026-10/6dd81674-c8fa-4314-9023-eb24163e9353/Hospice_All_Owners_2026.09.29.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/79b1d3bd-5780-44a0-b878-64183b18592c/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-all-owners"
+ },
+ "HHA_All_Owners_2023.03.31.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2023-03-31",
+  "csv": "https://data.cms.gov/sites/default/files/2023-04/cfb66ea6-604a-4eaf-b50e-f991a3922731/HHA_All_Owners_2023.03.31.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/84a40ec7-d315-48e4-b2ed-ec00878cfec5/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2023.07.06.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2023-07-06",
+  "csv": "https://data.cms.gov/sites/default/files/2023-07/988040ed-3766-4b8f-862c-e15d07dbe430/HHA_All_Owners_2023.07.06.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/94c1d434-bdad-47e5-b301-6bcf8634af6b/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2023.10.02.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2023-10-02",
+  "csv": "https://data.cms.gov/sites/default/files/2023-10/2e7c7a07-c96a-42d1-ba9b-e898ec55dce3/HHA_All_Owners_2023.10.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/8f1a6139-8df2-4bfd-9e95-8ce4adec6488/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2024.01.05.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2024-01-05",
+  "csv": "https://data.cms.gov/sites/default/files/2024-01/7fc04d2a-a6c3-437d-878d-77692dc8c12e/HHA_All_Owners_2024.01.05.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/c1b3a866-2efa-416c-8f7b-6f17e553dbf1/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2024.04.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2024-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-04/7755410d-7688-4d0f-9647-dc5c530375ef/HHA_All_Owners_2024.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/c745e6c8-795f-4b3e-89df-12e85264a892/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2024.07.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2024-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-07/bc041dea-adee-47a0-8c8c-bf0140182588/HHA_All_Owners_2024.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/539fa7db-5720-438d-ae94-555c156e17fd/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2024.10.07.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2024-10-07",
+  "csv": "https://data.cms.gov/sites/default/files/2024-10/64509ec7-b479-4b46-bd26-0dcbd7d73e81/HHA_All_Owners_2024.10.07.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/dfa40c06-c5cf-43aa-a70c-15b95ae240b9/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2025.01.02.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2025-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2025-01/a0443d0f-247e-481e-8d62-cdd0621238d4/HHA_All_Owners_2025.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/a338d79f-d7fc-4503-91f9-ae2696742830/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2025.04.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2025-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-05/321ef8e6-1796-49e7-aa25-cd1f22700a76/HHA_All_Owners_2025.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/0ad03549-6109-42cb-8e1d-b883c86e3309/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2025.07.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2025-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-07/34d3acb6-ed6d-473e-a2bd-ab554f17ec83/HHA_All_Owners_2025.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/f11048cd-750f-4277-9fe9-20121d4be54e/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2025.10.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2025-10-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-10/e08ba6ed-2b99-47d6-9940-9e07c494a1ab/HHA_All_Owners_2025.10.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/295a3458-80a8-48f0-bd34-a0b51e700f50/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2026.01.02.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2026-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2026-01/2b0fdf7f-fa29-4f29-aa8c-05268a621cc8/HHA_All_Owners_2026.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/a920c196-d641-4aef-aa5a-ae9b55020d66/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2026.04.01.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2026-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-04/ac9880cd-1a68-4dca-b097-212ebd7dd401/HHA_All_Owners_2026.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/00493d8e-f009-4108-a14d-a16e7e7be1b9/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2026.07.17.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2026-07-17",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/e3c50419-ff93-4b7a-964c-f8b1d622d817/HHA_All_Owners_2026.07.17.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/3a59ad7c-a77f-449a-9766-19b69d040da1/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "HHA_All_Owners_2026.09.29.csv": {
+  "ds": "HHA All Owners",
+  "rel": "2026-09-29",
+  "csv": "https://data.cms.gov/sites/default/files/2026-10/6d2a7d24-bae8-4b7a-a963-c2780958ae87/HHA_All_Owners_2026.09.29.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/87e65a9e-3695-4b48-bd5c-4d5f4dfc7f08/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-all-owners"
+ },
+ "Hospice_Enrollments_2023.03.31.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2023-03-31",
+  "csv": "https://data.cms.gov/sites/default/files/2023-04/f8b05c50-76a4-4501-878e-a65fa9321f20/Hospice_Enrollments_2023.03.31.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/94c94f93-0ab8-4c23-889f-7162587bc9ee/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2023.07.06.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2023-07-06",
+  "csv": "https://data.cms.gov/sites/default/files/2023-07/85103729-a6b5-460d-93f7-20cd055a74d1/Hospice_Enrollments_2023.07.06.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/aa3df2b4-67e8-4c1b-a4dd-f35db8ece0fd/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2023.10.02.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2023-10-02",
+  "csv": "https://data.cms.gov/sites/default/files/2023-10/9df81161-c7ff-471b-8329-efb2c7d36929/Hospice_Enrollments_2023.10.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/df9b9c6e-9b8a-4c4d-993c-bc9541d72a49/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2024.01.05.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2024-01-05",
+  "csv": "https://data.cms.gov/sites/default/files/2024-01/071c9976-59e6-46d4-9809-53454a1ced07/Hospice_Enrollments_2024.01.05.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/194e710e-1eac-4b27-a539-0d2bb8de40ea/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2024.04.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2024-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-04/072ab653-71b7-454c-b3ed-2c0ee7a8455b/Hospice_Enrollments_2024.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e88e5497-b0d4-453a-9069-dfbb2faf44ef/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2024.07.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2024-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-07/e51b5573-9e8e-49ad-9a48-7d2425a70a50/Hospice_Enrollments_2024.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/d52c6495-6369-4bd7-9b98-788d4f98d245/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2024.10.07.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2024-10-07",
+  "csv": "https://data.cms.gov/sites/default/files/2024-10/92a4fe1f-34a9-4d07-97d7-278bc2ca3f1a/Hospice_Enrollments_2024.10.07.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/a6a063c5-3d7c-463c-b914-07b8409ca8fd/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2025.01.02.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2025-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2025-01/afd62e57-8a99-4c49-a0b5-358a25ce39dd/Hospice_Enrollments_2025.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/44a82a38-fdad-4b7b-b0cc-68fe22fb76b0/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2025.04.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2025-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-05/211d1216-e745-44f7-b717-724d04f78dbd/Hospice_Enrollments_2025.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/0029a216-703d-4700-b94c-5b12455efab3/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2025.07.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2025-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-07/30719e52-511a-46fa-81d9-f09b6be5966b/Hospice_Enrollments_2025.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e083903d-b1e4-4fa6-8c9b-e8367dd63a72/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2025.10.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2025-10-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-10/8a3ac547-fe30-4cf7-80aa-d623734a6675/Hospice_Enrollments_2025.10.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e3d76147-12de-4f25-a264-57b33a9135f9/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2026.01.21.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2026-01-21",
+  "csv": "https://data.cms.gov/sites/default/files/2026-01/adf86a27-5387-44b9-85c6-72e7c4ea5342/Hospice_Enrollments_2026.01.21.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/6f5fda60-aac7-4d84-9550-1c9acf1b79e4/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2026.04.01.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2026-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-04/2e809a47-65a1-4f8d-977e-6d9dc7d42e29/Hospice_Enrollments_2026.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/97fef706-7162-4918-a0f4-457fe01c3060/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2026.07.17.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2026-07-17",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/b2fd9bf2-4ea5-40b9-9e72-0e015c92ad02/Hospice_Enrollments_2026.07.17.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/c97d38f7-b44f-42c6-bdd6-f7701a7ed286/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "Hospice_Enrollments_2026.09.29.csv": {
+  "ds": "Hospice Enrollments",
+  "rel": "2026-09-29",
+  "csv": "https://data.cms.gov/sites/default/files/2026-10/e9ba26c4-dca7-4c06-8ab8-06521b46bd4f/Hospice_Enrollments_2026.09.29.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/70660a53-8dc0-43b3-bb34-262a68943309/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospice-enrollments"
+ },
+ "HHA_Enrollments_2023.03.31.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2023-03-31",
+  "csv": "https://data.cms.gov/sites/default/files/2023-04/f719af15-7eab-42c6-a28e-6fd960193edb/HHA_Enrollments_2023.03.31.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/f48bb755-bd9f-42e3-87b9-b88c562cb981/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2023.07.06.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2023-07-06",
+  "csv": "https://data.cms.gov/sites/default/files/2023-07/45afd42e-9416-41e3-b2d0-0e70ce793a52/HHA_Enrollments_2023.07.06.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/d998c103-6d16-48a1-b58a-51e5848c6939/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2023.10.02.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2023-10-02",
+  "csv": "https://data.cms.gov/sites/default/files/2023-10/82964b76-66b6-463a-aef1-dff4ae766f9a/HHA_Enrollments_2023.10.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/6e53ed2f-c967-4661-b566-a2cbcd7996f1/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2024.01.05.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2024-01-05",
+  "csv": "https://data.cms.gov/sites/default/files/2024-01/00ea617a-7f11-45ef-a49c-89ed8dff5945/HHA_Enrollments_2024.01.05.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/089ee308-8d5c-4ab5-afbf-a82c14b3f3b6/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2024.04.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2024-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-04/85f0a6c7-c068-40fa-962d-dbf05aa93944/HHA_Enrollments_2024.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/4410b442-fff1-4b05-bd49-3a90c9cac114/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2024.07.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2024-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2024-07/b8e87685-b941-4e88-aa45-b2cfe3db42a4/HHA_Enrollments_2024.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/3a842f3f-2d77-43dc-b92c-078977a8c102/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2024.10.07.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2024-10-07",
+  "csv": "https://data.cms.gov/sites/default/files/2024-10/6f0ae716-79df-45e0-8fcf-5ef1d12727b3/HHA_Enrollments_2024.10.07.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/115ccf0e-4312-4229-84e9-2b35267b106c/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2025.01.02.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2025-01-02",
+  "csv": "https://data.cms.gov/sites/default/files/2025-01/c133f82f-5635-47d3-b85f-364b379a322a/HHA_Enrollments_2025.01.02.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e9278ca0-fd12-4e20-9a21-9d5cd733cc1d/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2025.04.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2025-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-05/9c3b2573-1efb-4249-963c-9341d9f0d186/HHA_Enrollments_2025.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/c52fccf1-4a19-4866-8cf6-148410967592/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2025.07.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2025-07-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-07/64e9fe1b-9edf-44ad-8ce9-7b7c1cc17f72/HHA_Enrollments_2025.07.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/1cb0dedd-2f12-45fe-9563-35eaf1234ec6/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2025.10.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2025-10-01",
+  "csv": "https://data.cms.gov/sites/default/files/2025-10/95c1cb50-ddce-4bae-8f18-b040113fd830/HHA_Enrollments_2025.10.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/cdb15daf-af8b-412d-b6cc-2147e4cade45/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2026.01.21.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2026-01-21",
+  "csv": "https://data.cms.gov/sites/default/files/2026-01/ba21a4f0-b9e2-418c-b927-f94697045a69/HHA_Enrollments_2026.01.21.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/c5809a7b-b1f9-4f41-9c07-c51403bff483/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2026.04.01.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2026-04-01",
+  "csv": "https://data.cms.gov/sites/default/files/2026-04/2cca6c3e-e662-48ad-b151-5b0340cb877a/HHA_Enrollments_2026.04.01.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/f957f84b-fc28-49c3-a6de-7b17aaa1d5d5/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2026.07.17.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2026-07-17",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/4f7949bd-151d-4974-b16b-ff2a39c86282/HHA_Enrollments_2026.07.17.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/f169a43c-c1f6-48b7-ac4f-1c333950e4c6/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "HHA_Enrollments_2026.09.29.csv": {
+  "ds": "HHA Enrollments",
+  "rel": "2026-09-29",
+  "csv": "https://data.cms.gov/sites/default/files/2026-10/0089fc1e-f43a-4c6d-b50c-8f1a208c1c7c/HHA_Enrollments_2026.09.29.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/bd36db5c-c05d-4f37-8ab6-e69fd0fcd21c/data",
+  "page": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/home-health-agency-enrollments"
+ },
+ "Revocation_Extract_2026.10.21.csv": {
+  "ds": "Revoked Medicare Providers and Suppliers",
+  "rel": "2026-10-21",
+  "csv": "https://data.cms.gov/sites/default/files/2026-10/0ee8db18-c7de-4fd8-8401-31cd61f821b1/Revocation_Extract_2026.10.21.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/66acd4b6-e9ca-47bb-a7d6-fbd7c2f56e93/data",
+  "page": "https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/revoked-medicare-providers-and-suppliers"
+ },
+ "RY26_PACPUF_HOS_2024_main_S.csv": {
+  "ds": "Post-Acute Care Utilization: Hospice by Provider 2024",
+  "rel": "2024",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/11d13c2a-ceb3-4104-af58-5dea5ef2c28c/RY26_PACPUF_HOS_2024_main_S.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/a188cf07-b76b-4353-a75c-8fc48bb79655/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider"
+ },
+ "RY26_PACPUF_HH_2024_main_S.csv": {
+  "ds": "Post-Acute Care Utilization: Home Health by Provider 2024",
+  "rel": "2024",
+  "csv": "https://data.cms.gov/sites/default/files/2026-07/839da318-d963-435c-8709-35c5820c50a4/RY26_PACPUF_HH_2024_main_S.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/7013adbd-3cf9-4a64-a61f-d7d65a0eaa97/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HOS_2021_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Hospice by Provider",
+  "rel": "2021",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/1ca73c58-9d07-482e-9f76-708bb446b3e6/RY_2025_RY_25_PAC_PUF_HOS_2021_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/a3a2b455-2188-4e53-9051-c498d24244ca/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HOS_2022_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Hospice by Provider",
+  "rel": "2022",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/8336ff27-0000-4f02-8fd5-8d3c4fd8a439/RY_2025_RY_25_PAC_PUF_HOS_2022_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/e50d8bd9-d955-4037-af58-d20f223128a3/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HOS_2023_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Hospice by Provider",
+  "rel": "2023",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/7c92ef92-85ff-4f2a-a1a6-b1f4f25210e4/RY_2025_RY_25_PAC_PUF_HOS_2023_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/f8fad9ec-84a0-4836-b96a-b37b9509a7e4/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HH_2021_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Home Health by Provider",
+  "rel": "2021",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/5233f231-a935-4649-bc14-89a92849b52a/RY_2025_RY_25_PAC_PUF_HH_2021_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/35416e1b-b805-464f-a376-d2ed04e2574b/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HH_2022_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Home Health by Provider",
+  "rel": "2022",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/139cec5d-4333-45bc-9b3c-d2cddad8456a/RY_2025_RY_25_PAC_PUF_HH_2022_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/672e81ea-f675-4f48-ae2e-e4492d996a3f/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider"
+ },
+ "RY_2025_RY_25_PAC_PUF_HH_2023_main_final_unformatted.csv": {
+  "ds": "Post-Acute Care Utilization: Home Health by Provider",
+  "rel": "2023",
+  "csv": "https://data.cms.gov/sites/default/files/2025-08/1d04af0f-9173-47b0-b5f8-26df7722247c/RY_2025_RY_25_PAC_PUF_HH_2023_main_final_unformatted.csv",
+  "api": "https://data.cms.gov/data-api/v1/dataset/51d84821-8fc0-45ce-820c-38be22d1736f/data",
+  "page": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider"
+ }
+}

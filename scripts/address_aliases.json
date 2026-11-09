@@ -1,0 +1,2399 @@
+{
+ "checked": "2026-11-08",
+ "aliases": [
+  {
+   "raw": "1 DAVID MYER PKWY 44122",
+   "canon": "1 DAVID N MYER PKWY 44122",
+   "raw_line": "1 DAVID MYERS PKWY, BEACHWOOD, OH 44122",
+   "canon_line": "ONE DAVID N MYERS PKWY, BEACHWOOD, OH 44122",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1 DAVID MYERS PKWY, BEACHWOOD, OH, 44122"
+   ],
+   "census_canon": [
+    "1 DAVID MYERS PKWY, BEACHWOOD, OH, 44122"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1 NESHAMINY INTERPLEX 19053",
+   "canon": "1 NESHAMINY INTERPLEX DR 19053",
+   "raw_line": "ONE NESHAMINY INTERPLEX, FEASTERVILLE, PA 19053",
+   "canon_line": "1 NESHAMINY INTERPLEX DR, TREVOSE, PA 19053",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [
+    "1 INTERPLEX DR, TREVOSE, PA, 19053"
+   ],
+   "census": "one spelling found"
+  },
+  {
+   "raw": "1000 CENTRAL PKWY N 78232",
+   "canon": "1000 CENTRAL N PKWY 78232",
+   "raw_line": "1000 CENTRAL PKWY N, SAN ANTONIO, TX 78232",
+   "canon_line": "1000 CENTRAL N PKWY 110, SAN ANTONIO, TX 78232",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1000 CENTRAL PKWY N, SAN ANTONIO, TX, 78232"
+   ],
+   "census_canon": [
+    "1000 CENTRAL PKWY N, SAN ANTONIO, TX, 78232",
+    "1000 CENTRAL PKWY S, SAN ANTONIO, TX, 78232"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1000 N DALMONT 88240",
+   "canon": "1000 N DALMONT ST 88240",
+   "raw_line": "1000 N DALMONT, HOBBS, NM 88240",
+   "canon_line": "1000 N DALMONT ST, HOBBS, NM 88240",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1000 N DALMONT ST, HOBBS, NM, 88240"
+   ],
+   "census_canon": [
+    "1000 N DALMONT ST, HOBBS, NM, 88240"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "10103 FONDREN 77096",
+   "canon": "10103 FONDREN RD 77096",
+   "raw_line": "10103 FONDREN, HOUSTON, TX 77096",
+   "canon_line": "10103 FONDREN RD, HOUSTON, TX 77096",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "10103 FONDREN RD, HOUSTON, TX, 77096"
+   ],
+   "census_canon": [
+    "10103 FONDREN RD, HOUSTON, TX, 77096"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1048 E FRY BLVD 85635",
+   "canon": "1048 E FRY BLVD E 85635",
+   "raw_line": "1048 E FRY BLVD, SIERRA VISTA, AZ 85635",
+   "canon_line": "1048E FRY BLVD E, SIERRA VISTA, AZ 85635",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1048 E FRY BLVD, SIERRA VISTA, AZ, 85635"
+   ],
+   "census_canon": [
+    "1048 E FRY BLVD, SIERRA VISTA, AZ, 85635"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "106 N JOHNSON ST 27526",
+   "canon": "106 N JOHNSTON ST 27526",
+   "raw_line": "106 N JOHNSON ST, FUQUAY VARINA, NC 27526",
+   "canon_line": "106 N JOHNSTON STREET, FUQUAY VARINA, NC 27526",
+   "rule": "near-identical spelling (similarity 0.93)",
+   "census_raw": [
+    "106 JOHNSON ST, FUQUAY VARINA, NC, 27526"
+   ],
+   "census_canon": [
+    "106 JOHNSON ST, FUQUAY VARINA, NC, 27526"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1080 NC HWY 86N 27379",
+   "canon": "1080 NC HWY 86 N 27379",
+   "raw_line": "1080 NC HWY 86N, YANCEYVILLE, NC 27379",
+   "canon_line": "1080 NC HIGHWAY 86 N, YANCEYVILLE, NC 27379",
+   "rule": "near-identical spelling (similarity 0.91)",
+   "census_raw": [
+    "1080 STATE HWY 86 N, YANCEYVILLE, NC, 27379"
+   ],
+   "census_canon": [
+    "1080 STATE HWY 86 N, YANCEYVILLE, NC, 27379"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "10998 S WILCREST 77099",
+   "canon": "10998 S WILCREST DR 77099",
+   "raw_line": "10998 SOUTH WILCREST, HOUSTON, TX 77099",
+   "canon_line": "10998 S WILCREST DR, HOUSTON, TX 77099",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "10998 WILCREST DR, HOUSTON, TX, 77099"
+   ],
+   "census_canon": [
+    "10998 WILCREST DR, HOUSTON, TX, 77099"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1100 OWENDALE 48083",
+   "canon": "1100 OWENDALE DR 48083",
+   "raw_line": "1100 OWENDALE SUITE B, TROY, MI 48083",
+   "canon_line": "1100 OWENDALE DR, TROY, MI 48083",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1100 OWENDALE DR, TROY, MI, 48083"
+   ],
+   "census_canon": [
+    "1100 OWENDALE DR, TROY, MI, 48083"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1101 BGALE WILSON 94533",
+   "canon": "1101 B GALE WILSON BLVD 94533",
+   "raw_line": "1101 B.GALE WILSON, FAIRFIELD, CA 94533",
+   "canon_line": "1101 B GALE WILSON BLVD, FAIRFIELD, CA 94533",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [
+    "1101 B GALE WILSON BLVD, FAIRFIELD, CA, 94533"
+   ],
+   "census_canon": [
+    "1101 B GALE WILSON BLVD, FAIRFIELD, CA, 94533"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1101 EARAPAHO RD 75081",
+   "canon": "1101 E ARAPAHO RD 75081",
+   "raw_line": "1101 EARAPAHO RD,# 130, RICHARDSON, TX 75081",
+   "canon_line": "1101 E ARAPAHO RD, RICHARDSON, TX 75081",
+   "rule": "near-identical spelling (similarity 0.93)",
+   "census_raw": [
+    "1101 E ARAPAHO RD, RICHARDSON, TX, 75081"
+   ],
+   "census_canon": [
+    "1101 E ARAPAHO RD, RICHARDSON, TX, 75081"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "11190 COUNTY CLUB RD 62439",
+   "canon": "11190 COUNTRY CLUB RD 62439",
+   "raw_line": "11190 COUNTY CLUB RD, LAWRENCEVILLE, IL 62439",
+   "canon_line": "11190 COUNTRY CLUB RD, LAWRENCEVILLE, IL 62439",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [],
+   "census_canon": [
+    "11190 COUNTRY CLUB RD, LAWRENCEVILLE, IL, 62439"
+   ],
+   "census": "one spelling found"
+  },
+  {
+   "raw": "1129 IRON SPRING RD 86305",
+   "canon": "1129 W IRON SPRING RD 86305",
+   "raw_line": "1129 IRON SPRINGS RD, PRESCOTT, AZ 86305",
+   "canon_line": "1129 W IRON SPRINGS RD, PRESCOTT, AZ 86305",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1129 IRON SPRINGS RD, PRESCOTT, AZ, 86305"
+   ],
+   "census_canon": [
+    "1129 IRON SPRINGS RD, PRESCOTT, AZ, 86305"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "11351 JAME WATT 79936",
+   "canon": "11351 JAME WATT DR 79936",
+   "raw_line": "11351 JAMES WATT, EL PASO, TX 79936",
+   "canon_line": "11351 JAMES WATT DR, EL PASO, TX 79936",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "11351 JAMES WATT DR, EL PASO, TX, 79936"
+   ],
+   "census_canon": [
+    "11351 JAMES WATT DR, EL PASO, TX, 79936"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "114 E MAIN 76531",
+   "canon": "114 E MAIN ST 76531",
+   "raw_line": "114 E MAIN, HAMILTON, TX 76531",
+   "canon_line": "114 E MAIN ST, HAMILTON, TX 76531",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "114 E MAIN ST, HAMILTON, TX, 76531"
+   ],
+   "census_canon": [
+    "114 E MAIN ST, HAMILTON, TX, 76531"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "115 N CENTRAL 76520",
+   "canon": "115 N CENTRAL AVE 76520",
+   "raw_line": "115 N CENTRAL, CAMERON, TX 76520",
+   "canon_line": "115 N CENTRAL AVE, CAMERON, TX 76520",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "115 N CENTRAL AVE, CAMERON, TX, 76520"
+   ],
+   "census_canon": [
+    "115 N CENTRAL AVE, CAMERON, TX, 76520"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "11615 FOREST CENTRAL DR 75243",
+   "canon": "11615 FORESTE CENTRAL DR 75243",
+   "raw_line": "11615 FOREST CENTRAL DRIVE, DALLAS, TX 75243",
+   "canon_line": "11615 FORESTE CENTRAL DR., DALLAS, TX 75243",
+   "rule": "near-identical spelling (similarity 0.97)",
+   "census_raw": [
+    "11615 FOREST CENTRAL DR, DALLAS, TX, 75243"
+   ],
+   "census_canon": [
+    "11615 FOREST CENTRAL DR, DALLAS, TX, 75243"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1221 ARISTA 75032",
+   "canon": "1221 ARISTA DR 75032",
+   "raw_line": "1221 ARISTA, ROCKWALL, TX 75032",
+   "canon_line": "1221 ARISTA DR, ROCKWALL, TX 75032",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1221 ARISTA RD, ROCKWALL, TX, 75032"
+   ],
+   "census_canon": [
+    "1221 ARISTA RD, ROCKWALL, TX, 75032"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "12708 ALAMEDA 79836",
+   "canon": "12708 ALAMEDA AVE 79836",
+   "raw_line": "12708 ALAMEDA, CLINT, TX 79836",
+   "canon_line": "12708 ALAMEDA AVE, CLINT, TX 79836",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "12708 ALAMEDA AVE, CLINT, TX, 79836"
+   ],
+   "census_canon": [
+    "12708 ALAMEDA AVE, CLINT, TX, 79836"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "12808 W AIRPORT 77478",
+   "canon": "12808 W AIRPORT BLVD 77478",
+   "raw_line": "12808 W AIRPORT, SUGAR LAND, TX 77478",
+   "canon_line": "12808 W AIRPORT BLVD, SUGAR LAND, TX 77478",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "12808 W AIRPORT BLVD, SUGAR LAND, TX, 77478"
+   ],
+   "census_canon": [
+    "12808 W AIRPORT BLVD, SUGAR LAND, TX, 77478"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1301 15TH W AVE 58801",
+   "canon": "1301 15TH AVE W 58801",
+   "raw_line": "1301 15TH W AVE, WILLISTON, ND 58801",
+   "canon_line": "1301 15TH AVE W, WILLISTON, ND 58801",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1301 15TH AVE W, WILLISTON, ND, 58801"
+   ],
+   "census_canon": [
+    "1301 15TH AVE W, WILLISTON, ND, 58801"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "13550 VILLAGE PARK 32837",
+   "canon": "13550 VILLAGE PARK DR 32837",
+   "raw_line": "13550 VILLAGE PARK, ORLANDO, FL 32837",
+   "canon_line": "13550 VILLAGE PARK DR, ORLANDO, FL 32837",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "13550 VILLAGE PARK DR, ORLANDO, FL, 32837"
+   ],
+   "census_canon": [
+    "13550 VILLAGE PARK DR, ORLANDO, FL, 32837"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1395 E DUBLINGRANVILLE RD 43229",
+   "canon": "1395 E DUBLIN GRANVILLE RD 43229",
+   "raw_line": "1395 EAST DUBLINGRANVILLE RD, COLUMBUS, OH 43229",
+   "canon_line": "1395E DUBLIN GRANVILLE RD 111, COLUMBUS, OH 43229",
+   "rule": "near-identical spelling (similarity 0.97)",
+   "census_raw": [
+    "1395 E DUBLIN GRANVILLE RD, COLUMBUS, OH, 43229"
+   ],
+   "census_canon": [
+    "1395 E DUBLIN GRANVILLE RD, COLUMBUS, OH, 43229"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1400 PERGRINE ST 75077",
+   "canon": "1400 PEREGRINE ST 75077",
+   "raw_line": "1400 PERGRINE STREET, LEWISVILLE, TX 75077",
+   "canon_line": "1400 PEREGRINE ST, LEWISVILLE, TX 75077",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "1400 PEREGRINE ST, LEWISVILLE, TX, 75077"
+   ],
+   "census_canon": [
+    "1400 PEREGRINE ST, LEWISVILLE, TX, 75077"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "150 LA MESA 77611",
+   "canon": "150 LAMESA DR 77611",
+   "raw_line": "150 LA MESA, BRIDGE CITY, TX 77611",
+   "canon_line": "150 LAMESA DR, BRIDGE CITY, TX 77611",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "150 LAMESA DR, BRIDGE CITY, TX, 77611"
+   ],
+   "census_canon": [
+    "150 LAMESA DR, BRIDGE CITY, TX, 77611"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "15022 FM 529 77095",
+   "canon": "15022 FM 529 RD 77095",
+   "raw_line": "15022 FM 529 BLDG 2 SUITE A, HOUSTON, TX 77095",
+   "canon_line": "15022 FM 529 RD, HOUSTON, TX 77095",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "15022 FM 529 RD, HOUSTON, TX, 77095"
+   ],
+   "census_canon": [
+    "15022 FM 529 RD, HOUSTON, TX, 77095"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1515 CESSNA 79925",
+   "canon": "1515 CESSNA DR 79925",
+   "raw_line": "1515 CESSNA, EL PASO, TX 79925",
+   "canon_line": "1515 CESSNA DR, EL PASO, TX 79925",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1515 CESSNA DR, EL PASO, TX, 79925"
+   ],
+   "census_canon": [
+    "1515 CESSNA DR, EL PASO, TX, 79925"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1520 E SAN PEDRO 78041",
+   "canon": "1520 E SAN PEDRO ST 78041",
+   "raw_line": "1520 E SAN PEDRO, LAREDO, TX 78041",
+   "canon_line": "1520 E SAN PEDRO ST, LAREDO, TX 78041",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1520 E SAN PEDRO ST, LAREDO, TX, 78041"
+   ],
+   "census_canon": [
+    "1520 E SAN PEDRO ST, LAREDO, TX, 78041"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "15315 MAGNOLIA BLVD 91403",
+   "canon": "15315 W MAGNOLIA BLVD 91403",
+   "raw_line": "15315 MAGNOLIA BLVD, SHERMAN OAKS, CA 91403",
+   "canon_line": "15315 W MAGNOLIA BLVD, SHERMAN OAKS, CA 91403",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "15315 MAGNOLIA BLVD, SHERMAN OAKS, CA, 91403"
+   ],
+   "census_canon": [
+    "15315 MAGNOLIA BLVD, SHERMAN OAKS, CA, 91403"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "15565 NORTHLAND DR 48075",
+   "canon": "15565 NORTHLAND E DR 48075",
+   "raw_line": "15565 NORTHLAND DR, SOUTHFIELD, MI 48075",
+   "canon_line": "15565 NORTHLAND E DR 409E, SOUTHFIELD, MI 48075",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "15565 NORTHLAND DR, SOUTHFIELD, MI, 48075"
+   ],
+   "census_canon": [
+    "15565 NORTHLAND DR, SOUTHFIELD, MI, 48075"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "15565 NORTHLAND DR W 48075",
+   "canon": "15565 NORTHLAND E DR 48075",
+   "raw_line": "15565 NORTHLAND DR W, SOUTHFIELD, MI 48075",
+   "canon_line": "15565 NORTHLAND E DR 409E, SOUTHFIELD, MI 48075",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "15565 NORTHLAND DR, SOUTHFIELD, MI, 48075"
+   ],
+   "census_canon": [
+    "15565 NORTHLAND DR, SOUTHFIELD, MI, 48075"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1605 WESTBROOK 27103",
+   "canon": "1605 WESTBROOK PLZ DR 27103",
+   "raw_line": "1605 WESTBROOK, WINSTON-SALEM, NC 27103",
+   "canon_line": "1605 WESTBROOK PLAZA DRIVE, WINSTON-SALEM, NC 27103",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "1635 LEE TREVINO DR 79936",
+   "canon": "1635 N LEE TREVINO DR 79936",
+   "raw_line": "1635 LEE TREVINO DR, EL PASO, TX 79936",
+   "canon_line": "1635 N LEE TREVINO DR, EL PASO, TX 79936",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1635 N LEE TREVINO DR, EL PASO, TX, 79936"
+   ],
+   "census_canon": [
+    "1635 N LEE TREVINO DR, EL PASO, TX, 79936"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1635 MAIN ST 74344",
+   "canon": "1635 S MAIN ST 74344",
+   "raw_line": "1635 MAIN ST, GROVE, OK 74344",
+   "canon_line": "1635 S MAIN ST, GROVE, OK 74344",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1635 S MAIN ST, GROVE, OK, 74344"
+   ],
+   "census_canon": [
+    "1635 S MAIN ST, GROVE, OK, 74344"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "16750 WESTGROVE 75001",
+   "canon": "16750 WESTGROVE DR 75001",
+   "raw_line": "16750 WESTGROVE, ADDISON, TX 75001",
+   "canon_line": "16750 WESTGROVE DR, ADDISON, TX 75001",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "1701 W IOWA 73018",
+   "canon": "1701 W IOWA AVE 73018",
+   "raw_line": "1701 W IOWA, CHICKASHA, OK 73018",
+   "canon_line": "1701W IOWA AVE, CHICKASHA, OK 73018",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1701 W IOWA AVE, CHICKASHA, OK, 73018"
+   ],
+   "census_canon": [
+    "1701 W IOWA AVE, CHICKASHA, OK, 73018"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "172 KING RD E 14850",
+   "canon": "172 E KING RD 14850",
+   "raw_line": "172 KING RD E, ITHACA, NY 14850",
+   "canon_line": "172 E KING RD, ITHACA, NY 14850",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "172 E KING RD, ITHACA, NY, 14850"
+   ],
+   "census_canon": [
+    "172 E KING RD, ITHACA, NY, 14850"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "175 FONTAINEBLEAU BLVD 33172",
+   "canon": "175 FOUNTAINBLEAU BLVD 33172",
+   "raw_line": "175 FONTAINEBLEAU BLVD, MIAMI, FL 33172",
+   "canon_line": "175 FOUNTAINBLEAU BLVD, MIAMI, FL 33172",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "175 FONTAINEBLEAU BLVD, MIAMI, FL, 33172"
+   ],
+   "census_canon": [
+    "175 FONTAINEBLEAU BLVD, MIAMI, FL, 33172"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "17542 17TH ST 92780",
+   "canon": "17542 E 17TH ST 92780",
+   "raw_line": "17542 17TH ST, TUSTIN, CA 92780",
+   "canon_line": "17542 EAST 17TH ST, TUSTIN, CA 92780",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "17542 E 17TH ST, TUSTIN, CA, 92780"
+   ],
+   "census_canon": [
+    "17542 E 17TH ST, TUSTIN, CA, 92780"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1786 WILIMGTON W CHESTER PIKE 19342",
+   "canon": "1786 WILMINGTON W CHESTER PIKE 19342",
+   "raw_line": "1786 WILIMGTON WEST CHESTER PIKE, GLEN MILLS, PA 19342",
+   "canon_line": "1786 WILMINGTON WEST CHESTER PIKE, GLEN MILLS, PA 19342",
+   "rule": "near-identical spelling (similarity 0.93)",
+   "census_raw": [
+    "1786 WILMINGTON W CHESTER PIKE, GLEN MILLS, PA, 19342"
+   ],
+   "census_canon": [
+    "1786 WILMINGTON W CHESTER PIKE, GLEN MILLS, PA, 19342"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1821 UNIVERSITY AVE 55104",
+   "canon": "1821 UNIVERSITY AVE W 55104",
+   "raw_line": "1821 UNIVERSITY AVE, SAINT PAUL, MN 55104",
+   "canon_line": "1821 UNIVERSITY AVE W, SAINT PAUL, MN 55104",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1821 UNIVERSITY AVE W, SAINT PAUL, MN, 55104"
+   ],
+   "census_canon": [
+    "1821 UNIVERSITY AVE W, SAINT PAUL, MN, 55104"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1835 WILDWOOD ST 83713",
+   "canon": "1835 N WILDWOOD ST 83713",
+   "raw_line": "1835 WILDWOOD ST, BOISE, ID 83713",
+   "canon_line": "1835 N WILDWOOD ST, BOISE, ID 83713",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1835 WILDWOOD ST, BOISE, ID, 83713"
+   ],
+   "census_canon": [
+    "1835 N WILDWOOD ST, BOISE, ID, 83713"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1900 W GARVEY S AVE 91790",
+   "canon": "1900 W GARVEY AVE S 91790",
+   "raw_line": "1900W GARVEY S AVE 210, WEST COVINA, CA 91790",
+   "canon_line": "1900 W GARVEY AVE S, WEST COVINA, CA 91790",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "19150 KEDZIE AVE 60422",
+   "canon": "19150 S KEDZIE AVE 60422",
+   "raw_line": "19150 KEDZIE AVE, FLOSSMOOR, IL 60422",
+   "canon_line": "19150 S KEDZIE AVENUE, FLOSSMOOR, IL 60422",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "1919 S SHILOH 75042",
+   "canon": "1919 S SHILOH RD 75042",
+   "raw_line": "1919 SOUTH SHILOH, GARLAND, TX 75042",
+   "canon_line": "1919 S SHILOH RD, GARLAND, TX 75042",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1919 S SHILOH RD, GARLAND, TX, 75042"
+   ],
+   "census_canon": [
+    "1919 S SHILOH RD, GARLAND, TX, 75042"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1919 UNIVERSITY W AVE 55104",
+   "canon": "1919 UNIVERSITY AVE W 55104",
+   "raw_line": "1919 UNIVERSITY W AVE 130, SAINT PAUL, MN 55104",
+   "canon_line": "1919 UNIVERSITY AVE W, SAINT PAUL, MN 55104",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1919 UNIVERSITY AVE, SAINT PAUL, MN, 55104"
+   ],
+   "census_canon": [
+    "1919 UNIVERSITY AVE W, SAINT PAUL, MN, 55104"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1925 E BELTLINE RD 75006",
+   "canon": "1925 E BELT LINE RD 75006",
+   "raw_line": "1925 E BELTLINE RD, CARROLLTON, TX 75006",
+   "canon_line": "1925 E BELT LINE RD, CARROLLTON, TX 75006",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "1925 E BELT LINE RD, CARROLLTON, TX, 75006"
+   ],
+   "census_canon": [
+    "1925 E BELT LINE RD, CARROLLTON, TX, 75006"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "1945 LOCHILL SELMA RD 78213",
+   "canon": "1945 LOCKHILL SELMA RD 78213",
+   "raw_line": "1945 LOCHILL SELMA RD, SAN ANTONIO, TX 78213",
+   "canon_line": "1945 LOCKHILL SELMA RD, SAN ANTONIO, TX 78213",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [
+    "1945 LOCKHILL SELMA RD, SAN ANTONIO, TX, 78213"
+   ],
+   "census_canon": [
+    "1945 LOCKHILL SELMA RD, SAN ANTONIO, TX, 78213"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "200 E CENTENNIAL 66762",
+   "canon": "200 E CENTENNIAL DR 66762",
+   "raw_line": "200 EAST CENTENNIAL, PITTSBURG, KS 66762",
+   "canon_line": "200 E CENTENNIAL DR, PITTSBURG, KS 66762",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "200 CENTENNIAL DR, PITTSBURG, KS, 66762"
+   ],
+   "census_canon": [
+    "200 CENTENNIAL DR, PITTSBURG, KS, 66762"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "200 HARRI CIR 74464",
+   "canon": "200 E HARRI CIR 74464",
+   "raw_line": "200 HARRIS CIR, TAHLEQUAH, OK 74464",
+   "canon_line": "200 E. HARRIS CIRCLE, TAHLEQUAH, OK 74464",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "200 HARRIS CIR, TAHLEQUAH, OK, 74464"
+   ],
+   "census_canon": [
+    "200 HARRIS CIR, TAHLEQUAH, OK, 74464"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "200 ELM ST N 56359",
+   "canon": "200 ELM N ST 56359",
+   "raw_line": "200 ELM ST N, ONAMIA, MN 56359",
+   "canon_line": "200 ELM N ST, ONAMIA, MN 56359",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "200 ELM ST, ONAMIA, MN, 56359"
+   ],
+   "census_canon": [
+    "200 ELM ST, ONAMIA, MN, 56359"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2000 RIVER EDGE PKWY 30328",
+   "canon": "2000 RIVERDGE PKWY NW 30328",
+   "raw_line": "2000 RIVER EDGE PARKWAY, ATLANTA, GA 30328",
+   "canon_line": "2000 RIVERDGE PARKWAY NW, ATLANTA, GA 30328",
+   "rule": "via another spelling",
+   "census_raw": [
+    "2000 RIVEREDGE PKWY NW, ATLANTA, GA, 30328"
+   ],
+   "census_canon": [
+    "2000 RIVEREDGE PKWY NW, ATLANTA, GA, 30328"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2000 RIVEREDGE PKWY 30328",
+   "canon": "2000 RIVERDGE PKWY NW 30328",
+   "raw_line": "2000 RIVEREDGE PKWY, ATLANTA, GA 30328",
+   "canon_line": "2000 RIVERDGE PARKWAY NW, ATLANTA, GA 30328",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "2000 RIVEREDGE PKWY NW, ATLANTA, GA, 30328"
+   ],
+   "census_canon": [
+    "2000 RIVEREDGE PKWY NW, ATLANTA, GA, 30328"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "20534 SAM HOUSTON BLVD 78583",
+   "canon": "20534 N SAM HOUSTON BLVD 78583",
+   "raw_line": "20534 SAM HOUSTON BLVD, RIO HONDO, TX 78583",
+   "canon_line": "20534 N SAM HOUSTON BLVD, RIO HONDO, TX 78583",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "20534 N SAM HOUSTON BLVD, RIO HONDO, TX, 78583"
+   ],
+   "census_canon": [
+    "20534 N SAM HOUSTON BLVD, RIO HONDO, TX, 78583"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "209 S BLISS 79029",
+   "canon": "209 S BLISS ST 79029",
+   "raw_line": "209 S BLISS, DUMAS, TX 79029",
+   "canon_line": "209 S BLISS STREET, DUMAS, TX 79029",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "209 S BLISS AVE, DUMAS, TX, 79029"
+   ],
+   "census_canon": [
+    "209 S BLISS AVE, DUMAS, TX, 79029"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2171 EXECUTIVE DR 60101",
+   "canon": "2171 W EXECUTIVE DR 60101",
+   "raw_line": "2171 EXECUTIVE DRIVE, ADDISON, IL 60101",
+   "canon_line": "2171 W EXECUTIVE DR, ADDISON, IL 60101",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2171 EXECUTIVE DR, ADDISON, IL, 60101"
+   ],
+   "census_canon": [
+    "2171 EXECUTIVE DR, ADDISON, IL, 60101"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2217 DILLON 88101",
+   "canon": "2217 DILLON RD 88101",
+   "raw_line": "2217 DILLON, CLOVIS, NM 88101",
+   "canon_line": "2217 DILLON RD, CLOVIS, NM 88101",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2217 DILLON ST, CLOVIS, NM, 88101",
+    "2217 DILLON RD, CLOVIS, NM, 88101"
+   ],
+   "census_canon": [
+    "2217 DILLON RD, CLOVIS, NM, 88101"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2240 WOOLBRIGHT RD 33426",
+   "canon": "2240 W WOOLBRIGHT RD 33426",
+   "raw_line": "2240 WOOLBRIGHT RD, BOYNTON BEACH, FL 33426",
+   "canon_line": "2240 W. WOOLBRIGHT ROAD, BOYNTON BEACH, FL 33426",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2240 W WOOLBRIGHT RD, BOYNTON BEACH, FL, 33426"
+   ],
+   "census_canon": [
+    "2240 W WOOLBRIGHT RD, BOYNTON BEACH, FL, 33426"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2400 LAKE PARK DR 30080",
+   "canon": "2400 LAKE PARK DR SE 30080",
+   "raw_line": "2400 LAKE PARK DR, SMYRNA, GA 30080",
+   "canon_line": "2400 LAKE PARK DR SE, SMYRNA, GA 30080",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2400 LAKE PARK DR SE, SMYRNA, GA, 30080"
+   ],
+   "census_canon": [
+    "2400 LAKE PARK DR SE, SMYRNA, GA, 30080"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2425 WALL ST 30013",
+   "canon": "2425 WALL ST SE 30013",
+   "raw_line": "2425 WALL STREET, CONYERS, GA 30013",
+   "canon_line": "2425 WALL ST SE, CONYERS, GA 30013",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2425 WALL ST SE, CONYERS, GA, 30013"
+   ],
+   "census_canon": [
+    "2425 WALL ST SE, CONYERS, GA, 30013"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "25325 BROUGH PARK DR 77380",
+   "canon": "25325 BOROUGH PARK DR 77380",
+   "raw_line": "25325 BROUGH PARK DRIVE, THE WOODLANDS, TX 77380",
+   "canon_line": "25325 BOROUGH PARK DRIVE, THE WOODLANDS, TX 77380",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [
+    "25325 BOROUGH PARK DR, THE WOODLANDS, TX, 77380"
+   ],
+   "census_canon": [
+    "25325 BOROUGH PARK DR, SPRING, TX, 77380"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2575 MCLEOD DR N 48604",
+   "canon": "2575 MCLEOD N DR 48604",
+   "raw_line": "2575 MCLEOD DR N, SAGINAW, MI 48604",
+   "canon_line": "2575 MCLEOD N DR C, SAGINAW, MI 48604",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2575 MCLEOD DR N, SAGINAW, MI, 48604"
+   ],
+   "census_canon": [
+    "2575 S MCLEOD DR, SAGINAW, MI, 48604",
+    "2575 MCLEOD DR N, SAGINAW, MI, 48604"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "260 S LOS ROBLE 91101",
+   "canon": "260 S LOS ROBLE AVE 91101",
+   "raw_line": "260 SOUTH LOS ROBLES, PASADENA, CA 91101",
+   "canon_line": "260 S LOS ROBLES AVE, PASADENA, CA 91101",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "260 S LOS ROBLES AVE, PASADENA, CA, 91101"
+   ],
+   "census_canon": [
+    "260 S LOS ROBLES AVE, PASADENA, CA, 91101"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2600 K AVE 75074",
+   "canon": "2600 AVE K 75074",
+   "raw_line": "2600 K AVE, PLANO, TX 75074",
+   "canon_line": "2600 AVENUE K, PLANO, TX 75074",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2600 K AVE, PLANO, TX, 75074"
+   ],
+   "census_canon": [
+    "2600 K AVE, PLANO, TX, 75074"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2611 N BELTLINE RD 75182",
+   "canon": "2611 N BELT LINE RD 75182",
+   "raw_line": "2611 NORTH BELTLINE RD, SUNNYVALE, TX 75182",
+   "canon_line": "2611 N BELT LINE RD, SUNNYVALE, TX 75182",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "2611 N BELT LINE RD, SUNNYVALE, TX, 75182"
+   ],
+   "census_canon": [
+    "2611 N BELT LINE RD, SUNNYVALE, TX, 75182"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2645 ONEAL LN 70816",
+   "canon": "2645 O NEAL LN 70816",
+   "raw_line": "2645 ONEAL LN, BATON ROUGE, LA 70816",
+   "canon_line": "2645 O'NEAL LN BLDG C, BATON ROUGE, LA 70816",
+   "rule": "near-identical spelling (similarity 0.91)",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "266 MOBIL AVE 93010",
+   "canon": "266 N MOBIL AVE 93010",
+   "raw_line": "266 MOBIL AVE, CAMARILLO, CA 93010",
+   "canon_line": "266 N. MOBIL AVENUE SUITE 203, CAMARILLO, CA 93010",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "266 MOBIL AVE, CAMARILLO, CA, 93010"
+   ],
+   "census_canon": [
+    "266 MOBIL AVE, CAMARILLO, CA, 93010"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2665 VILLACREEK DR 75234",
+   "canon": "2665 VILLA CREEK DR 75234",
+   "raw_line": "2665 VILLACREEK DR, FARMERS BRANCH, TX 75234",
+   "canon_line": "2665 VILLA CREEK DR, FARMERS BRANCH, TX 75234",
+   "rule": "near-identical spelling (similarity 0.95)",
+   "census_raw": [
+    "2665 VILLA CREEK DR, FARMERS BRANCH, TX, 75234"
+   ],
+   "census_canon": [
+    "2665 VILLA CREEK DR, DALLAS, TX, 75234"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2737 EGREENWAY RD 85032",
+   "canon": "2737 E GREENWAY RD 85032",
+   "raw_line": "2737 EGREENWAY RD, PHOENIX, AZ 85032",
+   "canon_line": "2737 E GREENWAY RD, PHOENIX, AZ 85032",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "2737 E GREENWAY RD, PHOENIX, AZ, 85032"
+   ],
+   "census_canon": [
+    "2737 E GREENWAY RD, PHOENIX, AZ, 85032"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "275 REGENCY RIDGE 45459",
+   "canon": "275 REGENCY RIDGE DR 45459",
+   "raw_line": "275 REGENCY RIDGE, CENTERVILLE, OH 45459",
+   "canon_line": "275 REGENCY RIDGE DR, DAYTON, OH 45459",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "275 REGENCY RIDGE DR, CENTERVILLE, OH, 45459"
+   ],
+   "census_canon": [
+    "275 REGENCY RIDGE DR, DAYTON, OH, 45459"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2840 ELECTRIC RD 24018",
+   "canon": "2840 ELECTRIC RD SW 24018",
+   "raw_line": "2840 ELECTRIC RD, ROANOKE, VA 24018",
+   "canon_line": "2840 ELECTRIC RD SW, ROANOKE, VA 24018",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2840 ELECTRIC RD, ROANOKE, VA, 24018"
+   ],
+   "census_canon": [
+    "2840 ELECTRIC RD, ROANOKE, VA, 24018"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2841 DAISY LN 27896",
+   "canon": "2841 DAISY LN N 27896",
+   "raw_line": "2841 DAISY LANE, WILSON, NC 27896",
+   "canon_line": "2841 DAISY LN N, WILSON, NC 27896",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2841 DAISY LN, WILSON, NC, 27896"
+   ],
+   "census_canon": [
+    "2841 DAISY LN, WILSON, NC, 27896"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2845 HAMLINE AVE N 55113",
+   "canon": "2845 HAMLINE N AVE 55113",
+   "raw_line": "2845 HAMLINE AVE N, ROSEVILLE, MN 55113",
+   "canon_line": "2845 HAMLINE N AVE, ROSEVILLE, MN 55113",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2845 HAMLINE AVE N, ROSEVILLE, MN, 55113"
+   ],
+   "census_canon": [
+    "2845 HAMLINE AVE N, ROSEVILLE, MN, 55113"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "285 INNER LOOP 78626",
+   "canon": "285 SE INNER LOOP 78626",
+   "raw_line": "285 INNER LOOP, GEORGETOWN, TX 78626",
+   "canon_line": "285 SE INNER LOOP, GEORGETOWN, TX 78626",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "285 SE INNER LOOP, GEORGETOWN, TX, 78626"
+   ],
+   "census_canon": [
+    "285 SE INNER LOOP, GEORGETOWN, TX, 78626"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2901 BRIDGEPORT W WAY 98466",
+   "canon": "2901 BRIDGEPORT WAY W 98466",
+   "raw_line": "2901 BRIDGEPORT W WAY, UNIVERSITY PLACE, WA 98466",
+   "canon_line": "2901 BRIDGEPORT WAY W, UNIVERSITY PLACE, WA 98466",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2901 BRIDGEPORT WAY W, UNIVERSITY PLACE, WA, 98466"
+   ],
+   "census_canon": [
+    "2901 BRIDGEPORT WAY W, UNIVERSITY PLACE, WA, 98466"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2921 OLD MISSOURI RD 72764",
+   "canon": "2921 S OLD MISSOURI RD 72764",
+   "raw_line": "2921 OLD MISSOURI ROAD, SPRINGDALE, AR 72764",
+   "canon_line": "2921 S OLD MISSOURI RD, SPRINGDALE, AR 72764",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "2921 S OLD MISSOURI RD, SPRINGDALE, AR, 72764"
+   ],
+   "census_canon": [
+    "2921 S OLD MISSOURI RD, SPRINGDALE, AR, 72764"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2922 ROSEDALE ST 77004",
+   "canon": "2922 ROSENDALE ST 77004",
+   "raw_line": "2922 ROSEDALE ST, HOUSTON, TX 77004",
+   "canon_line": "2922 ROSENDALE ST, HOUSTON, TX 77004",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "2922 ROSEDALE ST, HOUSTON, TX, 77004"
+   ],
+   "census_canon": [
+    "2922 ROSEDALE ST, HOUSTON, TX, 77004"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "2999 E DUBLIN GRANVILLE RD 43231",
+   "canon": "2999 E DUBLUN GRANVILLE RD 43231",
+   "raw_line": "2999 EAST DUBLIN GRANVILLE RD, COLUMBUS, OH 43231",
+   "canon_line": "2999 E DUBLUN GRANVILLE RD, COLUMBUS, OH 43231",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "2999 E DUBLIN GRANVILLE RD, COLUMBUS, OH, 43231"
+   ],
+   "census_canon": [
+    "2999 E DUBLIN GRANVILLE RD, COLUMBUS, OH, 43231"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "300 E NOLANA LOOP 78577",
+   "canon": "300 E NOLANDA LOOP 78577",
+   "raw_line": "300 E NOLANA LOOP, PHARR, TX 78577",
+   "canon_line": "300 E. NOLANDA LOOP, PHARR, TX 78577",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "300 E NOLANA LOOP, PHARR, TX, 78577"
+   ],
+   "census_canon": [
+    "300 E NOLANA LOOP, PHARR, TX, 78577"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3000 N MAIN 73521",
+   "canon": "3000 N MAIN ST 73521",
+   "raw_line": "3000 N MAIN, ALTUS, OK 73521",
+   "canon_line": "3000 N MAIN ST, ALTUS, OK 73521",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3000 N MAIN ST, ALTUS, OK, 73521"
+   ],
+   "census_canon": [
+    "3000 N MAIN ST, ALTUS, OK, 73521"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3080 GENTRY WAY 83642",
+   "canon": "3080 E GENTRY WAY 83642",
+   "raw_line": "3080 GENTRY WAY, MERIDIAN, ID 83642",
+   "canon_line": "3080 E GENTRY WAY, MERIDIAN, ID 83642",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3080 GENTRY WAY, MERIDIAN, ID, 83642"
+   ],
+   "census_canon": [
+    "3080 GENTRY WAY, MERIDIAN, ID, 83642"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3087 E WARM SPRING RD 89120",
+   "canon": "3087 E WARM SPIRNG RD 89120",
+   "raw_line": "3087 E WARM SPRINGS RD, LAS VEGAS, NV 89120",
+   "canon_line": "3087 E WARM SPIRNGS ROAD, LAS VEGAS, NV 89120",
+   "rule": "near-identical spelling (similarity 0.91)",
+   "census_raw": [
+    "3087 E WARM SPRINGS RD, LAS VEGAS, NV, 89120"
+   ],
+   "census_canon": [
+    "3087 E WARM SPRINGS RD, LAS VEGAS, NV, 89120"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "309 KESSLER 78956",
+   "canon": "309 KESSLER AVE 78956",
+   "raw_line": "309 KESSLER, SCHULENBURG, TX 78956",
+   "canon_line": "309 KESSLER AVE, SCHULENBURG, TX 78956",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "309 KESSLER AVE, SCHULENBURG, TX, 78956",
+    "309 N KESSLER AVE, SCHULENBURG, TX, 78956"
+   ],
+   "census_canon": [
+    "309 KESSLER AVE, SCHULENBURG, TX, 78956"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "310 E INTERSTATE 30 75043",
+   "canon": "310 E INTERSTATE HWY 30 75043",
+   "raw_line": "310 E INTERSTATE 30, GARLAND, TX 75043",
+   "canon_line": "310 E INTERSTATE HIGHWAY 30, GARLAND, TX 75043",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "310 E I- 30, GARLAND, TX, 75043"
+   ],
+   "census_canon": [
+    "310 E I- 30, GARLAND, TX, 75043"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "310 W COLLEGE 71742",
+   "canon": "310 W COLLEGE ST 71742",
+   "raw_line": "310 W COLLEGE, FORDYCE, AR 71742",
+   "canon_line": "310 W COLLEGE STREET, FORDYCE, AR 71742",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "310 W COLLEGE ST, FORDYCE, AR, 71742"
+   ],
+   "census_canon": [
+    "310 W COLLEGE ST, FORDYCE, AR, 71742"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3100 NEEDLE HWY 89029",
+   "canon": "3100 S NEEDLE HWY 89029",
+   "raw_line": "3100 NEEDLES HWY, LAUGHLIN, NV 89029",
+   "canon_line": "3100 S NEEDLES HWY, LAUGHLIN, NV 89029",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3100 NEEDLES HWY, LAUGHLIN, NV, 89029"
+   ],
+   "census_canon": [
+    "3100 NEEDLES HWY, LAUGHLIN, NV, 89029"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "311 S PALESTINE 75751",
+   "canon": "311 S PALESTINE ST 75751",
+   "raw_line": "311 S. PALESTINE, ATHENS, TX 75751",
+   "canon_line": "311 S PALESTINE ST, ATHENS, TX 75751",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "311 S PALESTINE ST, ATHENS, TX, 75751"
+   ],
+   "census_canon": [
+    "311 S PALESTINE ST, ATHENS, TX, 75751"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3131 EASTSIDE 77098",
+   "canon": "3131 EASTSIDE ST 77098",
+   "raw_line": "3131 EASTSIDE, HOUSTON, TX 77098",
+   "canon_line": "3131 EASTSIDE ST, HOUSTON, TX 77098",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3131 EASTSIDE ST, HOUSTON, TX, 77098"
+   ],
+   "census_canon": [
+    "3131 EASTSIDE ST, HOUSTON, TX, 77098"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3132 MILLER RD 75041",
+   "canon": "3132 W MILLER RD 75041",
+   "raw_line": "3132 MILLER RD, GARLAND, TX 75041",
+   "canon_line": "3132 W MILLER RD, GARLAND, TX 75041",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "3201 CHERRY RIDGE 78230",
+   "canon": "3201 CHERRY RIDGE DR 78230",
+   "raw_line": "3201 CHERRY RIDGE, SAN ANTONIO, TX 78230",
+   "canon_line": "3201 CHERRY RIDGE DR, SAN ANTONIO, TX 78230",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3201 CHERRY RIDGE ST, SAN ANTONIO, TX, 78230"
+   ],
+   "census_canon": [
+    "3201 CHERRY RIDGE ST, SAN ANTONIO, TX, 78230"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3201 CHERRY RIDGE ST 78230",
+   "canon": "3201 CHERRY RIDGE DR 78230",
+   "raw_line": "3201 CHERRY RIDGE ST, SAN ANTONIO, TX 78230",
+   "canon_line": "3201 CHERRY RIDGE DR, SAN ANTONIO, TX 78230",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3201 CHERRY RIDGE ST, SAN ANTONIO, TX, 78230"
+   ],
+   "census_canon": [
+    "3201 CHERRY RIDGE ST, SAN ANTONIO, TX, 78230"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3305 SPRING MTN RD 89102",
+   "canon": "3305 W SPRING MTN RD 89102",
+   "raw_line": "3305 SPRING MOUNTAIN RD, LAS VEGAS, NV 89102",
+   "canon_line": "3305 W SPRING MOUNTAIN RD 61, LAS VEGAS, NV 89102",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3305 SPRING MOUNTAIN RD, LAS VEGAS, NV, 89102"
+   ],
+   "census_canon": [
+    "3305 SPRING MOUNTAIN RD, LAS VEGAS, NV, 89102"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3330 FANNIN 77701",
+   "canon": "3330 FANNIN ST 77701",
+   "raw_line": "3330 FANNIN, BEAUMONT, TX 77701",
+   "canon_line": "3330 FANNIN ST, BEAUMONT, TX 77701",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3330 FANNIN ST, BEAUMONT, TX, 77701"
+   ],
+   "census_canon": [
+    "3330 FANNIN ST, BEAUMONT, TX, 77701"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "342 POINSETTA AVE 33870",
+   "canon": "342 POINSETTIA AVE 33870",
+   "raw_line": "342 POINSETTA AVE, SEBRING, FL 33870",
+   "canon_line": "342 POINSETTIA AVE, SEBRING, FL 33870",
+   "rule": "near-identical spelling (similarity 0.95)",
+   "census_raw": [
+    "342 POINSETTIA AVE, SEBRING, FL, 33870"
+   ],
+   "census_canon": [
+    "342 POINSETTIA AVE, SEBRING, FL, 33870"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3431 PESHING 79903",
+   "canon": "3431 PERSHING DR 79903",
+   "raw_line": "3431 PESHING, EL PASO, TX 79903",
+   "canon_line": "3431 PERSHING DR, EL PASO, TX 79903",
+   "rule": "near-identical spelling (similarity 0.93)",
+   "census_raw": [
+    "3431 PERSHING DR, EL PASO, TX, 79903"
+   ],
+   "census_canon": [
+    "3431 PERSHING DR, EL PASO, TX, 79903"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3440 US 1 S 32086",
+   "canon": "3440 US HWY 1 S 32086",
+   "raw_line": "3440 US 1 SOUTH, ST AUGUSTINE, FL 32086",
+   "canon_line": "3440 US HIGHWAY 1 S, ST AUGUSTINE, FL 32086",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "1 SOUTH ST, ST AUGUSTINE, FL, 32084"
+   ],
+   "census_canon": [],
+   "census": "one spelling found"
+  },
+  {
+   "raw": "34514 DEQUINDRE 48310",
+   "canon": "34514 DEQUINDRE RD 48310",
+   "raw_line": "34514 DEQUINDRE, STERLING HEIGHTS, MI 48310",
+   "canon_line": "34514 DEQUINDRE RD, STERLING HEIGHTS, MI 48310",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "34514 DEQUINDRE RD, STERLING HEIGHTS, MI, 48310"
+   ],
+   "census_canon": [
+    "34514 DEQUINDRE RD, STERLING HEIGHTS, MI, 48310"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3500 FRANCE AVE N 55422",
+   "canon": "3500 FRANCE N AVE 55422",
+   "raw_line": "3500 FRANCE AVE N, ROBBINSDALE, MN 55422",
+   "canon_line": "3500 FRANCE N AVE 101, ROBBINSDALE, MN 55422",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3500 FRANCE AVE N, ROBBINSDALE, MN, 55422"
+   ],
+   "census_canon": [
+    "3500 FRANCE AVE N, ROBBINSDALE, MN, 55422"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3501 ALGONQUIN RD 60008",
+   "canon": "3501 W ALGONQUIN RD 60008",
+   "raw_line": "3501 ALGONQUIN RD, ROLLING MEADOWS, IL 60008",
+   "canon_line": "3501 W ALGONQUIN RD, ROLLING MEADOWS, IL 60008",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3501 ALGONQUIN RD, ROLLING MEADOWS, IL, 60008"
+   ],
+   "census_canon": [
+    "3501 ALGONQUIN RD, ROLLING MEADOWS, IL, 60008"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "355 AVE FONT MARTELO 00791",
+   "canon": "355 FONT MARTELLO AVE 00791",
+   "raw_line": "355 AVE FONT MARTELO, HUMACAO, PR 00791",
+   "canon_line": "355 FONT MARTELLO AVENUE, HUMACAO, PR 00791",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [
+    "355 CLL FONT MARTELO, HUMACAO, PR, 00791"
+   ],
+   "census_canon": [
+    "355 CLL FONT MARTELO, HUMACAO, PR, 00791"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3724 FM 1960 W RD 77068",
+   "canon": "3724 FM 1960 RD W 77068",
+   "raw_line": "3724 FM 1960 WEST ROAD, HOUSTON, TX 77068",
+   "canon_line": "3724 FM 1960 RD W, HOUSTON, TX 77068",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3724 FM 1960 W, HOUSTON, TX, 77068"
+   ],
+   "census_canon": [
+    "3724 FM 1960 W, HOUSTON, TX, 77068"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "373 MERIDIAN PARKE 46142",
+   "canon": "373 MERIDIAN PARKE LN 46142",
+   "raw_line": "373 MERIDIAN PARKE, GREENWOOD, IN 46142",
+   "canon_line": "373 MERIDIAN PARKE LANE, GREENWOOD, IN 46142",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "373 MERIDIAN PARKE LN, GREENWOOD, IN, 46142"
+   ],
+   "census_canon": [
+    "373 MERIDIAN PARKE LN, GREENWOOD, IN, 46142"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3939 US 80 E HWY 75150",
+   "canon": "3939 E US HWY 80 75150",
+   "raw_line": "3939 US 80 E HIGHWAY, MESQUITE, TX 75150",
+   "canon_line": "3939 EAST US HIGHWAY 80, MESQUITE, TX 75150",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3939 US HWY 80 E, MESQUITE, TX, 75150"
+   ],
+   "census_canon": [
+    "3939 US HWY 80 E, MESQUITE, TX, 75150"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "3939 US HWY 80 E 75150",
+   "canon": "3939 E US HWY 80 75150",
+   "raw_line": "3939 US HIGHWAY 80 E, MESQUITE, TX 75150",
+   "canon_line": "3939 EAST US HIGHWAY 80, MESQUITE, TX 75150",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "3939 US HWY 80 E, MESQUITE, TX, 75150"
+   ],
+   "census_canon": [
+    "3939 US HWY 80 E, MESQUITE, TX, 75150"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "39475 ANN ARBOR RD 48170",
+   "canon": "39475 ANN ARBOR RD E 48170",
+   "raw_line": "39475 ANN ARBOR RD, PLYMOUTH, MI 48170",
+   "canon_line": "39475 ANN ARBOR RD E, PLYMOUTH, MI 48170",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "39475 ANN ARBOR RD, PLYMOUTH, MI, 48170"
+   ],
+   "census_canon": [
+    "39475 ANN ARBOR RD, PLYMOUTH, MI, 48170"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "401 S 3RD 73701",
+   "canon": "401 S 3RD ST 73701",
+   "raw_line": "401 S 3RD, ENID, OK 73701",
+   "canon_line": "401 S 3RD ST, ENID, OK 73701",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "401 S 3RD ST, ENID, OK, 73701"
+   ],
+   "census_canon": [
+    "401 S 3RD ST, ENID, OK, 73701"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "403 MAIN ST 55330",
+   "canon": "403 MAIN ST NW 55330",
+   "raw_line": "403 MAIN ST, ELK RIVER, MN 55330",
+   "canon_line": "403 MAIN ST NW, ELK RIVER, MN 55330",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "403 MAIN ST NW, ELK RIVER, MN, 55330"
+   ],
+   "census_canon": [
+    "403 MAIN ST NW, ELK RIVER, MN, 55330"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4040 BROADWAY 78209",
+   "canon": "4040 BROADWAY ST 78209",
+   "raw_line": "4040 BROADWAY, SAN ANTONIO, TX 78209",
+   "canon_line": "4040 BROADWAY ST, SAN ANTONIO, TX 78209",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4040 BROADWAY, SAN ANTONIO, TX, 78209"
+   ],
+   "census_canon": [
+    "4040 BROADWAY, SAN ANTONIO, TX, 78209"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "415 N FAIRVIEW 97720",
+   "canon": "415 N FAIRVIEW AVE 97720",
+   "raw_line": "415 NORTH FAIRVIEW, BURNS, OR 97720",
+   "canon_line": "415N FAIRVIEW AVE, BURNS, OR 97720",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "415 N FAIRVIEW AVE, BURNS, OR, 97720"
+   ],
+   "census_canon": [
+    "415 N FAIRVIEW AVE, BURNS, OR, 97720"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "41865 BOARDWALK 92211",
+   "canon": "41865 BOARDWALK ST 92211",
+   "raw_line": "41865 BOARDWALK, PALM DESERT, CA 92211",
+   "canon_line": "41865 BOARDWALK ST, PALM DESERT, CA 92211",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "41865 BOARDWALK, PALM DESERT, CA, 92211"
+   ],
+   "census_canon": [
+    "41865 BOARDWALK, PALM DESERT, CA, 92211"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "420 N COLLEGIATE 75460",
+   "canon": "420 N COLLEGIATE DR 75460",
+   "raw_line": "420 N COLLEGIATE, PARIS, TX 75460",
+   "canon_line": "420 N COLLEGIATE DR, PARIS, TX 75460",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "420 N COLLEGIATE DR, PARIS, TX, 75460"
+   ],
+   "census_canon": [
+    "420 N COLLEGIATE DR, PARIS, TX, 75460"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4241 E PIEDRA DR 78228",
+   "canon": "4241 PIEDRA DR E 78228",
+   "raw_line": "4241 E PIEDRAS DR, SAN ANTONIO, TX 78228",
+   "canon_line": "4241 PIEDRAS DRIVE EAST, SAN ANTONIO, TX 78228",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4241 E PIEDRAS DR, SAN ANTONIO, TX, 78228"
+   ],
+   "census_canon": [
+    "4241 E PIEDRAS DR, SAN ANTONIO, TX, 78228"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "426 HEATHER DR 70570",
+   "canon": "426 HEALTHER DR 70570",
+   "raw_line": "426 HEATHER DRIVE, OPELOUSAS, LA 70570",
+   "canon_line": "426 HEALTHER DRIVE, OPELOUSAS, LA 70570",
+   "rule": "near-identical spelling (similarity 0.93)",
+   "census_raw": [
+    "426 HEATHER DR, OPELOUSAS, LA, 70570"
+   ],
+   "census_canon": [
+    "426 HEATHER DR, OPELOUSAS, LA, 70570"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4325 STATE RTE 51 15012",
+   "canon": "4325 STATE RTE 51 N 15012",
+   "raw_line": "4325 STATE ROUTE 51, BELLE VERNON, PA 15012",
+   "canon_line": "4325 STATE ROUTE 51 N, PA, PA 15012",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4325 STATE RTE 51, BELLE VERNON, PA, 15012"
+   ],
+   "census_canon": [
+    "4325 STATE RTE 51, N BELLE VERNON, PA, 15012"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4362 US HWY 259 N 75605",
+   "canon": "4362 N US HWY 259 75605",
+   "raw_line": "4362 US HIGHWAY 259 N, LONGVIEW, TX 75605",
+   "canon_line": "4362 N US HWY 259, LONGVIEW, TX 75605",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4362 US HWY 259 N, LONGVIEW, TX, 75605"
+   ],
+   "census_canon": [
+    "4362 US HWY 259 N, LONGVIEW, TX, 75605"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4380 GLENDALE MILFORD RD 45242",
+   "canon": "4380 GELNDALE MILFORD RD 45242",
+   "raw_line": "4380 GLENDALE MILFORD RD, BLUE ASH, OH 45242",
+   "canon_line": "4380 GELNDALE MILFORD RD, CINCINNATI, OH 45242",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "4380 GLENDALE MILFORD RD, BLUE ASH, OH, 45242"
+   ],
+   "census_canon": [
+    "4380 GLENDALE MILFORD RD, CINCINNATI, OH, 45242"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "43805 15TH ST W 93534",
+   "canon": "43805 15TH W ST 93534",
+   "raw_line": "43805 15TH ST W, LANCASTER, CA 93534",
+   "canon_line": "43805 15TH W ST, LANCASTER, CA 93534",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "43805 15TH ST W, LANCASTER, CA, 93534"
+   ],
+   "census_canon": [
+    "43805 15TH ST W, LANCASTER, CA, 93534"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4414 CENTERVIEW 78228",
+   "canon": "4414 CENTERVIEW DR 78228",
+   "raw_line": "4414 CENTERVIEW, SAN ANTONIO, TX 78228",
+   "canon_line": "4414 CENTERVIEW DR, SAN ANTONIO, TX 78228",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4414 CENTERVIEW DR, SAN ANTONIO, TX, 78228"
+   ],
+   "census_canon": [
+    "4414 CENTERVIEW DR, SAN ANTONIO, TX, 78228"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4440 LINCOLN HWY 60443",
+   "canon": "4440 W LINCOLN HWY 60443",
+   "raw_line": "4440 LINCOLN HWY, MATTESON, IL 60443",
+   "canon_line": "4440 W LINCOLN HWY, MATTESON, IL 60443",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "4444 CORONA 78411",
+   "canon": "4444 CORONA DR 78411",
+   "raw_line": "4444 CORONA, CORPUS CHRISTI, TX 78411",
+   "canon_line": "4444 CORONA DR, CORPUS CHRISTI, TX 78411",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "451 CHEW ST 18102",
+   "canon": "451 W CHEW ST 18102",
+   "raw_line": "451 CHEW ST, ALLENTOWN, PA 18102",
+   "canon_line": "451 WEST CHEW ST, ALLENTOWN, PA 18102",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "451 W CHEW ST, ALLENTOWN, PA, 18102"
+   ],
+   "census_canon": [
+    "451 W CHEW ST, ALLENTOWN, PA, 18102"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4600 S SYRACUSE 80237",
+   "canon": "4600 S SYRACUSE ST 80237",
+   "raw_line": "4600 SOUTH SYRACUSE, DENVER, CO 80237",
+   "canon_line": "4600 S SYRACUSE ST, DENVER, CO 80237",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4600 S SYRACUSE ST, DENVER, CO, 80237"
+   ],
+   "census_canon": [
+    "4600 S SYRACUSE ST, DENVER, CO, 80237"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4622 S CLOSNER 78539",
+   "canon": "4622 S CLOSNER BLVD 78539",
+   "raw_line": "4622 S CLOSNER, EDINBURG, TX 78539",
+   "canon_line": "4622 S CLOSNER BLVD, EDINBURG, TX 78539",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4622 S CLOSNER BLVD, EDINBURG, TX, 78539"
+   ],
+   "census_canon": [
+    "4622 S CLOSNER BLVD, EDINBURG, TX, 78539"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "4831 WHIRLWIND 78217",
+   "canon": "4831 WHIRLWIND DR 78217",
+   "raw_line": "4831 WHIRLWIND, SAN ANTONIO, TX 78217",
+   "canon_line": "4831 WHIRLWIND DR, SAN ANTONIO, TX 78217",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "4831 WHIRLWIND ST, SAN ANTONIO, TX, 78217"
+   ],
+   "census_canon": [
+    "4831 WHIRLWIND ST, SAN ANTONIO, TX, 78217"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "501 W SCHROCK 43081",
+   "canon": "501 W SCHROCK RD 43081",
+   "raw_line": "501 WEST SCHROCK, WESTERVILLE, OH 43081",
+   "canon_line": "501 W SCHROCK RD, WESTERVILLE, OH 43081",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "501 W SCHROCK RD, WESTERVILLE, OH, 43081"
+   ],
+   "census_canon": [
+    "501 W SCHROCK RD, WESTERVILLE, OH, 43081"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "519 W DELAWARE 73080",
+   "canon": "519 W DELAWARE ST 73080",
+   "raw_line": "519 W DELAWARE, PURCELL, OK 73080",
+   "canon_line": "519 W DELAWARE ST, PURCELL, OK 73080",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "519 W DELAWARE ST, PURCELL, OK, 73080"
+   ],
+   "census_canon": [
+    "519 W DELAWARE ST, PURCELL, OK, 73080"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "525 GREENVILLE BYP 36037",
+   "canon": "525 GREENVILLE BYPASS 36037",
+   "raw_line": "525 GREENVILLE BYP, GREENVILLE, AL 36037",
+   "canon_line": "525 GREENVILLE BYPASS, GREENVILLE, AL 36037",
+   "rule": "near-identical spelling (similarity 0.90)",
+   "census_raw": [
+    "525 GREENVILLE BYP, GREENVILLE, AL, 36037"
+   ],
+   "census_canon": [
+    "525 GREENVILLE BYP, GREENVILLE, AL, 36037"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "525 S 30TH 73601",
+   "canon": "525 S 30TH ST 73601",
+   "raw_line": "525 S 30TH, CLINTON, OK 73601",
+   "canon_line": "525 S 30TH ST, CLINTON, OK 73601",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "525 S 30TH ST, CLINTON, OK, 73601"
+   ],
+   "census_canon": [
+    "525 S 30TH ST, CLINTON, OK, 73601"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "5250 E US 36 46123",
+   "canon": "5250 E US HWY 36 46123",
+   "raw_line": "5250 E US 36, AVON, IN 46123",
+   "canon_line": "5250 E US HIGHWAY 36, AVON, IN 46123",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "5316 W HWY 290 78735",
+   "canon": "5316 HWY 290 W 78735",
+   "raw_line": "5316 W HIGHWAY 290, AUSTIN, TX 78735",
+   "canon_line": "5316 HIGHWAY 290 WEST, AUSTIN, TX 78735",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "535 W ELDORADO 62522",
+   "canon": "535 W ELDORADO ST 62522",
+   "raw_line": "535 WEST ELDORADO, DECATUR, IL 62522",
+   "canon_line": "535 W ELDORADO ST, DECATUR, IL 62522",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "535 W ELDORADO ST, DECATUR, IL, 62522"
+   ],
+   "census_canon": [
+    "535 W ELDORADO ST, DECATUR, IL, 62522"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "5352 LAUREL CANYON BLVD 91607",
+   "canon": "5352 LAUREL CANTON BLVD 91607",
+   "raw_line": "5352 LAUREL CANYON BLVD, NORTH HOLLYWOOD, CA 91607",
+   "canon_line": "5352 LAUREL CANTON BLVD, VALLEY VILLAGE, CA 91607",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "5352 LAUREL CANYON BLVD, NORTH HOLLYWOOD, CA, 91607"
+   ],
+   "census_canon": [
+    "5352 LAUREL CANYON BLVD, VALLEY VILLAGE, CA, 91607"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "5628 19TH ST 80634",
+   "canon": "5628 W 19TH ST 80634",
+   "raw_line": "5628 19TH ST, GREELEY, CO 80634",
+   "canon_line": "5628 W 19TH ST, GREELEY, CO 80634",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "5628 19TH ST, GREELEY, CO, 80634"
+   ],
+   "census_canon": [
+    "5628 W 19TH ST, GREELEY, CO, 80634"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "5732 N MESA 79912",
+   "canon": "5732 N MESA ST 79912",
+   "raw_line": "5732 NORTH MESA, EL PASO, TX 79912",
+   "canon_line": "5732 N MESA ST, EL PASO, TX 79912",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "5732 N MESA ST, EL PASO, TX, 79912"
+   ],
+   "census_canon": [
+    "5732 N MESA ST, EL PASO, TX, 79912"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "5950 6TH S AVE 98108",
+   "canon": "5950 6TH AVE S 98108",
+   "raw_line": "5950 6TH S AVE 100, SEATTLE, WA 98108",
+   "canon_line": "5950 6TH AVENUE SOUTH, SEATTLE, WA 98108",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [
+    "5950 6TH AVE S, SEATTLE, WA, 98108"
+   ],
+   "census": "one spelling found"
+  },
+  {
+   "raw": "6201 BONHOMME 77036",
+   "canon": "6201 BONHOMME RD 77036",
+   "raw_line": "6201 BONHOMME, HOUSTON, TX 77036",
+   "canon_line": "6201 BONHOMME RD, HOUSTON, TX 77036",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "6201 BONHOMME RD, HOUSTON, TX, 77036"
+   ],
+   "census_canon": [
+    "6201 BONHOMME RD, HOUSTON, TX, 77036"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "6464 SAVOY DR 77036",
+   "canon": "6464 SAVORY DR 77036",
+   "raw_line": "6464 SAVOY DR, HOUSTON, TX 77036",
+   "canon_line": "6464 SAVORY DR, HOUSTON, TX 77036",
+   "rule": "near-identical spelling (similarity 0.91)",
+   "census_raw": [
+    "6464 SAVOY DR, HOUSTON, TX, 77036"
+   ],
+   "census_canon": [
+    "6464 SAVOY DR, HOUSTON, TX, 77036"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "6500 FAIRMONT AVE 94530",
+   "canon": "6500 FAIRMOUNT AVE 94530",
+   "raw_line": "6500 FAIRMONT AVENUE, EL CERRITO, CA 94530",
+   "canon_line": "6500 FAIRMOUNT AVE, EL CERRITO, CA 94530",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "6500 FAIRMOUNT AVE, EL CERRITO, CA, 94530"
+   ],
+   "census_canon": [
+    "6500 FAIRMOUNT AVE, EL CERRITO, CA, 94530"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "6715 TIPPECONOE RD 44406",
+   "canon": "6715 TIPPECANOE RD 44406",
+   "raw_line": "6715 TIPPECONOE ROAD, CANFIELD, OH 44406",
+   "canon_line": "6715 TIPPECANOE RD, CANFIELD, OH 44406",
+   "rule": "near-identical spelling (similarity 0.90)",
+   "census_raw": [
+    "6715 TIPPECANOE RD, CANFIELD, OH, 44406"
+   ],
+   "census_canon": [
+    "6715 TIPPECANOE RD, CANFIELD, OH, 44406"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "6828 SILVERHEEL ST 66226",
+   "canon": "6828 SILVERWHEEL ST 66226",
+   "raw_line": "6828 SILVERHEEL ST, SHAWNEE, KS 66226",
+   "canon_line": "6828 SILVERWHEEL ST, SHAWNEE, KS 66226",
+   "rule": "near-identical spelling (similarity 0.95)",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "698 12TH ST 97301",
+   "canon": "698 12TH ST SE 97301",
+   "raw_line": "698 12TH ST, SALEM, OR 97301",
+   "canon_line": "698 12TH ST SE, SALEM, OR 97301",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "698 12TH ST SE, SALEM, OR, 97301"
+   ],
+   "census_canon": [
+    "698 12TH ST SE, SALEM, OR, 97301"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "6999 MCPHERON RD 78041",
+   "canon": "6999 MCPHERSON RD 78041",
+   "raw_line": "6999 MCPHERON RD, LAREDO, TX 78041",
+   "canon_line": "6999 MCPHERSON RD, LAREDO, TX 78041",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "6999 MCPHERSON RD, LAREDO, TX, 78041"
+   ],
+   "census_canon": [
+    "6999 MCPHERSON RD, LAREDO, TX, 78041"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "700 3RD ST 32266",
+   "canon": "700 N 3RD ST 32266",
+   "raw_line": "700 3RD ST, NEPTUNE BEACH, FL 32266",
+   "canon_line": "700 N 3RD ST, NEPTUNE BEACH, FL 32266",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "700 3RD ST, NEPTUNE BEACH, FL, 32266"
+   ],
+   "census_canon": [
+    "700 3RD ST, NEPTUNE BEACH, FL, 32266"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "711 N GRAHAM 76401",
+   "canon": "711 N GRAHAM ST 76401",
+   "raw_line": "711 N GRAHAM, STEPHENVILLE, TX 76401",
+   "canon_line": "711 N GRAHAM ST, STEPHENVILLE, TX 76401",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "711 N GRAHAM ST, STEPHENVILLE, TX, 76401"
+   ],
+   "census_canon": [
+    "711 N GRAHAM ST, STEPHENVILLE, TX, 76401"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "726 W BROADWAY 91204",
+   "canon": "726 W BROADWAY ST 91204",
+   "raw_line": "726 W BROADWAY, GLENDALE, CA 91204",
+   "canon_line": "726 W BROADWAY ST, GLENDALE, CA 91204",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "726 W BROADWAY, GLENDALE, CA, 91204"
+   ],
+   "census_canon": [
+    "726 W BROADWAY, GLENDALE, CA, 91204"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "749 GATEWAY 79602",
+   "canon": "749 GATEWAY ST 79602",
+   "raw_line": "749 GATEWAY, ABILENE, TX 79602",
+   "canon_line": "749 GATEWAY ST. BUILDING F, ABILENE, TX 79602",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "749 GATEWAY ST, ABILENE, TX, 79602"
+   ],
+   "census_canon": [
+    "749 GATEWAY ST, ABILENE, TX, 79602"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "750 E MAIN 73460",
+   "canon": "750 E MAIN ST 73460",
+   "raw_line": "750 EAST MAIN, TISHOMINGO, OK 73460",
+   "canon_line": "750 E MAIN ST, TISHOMINGO, OK 73460",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "750 E MAIN ST, TISHOMINGO, OK, 73460"
+   ],
+   "census_canon": [
+    "750 E MAIN ST, TISHOMINGO, OK, 73460"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "7550 W IH 10 78229",
+   "canon": "7550 IH 10 W 78229",
+   "raw_line": "7550 W IH 10, SAN ANTONIO, TX 78229",
+   "canon_line": "7550 IH-10 WEST, SAN ANTONIO, TX 78229",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "758 RTE 18 08816",
+   "canon": "758 RTE 18 N 08816",
+   "raw_line": "758 ROUTE 18, EAST BRUNSWICK, NJ 08816",
+   "canon_line": "758 ROUTE 18 NORTH, EAST BRUNSWICK, NJ 08816",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "758 STATE RTE 18, EAST BRUNSWICK, NJ, 08816"
+   ],
+   "census_canon": [
+    "758 STATE RTE 18, EAST BRUNSWICK, NJ, 08816"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "7600 GEORGIA AVE NW 20012",
+   "canon": "7600 GEORGIA NW AVE 20012",
+   "raw_line": "7600 GEORGIA AVE NW, WASHINGTON, DC 20012",
+   "canon_line": "7600 GEORGIA NW AVE, WASHINGTON, DC 20012",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "7600 GEORGIA AVE NW, WASHINGTON, DC, 20012"
+   ],
+   "census_canon": [
+    "7600 GEORGIA AVE NW, WASHINGTON, DC, 20012"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "7920 BELTLINE RD 75254",
+   "canon": "7920 BELT LINE RD 75254",
+   "raw_line": "7920 BELTLINE RD,, DALLAS, TX 75254",
+   "canon_line": "7920 BELT LINE RD, DALLAS, TX 75254",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "7920 BELT LINE RD, DALLAS, TX, 75254"
+   ],
+   "census_canon": [
+    "7920 BELT LINE RD, DALLAS, TX, 75254"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "800 BOONE N AVE 55427",
+   "canon": "800 BOONE AVE N 55427",
+   "raw_line": "800 BOONE N AVE 200, GOLDEN VALLEY, MN 55427",
+   "canon_line": "800 BOONE AVENUE NORTH, GOLDEN VALLEY, MN 55427",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "800 BOONE AVE N, GOLDEN VALLEY, MN, 55427"
+   ],
+   "census_canon": [
+    "800 BOONE AVE N, GOLDEN VALLEY, MN, 55427"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8001 LAUREL CANYOU BLVD 91605",
+   "canon": "8001 LAUREL CANYON BLVD 91605",
+   "raw_line": "8001 LAUREL CANYOU BLVD SUITE 206, NORTH HOLLYWOOD, CA 91605",
+   "canon_line": "8001 LAUREL CANYON BLVD, NORTH HOLLYWOOD, CA 91605",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "8001 LAUREL CANYON BLVD, NORTH HOLLYWOOD, CA, 91605"
+   ],
+   "census_canon": [
+    "8001 LAUREL CANYON BLVD, NORTH HOLLYWOOD, CA, 91605"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8035 E RL THORNTON FWY 75228",
+   "canon": "8035 E R L THORNTON FWY 75228",
+   "raw_line": "8035 E RL THORNTON FWY, DALLAS, TX 75228",
+   "canon_line": "8035 E R L THORNTON FWY, DALLAS, TX 75228",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "812 E PECAN GROVE RD 75090",
+   "canon": "812 PECAN GROVE RD E 75090",
+   "raw_line": "812 E PECAN GROVE RD, SHERMAN, TX 75090",
+   "canon_line": "812 PECAN GROVE RD E, SHERMAN, TX 75090",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "812 E PECAN GROVE RD, SHERMAN, TX, 75090"
+   ],
+   "census_canon": [
+    "812 E PECAN GROVE RD, SHERMAN, TX, 75090"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8130 BAYMEADOW W WAY 32256",
+   "canon": "8130 BAYMEADOW WAY W 32256",
+   "raw_line": "8130 BAYMEADOWS W WAY 201, JACKSONVILLE, FL 32256",
+   "canon_line": "8130 BAYMEADOWS WAY W, JACKSONVILLE, FL 32256",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8130 BAY MEADOWS CIR, JACKSONVILLE, FL, 32256"
+   ],
+   "census_canon": [
+    "8130 BAYMEADOWS WAY W, JACKSONVILLE, FL, 32256"
+   ],
+   "census": "different"
+  },
+  {
+   "raw": "820 MILILANI ST 96813",
+   "canon": "820 MILILIANI ST 96813",
+   "raw_line": "820 MILILANI ST, HONOLULU, HI 96813",
+   "canon_line": "820 MILILIANI ST, HONOLULU, HI 96813",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [
+    "820 MILILANI ST, HONOLULU, HI, 96813"
+   ],
+   "census_canon": [
+    "820 MILILANI ST, HONOLULU, HI, 96813"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8205 CASS AVE 60561",
+   "canon": "8205 S CASS AVE 60561",
+   "raw_line": "8205 CASS AVE, DARIEN, IL 60561",
+   "canon_line": "8205 S CASS AVENUE, DARIEN, IL 60561",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8205 CASS AVE, DARIEN, IL, 60561"
+   ],
+   "census_canon": [
+    "8205 S CASS AVE, DARIEN, IL, 60561"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8241 S WALKER 73139",
+   "canon": "8241 S WALKER AVE 73139",
+   "raw_line": "8241 S WALKER, OKLAHOMA CITY, OK 73139",
+   "canon_line": "8241 S WALKER AVE, OKLAHOMA CITY, OK 73139",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8241 S WALKER AVE, OKLAHOMA CITY, OK, 73139"
+   ],
+   "census_canon": [
+    "8241 S WALKER AVE, OKLAHOMA CITY, OK, 73139"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8300 BISSONNET 77074",
+   "canon": "8300 BISSONNET ST 77074",
+   "raw_line": "8300 BISSONNET, HOUSTON, TX 77074",
+   "canon_line": "8300 BISSONNET STREET, HOUSTON, TX 77074",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8300 BISSONNET ST, HOUSTON, TX, 77074"
+   ],
+   "census_canon": [
+    "8300 BISSONNET ST, HOUSTON, TX, 77074"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8300 FM 1960 W 77070",
+   "canon": "8300 FM 1960 RD W 77070",
+   "raw_line": "8300 FM 1960 WEST, HOUSTON, TX 77070",
+   "canon_line": "8300 FM 1960 RD W, HOUSTON, TX 77070",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8300 FM 1960 RD W, HOUSTON, TX, 77070"
+   ],
+   "census_canon": [
+    "8300 FM 1960 RD W, HOUSTON, TX, 77070"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8340 LINCOLN AVE 60077",
+   "canon": "8340 N LINCOLN AVE 60077",
+   "raw_line": "8340 LINCOLN AVE, SKOKIE, IL 60077",
+   "canon_line": "8340 N LINCOLN AVE, SKOKIE, IL 60077",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8340 LINCOLN AVE, SKOKIE, IL, 60077"
+   ],
+   "census_canon": [
+    "8340 LINCOLN AVE, SKOKIE, IL, 60077"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8344 E RL THORNTON FWY 75228",
+   "canon": "8344 E R L THORNTON FWY 75228",
+   "raw_line": "8344 E. RL THORNTON FREEWAY, DALLAS, TX 75228",
+   "canon_line": "8344 E R L THORNTON FWY, DALLAS, TX 75228",
+   "rule": "near-identical spelling (similarity 0.96)",
+   "census_raw": [
+    "8344 S R L THORNTON FWY, DALLAS, TX, 75232"
+   ],
+   "census_canon": [],
+   "census": "one spelling found"
+  },
+  {
+   "raw": "8401 N CRAWFORD 60076",
+   "canon": "8401 CRAWFORD AVE 60076",
+   "raw_line": "8401 N CRAWFORD, SKOKIE, IL 60076",
+   "canon_line": "8401 CRAWFORD AVE, SKOKIE, IL 60076",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8401 CRAWFORD AVE, SKOKIE, IL, 60076"
+   ],
+   "census_canon": [
+    "8401 CRAWFORD AVE, SKOKIE, IL, 60076"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8546 BROADWAY 78217",
+   "canon": "8546 BROADWAY ST 78217",
+   "raw_line": "8546 BROADWAY, SAN ANTONIO, TX 78217",
+   "canon_line": "8546 BROADWAY ST, SAN ANTONIO, TX 78217",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "8546 BROADWAY, SAN ANTONIO, TX, 78217"
+   ],
+   "census_canon": [
+    "8546 BROADWAY, SAN ANTONIO, TX, 78217"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8660 W FLAGER ST 33144",
+   "canon": "8660 W FLAGLER ST 33144",
+   "raw_line": "8660 W FLAGER ST, MIAMI, FL 33144",
+   "canon_line": "8660 W FLAGLER ST, MIAMI, FL 33144",
+   "rule": "near-identical spelling (similarity 0.92)",
+   "census_raw": [
+    "8660 W FLAGLER ST, MIAMI, FL, 33144"
+   ],
+   "census_canon": [
+    "8660 W FLAGLER ST, MIAMI, FL, 33144"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "8900 E F LOWRY EXPY 77591",
+   "canon": "8900 EF LOWREY EXPY 77591",
+   "raw_line": "8900 E F LOWRY EXPWY, TEXAS CITY, TX 77591",
+   "canon_line": "8900 EF LOWREY EXPRESSWAY, TEXAS CITY, TX 77591",
+   "rule": "via another spelling",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "8900 EF LOWERY EXPY 77591",
+   "canon": "8900 EF LOWREY EXPY 77591",
+   "raw_line": "8900 EF LOWERY EXPRESSWAY, TEXAS CITY, TX 77591",
+   "canon_line": "8900 EF LOWREY EXPRESSWAY, TEXAS CITY, TX 77591",
+   "rule": "via another spelling",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "8900 EF LOWRY EXPY 77591",
+   "canon": "8900 EF LOWREY EXPY 77591",
+   "raw_line": "8900 EF LOWRY EXPRESSWAY, TEXAS CITY, TX 77591",
+   "canon_line": "8900 EF LOWREY EXPRESSWAY, TEXAS CITY, TX 77591",
+   "rule": "near-identical spelling (similarity 0.94)",
+   "census_raw": [],
+   "census_canon": [],
+   "census": "not found"
+  },
+  {
+   "raw": "8900 EMMETT F LOWRY EXPY 77591",
+   "canon": "8900 EMMETT F LOWERY EXPY 77591",
+   "raw_line": "8900 EMMETT F LOWRY EXPY, TEXAS CITY, TX 77591",
+   "canon_line": "8900 EMMETT F LOWERY EXPY, TEXAS CITY, TX 77591",
+   "rule": "near-identical spelling (similarity 0.97)",
+   "census_raw": [
+    "8900 EMMETT F LOWRY EXPY, TEXAS CITY, TX, 77591"
+   ],
+   "census_canon": [
+    "8900 EMMETT F LOWRY EXPY, TEXAS CITY, TX, 77591"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "926 E CHEROKEE 74955",
+   "canon": "926 E CHEROKEE AVE 74955",
+   "raw_line": "926 E CHEROKEE, SALLISAW, OK 74955",
+   "canon_line": "926 E CHEROKEE AVENUE, SALLISAW, OK 74955",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "926 W CHEROKEE AVE, SALLISAW, OK, 74955"
+   ],
+   "census_canon": [
+    "926 W CHEROKEE AVE, SALLISAW, OK, 74955"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "932 S MISSOURI 78570",
+   "canon": "932 S MISSOURI AVE 78570",
+   "raw_line": "932 SOUTH MISSOURI, MERCEDES, TX 78570",
+   "canon_line": "932 S MISSOURI AVE, MERCEDES, TX 78570",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "932 S MISSOURI AVE, MERCEDES, TX, 78570"
+   ],
+   "census_canon": [
+    "932 S MISSOURI AVE, MERCEDES, TX, 78570"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "950 TAYLOR STATION 43230",
+   "canon": "950 TAYLOR STATION RD 43230",
+   "raw_line": "950 TAYLOR STATION, GAHANNA, OH 43230",
+   "canon_line": "950 TAYLOR STATION ROAD, GAHANNA, OH 43230",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "950 TAYLOR STATION RD, GAHANNA, OH, 43230"
+   ],
+   "census_canon": [
+    "950 TAYLOR STATION RD, GAHANNA, OH, 43230"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "966 N CLAXTON AVE 36323",
+   "canon": "966 CLAXTON AVE N 36323",
+   "raw_line": "966 N CLAXTON AVE, ELBA, AL 36323",
+   "canon_line": "966 CLAXTON AVE N, ELBA, AL 36323",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "966 CLAXTON AVE N, ELBA, AL, 36323"
+   ],
+   "census_canon": [
+    "966 CLAXTON AVE N, ELBA, AL, 36323"
+   ],
+   "census": "same address"
+  },
+  {
+   "raw": "9898 BISSONNET 77036",
+   "canon": "9898 BISSONNET ST 77036",
+   "raw_line": "9898 BISSONNET, HOUSTON, TX 77036",
+   "canon_line": "9898 BISSONNET ST, HOUSTON, TX 77036",
+   "rule": "same street name ignoring street type / direction",
+   "census_raw": [
+    "9898 BISSONNET ST, HOUSTON, TX, 77036"
+   ],
+   "census_canon": [
+    "9898 BISSONNET ST, HOUSTON, TX, 77036"
+   ],
+   "census": "same address"
+  }
+ ]
+}

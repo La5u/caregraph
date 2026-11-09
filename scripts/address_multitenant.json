@@ -1,0 +1,61 @@
+{
+ "checked": "2026-11-07",
+ "note": "Buildings without a suite number in CMS files that were checked (web listings) to be multi-tenant. A shared street address there does not by itself suggest related agencies, so these address nodes are drawn but never join networks. Only addresses that alone held two multi-agency groups together were checked. Entries with a suite (#) are shared office centers whose tenants all use the center's suite number.",
+ "addresses": [
+  {
+   "key": "9126 SW RIDDER RD 97070",
+   "what": "flex office and industrial building",
+   "source": "https://www.crexi.com/lease/properties/793256/oregon-9126-sw-ridder-rd"
+  },
+  {
+   "key": "4215 S STATE RTE 159 62034",
+   "what": "office building with separate suites",
+   "source": "https://procasemanagement.com/office-locations/"
+  },
+  {
+   "key": "300 JACKSON ST 77469",
+   "what": "office building with separate suites",
+   "source": "https://agendalink.fortbendcountytx.gov/docs/2021/CCTR/20210525_3507/45510_Fifth_Amendmement.Realco.pdf"
+  },
+  {
+   "key": "600 E SMITH RD 44256",
+   "what": "multiple-tenant office building",
+   "source": "https://www.loopnet.com/Listing/600-E-Smith-Rd-Medina-OH/6775097/"
+  },
+  {
+   "key": "4708 BROOK ST 91763",
+   "what": "office in a multi-tenant complex",
+   "source": "https://storage.googleapis.com/proudcity/montclairca/2025/08/For-Lease-Properties-August.pdf"
+  },
+  {
+   "key": "187 E MAIN ST 21157",
+   "what": "commercial building (built 1885) with office units for lease",
+   "source": "https://www.loopnet.ca/Listing/187-E-Main-St-Westminster-MD/35238449"
+  },
+  {
+   "key": "4830 W KENNEDY BLVD 33609 #600",
+   "what": "Regus executive-suite center",
+   "source": "https://www.bbb.org/us/fl/tampa/profile/office-space-rental/regus-0653-90426452/addressId/273079"
+  },
+  {
+   "key": "6600 CHASE OAK BLVD 75023 #150",
+   "what": "Spaces coworking center",
+   "source": "https://www.coworkingcafe.com/coworking-property/us/tx/plano/tx-plano-legacy-central/"
+  },
+  {
+   "key": "871 CORONADO CTR DR 89052 #200",
+   "what": "Regus coworking / virtual-office center",
+   "source": "https://www.commercialsearch.com/coworking-property/us/nv/henderson/nv-henderson-coronado-parkway/"
+  },
+  {
+   "key": "7322 SW FWY 77074 #660",
+   "what": "office suite shared by several hospices, CMS lists rooms within it",
+   "source": "https://npiprofile.com/directory/city/hospice-care-community-based-in-houston-texas"
+  },
+  {
+   "key": "1205 COLONIAL LIFE BLVD W 29210",
+   "what": "office building with several unrelated tenants (credit union, security firm in Suite 2B)",
+   "source": "https://www.convergesecurity.com/"
+  }
+ ]
+}

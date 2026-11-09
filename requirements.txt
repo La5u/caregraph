@@ -1,0 +1,4 @@
+duckdb>=2.0
+igraph>=1.0
+numpy>=2.0
+# optional, for scripts/site_smoke.py: playwright

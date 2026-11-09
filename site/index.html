@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareGraph · who owns and runs Medicare hospices and home health agencies</title>
+<meta name="description" content="Interactive map of shared owners, officers and addresses among Medicare hospices and home health agencies, built from public CMS files.">
+<script src="graph_logic.__VERSION__.js"></script>
+<script src="renderer.__VERSION__.js"></script>
+<script src="tables.__VERSION__.js"></script>
+<script src="case.__VERSION__.js"></script>
+<style>
+  body { background: #fff; color: #222; margin: 0; font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: flex; height: 100vh; }
+  a { color: #2a5db0; }
+  #side { width: 360px; min-width: 240px; max-width: 70vw; display: flex; flex-direction: column; flex: none; border-right: 1px solid #ddd; }
+  #vsplit { width: 5px; cursor: col-resize; background: transparent; flex: none; margin-left: -3px; z-index: 2; }
+  #vsplit:hover { background: #9bf; }
+  #head { padding: 10px 12px 6px; }
+  #head .title { font-size: 15px; font-weight: 600; }
+  #head .links { font-size: 12px; margin-top: 1px; }
+  .note { color: #666; font-size: 11.5px; margin: 4px 0; }
+  .help { cursor: help; border-bottom: 1px dotted #999; }
+  #controls { padding: 0 12px 8px; display: flex; flex-direction: column; gap: 5px; }
+  #controls input[type=text], #controls select { width: 100%; box-sizing: border-box; font: inherit; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+  .row { display: flex; gap: 6px; } .row > * { flex: 1; min-width: 0; }
+  .checks { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12px; color: #444; }
+  #connection summary { cursor: pointer; font-size: 12px; color: #444; }
+  #connection[open] { padding: 6px; background: #f6f6f6; border-radius: 4px; }
+  #connection label { font-size: 12px; }
+  .legend { padding: 6px 12px; border-top: 1px solid #eee; border-bottom: 1px solid #ddd; font-size: 12px; display: grid; grid-template-columns: auto 1fr; gap: 3px 8px; align-items: baseline; }
+  .legend .k { color: #888; font-size: 11px; }
+  .lg { display: inline-block; margin-right: 7px; padding: 0 3px; border-radius: 3px; cursor: pointer; white-space: nowrap; user-select: none; }
+  .lg:hover { background: #f0f0f0; } .lg.on { background: #e6eefc; outline: 1px solid #9bf; }
+  #legendhelp summary { cursor: pointer; color: #666; font-size: 11.5px; }
+  #legendhelp dl { margin: 4px 0; max-height: 40vh; overflow-y: auto; font-size: 12px; }
+  #legendhelp dt { font-weight: 600; margin-top: 4px; } #legendhelp dd { margin: 0 0 0 0; color: #444; }
+  .lg .c { color: #999; font-size: 11px; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 3px; vertical-align: 0; }
+  .sh { display: inline-block; width: 11px; text-align: center; color: #666; margin-right: 2px; }
+  .ln { display: inline-block; width: 14px; height: 0; border-top: 3px solid; vertical-align: middle; margin-right: 3px; }
+  #list { overflow-y: auto; flex: 1; }
+  .grp { padding: 7px 12px; border-bottom: 1px solid #eee; cursor: pointer; }
+  .grp:hover, .grp.sel { background: #eef4ff; }
+  .grp .r1 { display: flex; gap: 6px; align-items: baseline; } .grp .r1 .amt { margin-left: auto; color: #444; font-variant-numeric: tabular-nums; }
+  .grp .r2 { font-size: 12px; color: #666; margin-top: 1px; }
+  .grp .ppl { font-size: 11.5px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .badge { display: inline-block; padding: 0 5px; border-radius: 8px; font-size: 11px; margin-right: 4px; }
+  .badge.rev { background: #fde8e8; color: #b00; } .badge.past { background: #eee; color: #555; }
+  #info { display: none; flex: 1; min-height: 0; flex-direction: column; background: #fcfcfc; }
+  #side.detail #list { display: none; } #side.detail #info { display: flex; }
+  #infobar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-bottom: 1px solid #ddd; background: #f4f6fa; flex: none; }
+  #infobar button { font: inherit; border: 1px solid #ccc; background: #fff; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
+  #infobody { padding: 8px 12px; overflow-y: auto; flex: 1; }
+  #infobody table { border-collapse: collapse; margin: 6px 0; }
+  #infobody td { padding: 2px 0; vertical-align: top; }
+  #infobody td:first-child { color: #777; padding-right: 8px; width: 34%; font-size: 12px; }
+  #main { flex: 1; display: flex; flex-direction: column; min-width: 0; height: 100vh; }
+  #timebar { padding: 5px 10px; border-bottom: 1px solid #ddd; flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 12px; color: #444; }
+  #timebar button { font: inherit; border: 1px solid #ccc; background: #fff; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
+  #timebar .sep { width: 1px; height: 16px; background: #ddd; }
+  #net { flex: 1; min-height: 0; overflow: hidden; touch-action: none; position: relative; }
+  .graph-tooltip { position: absolute; pointer-events: none; white-space: pre-line; max-width: 350px; padding: 5px 8px; color: white; background: #222; border-radius: 3px; font-size: 12px; }
+  .record { margin: 8px 0; padding-bottom: 6px; border-bottom: 1px solid #e4e4e4; }
+  .source { font-size: 11px; margin-left: 4px; }
+  small.src { color: #888; }
+  a.jump { color: #2a5db0; cursor: pointer; text-decoration: none; } a.jump:hover { text-decoration: underline; }
+  .linked { margin: 6px 0; }
+  .matches { max-height: 180px; overflow-y: auto; }
+  .matches button, .pathstep { display: block; width: 100%; text-align: left; font: inherit; padding: 4px; margin: 2px 0; border: 1px solid #ddd; background: #fff; cursor: pointer; }
+  .matches button:hover, .pathstep:hover { background: #eef4ff; }
+  #legendwrap > summary { cursor: pointer; font-size: 12px; color: #444; padding: 4px 12px; border-top: 1px solid #eee; }
+  #legendwrap:not([open]) > summary { border-bottom: 1px solid #ddd; }
+  #legendwrap .legend { border-top: 0; }
+  #list > .empty { padding: 10px 12px; color: #666; }
+  #findbar, #netmsg { position: absolute; top: 8px; left: 8px; z-index: 3; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 3px 8px; font-size: 12px; display: none; align-items: center; gap: 6px; max-width: calc(100% - 32px); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  #netmsg { left: 50%; transform: translateX(-50%); z-index: 4; }
+  #findbar button, #netmsg button, #zoom button { font: inherit; border: 1px solid #ccc; background: #fff; border-radius: 4px; cursor: pointer; }
+  #findbar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #zoom { position: absolute; right: 8px; bottom: 8px; z-index: 3; display: flex; flex-direction: column; gap: 4px; }
+  #zoom button { width: 32px; height: 32px; font-size: 18px; line-height: 1; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  #tabs { display: none; }
+  @media (max-width: 700px) {
+    body { flex-direction: column; height: 100dvh; overflow: hidden; }
+    #tabs { display: flex; flex: none; border-bottom: 1px solid #ddd; }
+    #tabs button { flex: 1; font: inherit; font-weight: 600; padding: 10px; border: 0; border-bottom: 3px solid transparent; background: #fff; color: #555; cursor: pointer; }
+    body[data-view=list] #tab-list, body[data-view=map] #tab-map { color: #2a5db0; border-bottom-color: #2a5db0; }
+    #vsplit { display: none; }
+    #side { width: auto !important; max-width: none; flex: 1; min-height: 0; border-right: 0; }
+    body[data-view=map] #side { display: none; }
+    body[data-view=map] #side.detail { display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 45dvh; z-index: 5; background: #fff; border-top: 1px solid #bbb; box-shadow: 0 -2px 8px rgba(0,0,0,.2); }
+    body[data-view=map] #side.detail > :not(#info) { display: none; }
+    /* The map stays laid out while hidden so it never has to be fitted to an empty box. */
+    #main { position: fixed; left: 0; right: 0; top: 43px; bottom: 0; height: auto; background: #fff; }
+    body[data-view=list] #main { visibility: hidden; }
+    .grp { padding: 10px 12px; }
+    #timebar #animate, #timebar label:has(#spacing), #timebar .sep { display: none; }
+    #timebar #rel { flex: 1; min-width: 80px; width: auto !important; }
+    #controls input[type=text], #controls select { font-size: 16px; }   /* below 16px iOS zooms the page on focus */
+  }
+  [hidden] { display: none !important; }
+  body { padding-top: 40px; box-sizing: border-box; }
+  .chip { display: inline-block; padding: 0 5px; margin: 1px 2px 1px 0; border-radius: 8px; background: #eee; color: #444; font-size: 11px; white-space: nowrap; }
+  table.metrics { border-collapse: collapse; font-size: 12px; } table.metrics th, table.metrics td { padding: 1px 8px 1px 0; text-align: left; vertical-align: top; }
+  #infobody table.metrics td:first-child { width: auto; }
+  #casebtn { position: fixed; right: 56px; bottom: 12px; z-index: 20; font: inherit; font-weight: 600; padding: 6px 12px; border: 1px solid #2a5db0; border-radius: 16px; background: #fff; color: #2a5db0; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+  #casetray { position: fixed; right: 12px; bottom: 52px; z-index: 21; width: min(380px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; background: #fff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.25); padding: 0 10px; }
+  #casetray:not([open]) { display: none; } #casetray summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+  .caseitem { border-top: 1px solid #eee; padding: 6px 0; } .caseitem textarea { width: 100%; box-sizing: border-box; font: inherit; margin-top: 4px; }
+  .caseactions { padding: 6px 0; } .filebtn { cursor: pointer; text-decoration: underline; color: #2a5db0; }
+  #topnav { position: fixed; top: 0; left: 0; right: 0; height: 39px; display: flex; align-items: center; gap: 16px; padding: 0 12px; border-bottom: 1px solid #ddd; background: white; z-index: 10; overflow-x: auto; white-space: nowrap; }
+  #topnav a[aria-current=page] { font-weight: 700; color: #222; }
+  #main { height: calc(100vh - 40px); }
+  #tableview { display: none; flex: 1; min-width: 0; overflow: auto; padding: 12px; }
+  body:not([data-section=networks]) #tableview { display: block; }
+  body:not([data-section=networks]) > :is(#side, #vsplit, #main, #tabs) { display: none; }
+  #advanced > summary { cursor: pointer; }
+  #advanced > button, #advanced > label { margin: 4px 0; }
+  #advanced > label:has(#spacing) { display: block; }
+  #advanced #rel { max-width: 100%; }
+  .tablefilters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  .tablefilters input, .tablefilters select, .tablefilters button, .pager button { font: inherit; padding: 5px; }
+  .table-scroll { overflow-x: auto; }
+  .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+  .data-table th, .data-table td { padding: 7px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  .data-table th button { font: inherit; font-weight: 600; border: 0; background: none; color: inherit; cursor: pointer; padding: 0; text-align: left; }
+  .data-table td small { display: block; color: #666; }
+  .data-table tr[data-agency] { cursor: pointer; }
+  .data-table tbody tr:hover { background: #f4f7fc; }
+  .pager { display: flex; gap: 10px; align-items: center; margin: 10px 0; }
+  .tablecaveat { max-width: 1000px; color: #555; }
+  @media (max-width: 700px) {
+    #topnav { gap: 12px; } #topnav b { display: none; }
+    #main { top: 83px; height: auto; }
+    #tableview { padding: 8px; }
+    .tablefilters input, .tablefilters select { font-size: 16px; max-width: 100%; }
+  }
+</style>
+</head>
+<body data-view="list" data-section="agencies">
+<nav id="topnav" aria-label="Views"><b>CareGraph</b><a href="#/agencies">Agencies</a><a href="#/addresses">Addresses</a><a href="#/changes">Changes</a><a href="#/networks">Networks</a><a href="about.html">About &amp; data</a></nav>
+<section id="tableview" aria-live="polite"></section>
+<nav id="tabs"><button id="tab-list">Networks</button><button id="tab-map">Map</button></nav>
+<div id="side">
+  <div id="head">
+    <div class="title">CareGraph <span class="badge past" style="vertical-align:2px">Preview</span></div>
+    <div class="note" style="margin:0 0 2px">Who owns and runs Medicare hospices and home health agencies</div>
+    <div class="links"><a href="about.html">About &amp; data</a> · <a href="about.html#report">Report fraud</a></div>
+    <div class="note"><span class="help" title="Networks group agencies through CMS listings across several releases. Links show listed roles or matched practice addresses, not proof of a current relationship, common control or wrongdoing. Data may be out of date or contain errors.">Public CMS records, as of Oct 2026. A link is not evidence of wrongdoing.</span></div>
+  </div>
+  <div id="controls">
+    <input type="text" id="q" placeholder="Agency or company name, city, CCN">
+    <div class="row">
+      <select id="state"><option value="">All states</option></select>
+      <select id="sort">
+        <option value="n">Most agencies</option>
+        <option value="paid">Most 2024 Medicare $</option>
+        <option value="rev">Most revocations</option>
+        <option value="gone">Most past agencies</option>
+      </select>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="onlyrev"> With revocations only</label>
+    </div>
+    <details id="advanced"><summary>Advanced</summary>
+    <button id="animate" aria-pressed="false">Animate layout</button>
+    <label>Spacing <input type="range" id="spacing" min="0.5" max="3" step="0.1" value="1" style="width:80px;vertical-align:middle"> <span id="spacingname">1x</span></label>
+    <label><input type="checkbox" id="alltime" checked> All releases</label>
+    <input type="range" id="rel" min="0" value="0" style="width:220px;vertical-align:middle" disabled>
+    <span id="relname"></span><br>
+      <label><input type="checkbox" id="dangling"> Show one-link people</label><br>
+      <label><input type="checkbox" id="officers"> Show officers and managers</label>
+    </details>
+    <details id="connection"><summary>Find a connection between two names</summary>
+      <label for="pathfrom">From</label><input type="text" id="pathfrom" autocomplete="off" aria-controls="frommatches">
+      <div id="frommatches" class="matches" aria-live="polite"></div>
+      <label for="pathto">To</label><input type="text" id="pathto" autocomplete="off" aria-controls="tomatches">
+      <div id="tomatches" class="matches" aria-live="polite"></div>
+      <div class="note">Type at least 3 characters, then pick a name (Enter picks a unique match).</div>
+      <label><input type="checkbox" id="pathstrong"> only owner / control / address links</label><br>
+      <button id="pathfind">Find</button>
+      <div class="note">A path can combine listings from different dates; its steps may never have existed at the same time.</div>
+    </details>
+  </div>
+  <details id="legendwrap"><summary>Legend</summary>
+  <div class="legend" id="legend">
+    <span class="k">Agency</span><span>
+      <span class="lg" data-f="active"><i class="dot" style="background:#4a7fd4"></i>Active <span class="c"></span></span>
+      <span class="lg" data-f="past"><i class="dot" style="background:#bbb"></i>Past <span class="c"></span></span></span>
+    <span class="k lg" data-f="revoked" style="margin:0;padding:0 2px">Revoked</span><span>
+      <span class="lg" data-f="rev_billing"><i class="dot" style="background:#8b0000"></i>Billing privileges <span class="c"></span></span>
+      <span class="lg" data-f="rev_affiliation"><i class="dot" style="background:#e3241b"></i>Affiliation <span class="c"></span></span>
+      <span class="lg" data-f="rev_other"><i class="dot" style="background:#f4978e"></i>Other <span class="c"></span></span></span>
+    <span class="k">Shape</span><span>
+      <span class="lg" data-f="hospice"><span class="sh">●</span>Hospice</span>
+      <span class="lg" data-f="hha"><span class="sh">▲</span>Home health</span>
+      <span class="lg" data-f="person"><span class="sh">◆</span>Person</span>
+      <span class="lg" data-f="org"><span class="sh">■</span>Company</span>
+      <span class="lg" data-f="address"><span class="sh" style="color:#66bb66">▼</span>Address</span>
+      <span class="lg" data-f="building"><span class="sh" style="color:#1b5e20">▼</span>Building</span></span>
+    <span class="k">Link</span><span>
+      <span class="lg" data-f="owner"><i class="ln" style="border-color:#e08000"></i>Owner</span>
+      <span class="lg" data-f="control"><i class="ln" style="border-color:#5b2a86"></i>Control</span>
+      <span class="lg" data-f="officer"><i class="ln" style="border-color:#8f63c4"></i>Officer</span>
+      <span class="lg" data-f="manager"><i class="ln" style="border-color:#b79ad9"></i>Manager</span>
+      <span class="lg" data-f="address_l"><i class="ln" style="border-color:#4caf50"></i>Address</span>
+      <span class="lg" data-f="other"><i class="ln" style="border-color:#999"></i>Other</span>
+      <span class="lg" data-f="pastlink"><i class="ln" style="border-top-style:dashed;border-color:#888"></i>Past</span></span>
+    <span></span><details id="legendhelp"><summary>Hover or click an item to highlight it · ⓘ What these mean</summary><dl>
+      <dt>Size</dt><dd>Agencies: 2024 Medicare payments plus number of links. People, companies and addresses: number of agencies CMS lists them on, across all networks. Buildings: number of agencies there.</dd>
+      <dt>Active</dt><dd>In the latest CMS enrollment file, with no revocation found.</dd>
+      <dt>Past</dt><dd>In an earlier enrollment file but not the latest, with no revocation found. This does not by itself mean the agency closed.</dd>
+      <dt>Revoked</dt><dd>Listed in the CMS Revocation Extract, shaded by the reason CMS gives, drawn larger, on top, and labeled first. <b>Billing privileges</b>: 42 CFR 424.535(a)(8), "abuse of billing privileges" in CMS's words. <b>Affiliation</b>: (a)(19), an affiliation CMS judged to pose an undue risk. <b>Other</b>: failed site visit (a)(5), failure to report (a)(9), false information (a)(4) and other grounds. Click an agency for the exact text. A revocation can be appealed and later reversed; this shows the CMS extract of 2026-10-21.</dd>
+      <dt>Hospice, Home health</dt><dd>A Medicare-enrolled agency, from the CMS Hospice or Home Health Agency enrollment files.</dd>
+      <dt>Person, Company</dt><dd>An individual or organization CMS lists on an agency in its All Owners files. Companies are parent, holding and management companies.</dd>
+      <dt>Address</dt><dd>A practice address (same suite) CMS lists for two or more agencies.</dd>
+      <dt>Building</dt><dd>A whole building whose agencies use different suites, sized and labeled by how many agencies CMS has listed there across the releases. Shown in a network when two of its agencies are there, or when the building has 5 or more agencies.</dd>
+      <dt>Owner</dt><dd>5% or greater direct or indirect ownership, or general partner (CMS role codes 34, 35, 38).</dd>
+      <dt>Control</dt><dd>Operational or managerial control (code 43): runs the agency, with or without owning it.</dd>
+      <dt>Officer</dt><dd>Corporate officer or director (codes 40, 41).</dd>
+      <dt>Manager</dt><dd>Managing employee, on payroll (W-2) or contracted (codes 42, 25).</dd>
+      <dt>Other</dt><dd>Mortgage, security or limited partnership interest, or a role CMS lists as "other" (codes 36, 37, 39, 44).</dd>
+      <dt>Past link</dt><dd>Dashed: not listed in the latest release.</dd>
+      <dt>What joins a network</dt><dd>Only owner and control links, and shared addresses where CMS lists both agencies in the same release.
+        Officer, manager and other links, buildings, and faded nodes (generic or very widely listed IDs, shared office centers),
+        are shown but do not join agencies into a network.</dd></dl></details>
+  </div></details>
+  <div id="list">Loading…</div>
+  <div id="info"><div id="infobar"><button id="back" title="Back to the list (Esc)">← Networks</button><span id="infotitle" class="note" style="margin:0"></span></div><div id="infobody"></div></div>
+</div>
+<div id="vsplit" title="drag to resize"></div>
+<div id="main">
+  <div id="timebar">
+    <button id="tableback" hidden>← Back to the table</button>
+    <button id="fit" title="Fit network (F)">Fit</button>
+    <span id="hiddencount" class="note" role="status"></span>
+    <a id="srcs" href="about.html#sources" title="">Sources</a>
+  </div>
+  <div id="net"><div id="findbar" role="status"><span id="findtext"></span><button id="findprev" aria-label="Previous match">‹</button><button id="findnext" aria-label="Next match">›</button></div><div id="netmsg" role="status"></div><div id="zoom"><button id="zoomin" aria-label="Zoom in">+</button><button id="zoomout" aria-label="Zoom out">−</button></div></div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const DATA = "data/__VERSION__/";
+async function dataFile(name) {
+  const response = await fetch(DATA + name + ".json");
+  if (!response.ok) throw new Error(name);
+  return response.json();
+}
+// Network, record and address files are bucketed (see shardKey in graph_logic.js); one bucket holds {name: value}.
+const shardCache = {};
+async function shardItem(folder, stem) {
+  const path = shardPath(folder, stem);
+  shardCache[path] ||= dataFile(path).catch(e => { delete shardCache[path]; throw e; });
+  const bucket = await shardCache[path];
+  if (!(String(stem) in bucket)) throw new Error(folder + "/" + stem);
+  return bucket[String(stem)];
+}
+function downloadFile(text, type, name) {
+  const url = URL.createObjectURL(new Blob([text], {type})), link = document.createElement("a");
+  link.href = url; link.download = name; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+let indexPromise;
+function loadIndex() {
+  if (!indexPromise) indexPromise = dataFile("index").then(d => {
+    INDEX = d; LATEST = d.releases.at(-1);
+    [...new Set(d.groups.flatMap(g => g.states))].sort().forEach(s => $("state").add(new Option(s, s)));
+    $("srcs").title = (d.sources || []).join("\n");
+    $("rel").max = d.releases.length - 1; $("rel").value = d.releases.length - 1; $("relname").textContent = LATEST;
+    return d;
+  }).catch(e => { indexPromise = null; throw e; });
+  return indexPromise;
+}
+let searchPromise, searchData;
+function loadSearch() {
+  if (!searchPromise) searchPromise = dataFile("search").then(d => { searchData = d; renderList(); return d; })
+    .catch(e => { searchPromise = null; throw e; });
+  return searchPromise;
+}
+function searchNow() { loadSearch().catch(() => {
+  if ($("q").value.trim()) { $("list").innerHTML = '<div class="empty">Could not load search. <button id="searchretry">Retry</button></div>'; $("searchretry").onclick = searchNow; }
+}); }
+let panelVersion = 0;
+function loadRecords(gid) {
+  const d = cache[gid];
+  if (!d.recordsPromise) d.recordsPromise = shardItem("r", gid).then(records => {
+    if (records.length !== d.edges.length) throw new Error("record count");
+    d.edges.forEach((e, i) => { e.recs = records[i]; });
+    if (current === gid) network?.edges.forEach((e, i) => { e.recs = records[i]; });
+    d.recordsLoaded = true;
+  }).catch(e => { d.recordsPromise = null; throw e; });
+  return d.recordsPromise;
+}
+function panelRecords(draw) {
+  const version = ++panelVersion, gid = current;
+  if (cache[gid].recordsLoaded) { draw(); return; }
+  INFO.innerHTML = '<small role="status">Loading source records…</small>';
+  loadRecords(gid).then(() => { if (version === panelVersion && current === gid) draw(); }).catch(() => {
+    if (version !== panelVersion || current !== gid) return;
+    INFO.innerHTML = '<small>Could not load source records. <button id="recordretry">Retry</button></small>';
+    $("recordretry").onclick = () => panelRecords(draw);
+  });
+}
+const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const fmt$ = v => v == null ? "no 2024 claims found" : "$" + Math.round(v).toLocaleString();
+const isEnr = n => n.kind === "hospice" || n.kind === "hha";
+const revCat = n => { const r = (n.rev_reason || "").toUpperCase(); return r.includes("(A)(8)") ? "billing" : r.includes("(A)(19)") ? "affiliation" : "other"; };
+const REV = {billing: "#8b0000", affiliation: "#e3241b", other: "#f4978e"};
+const enrColor = n => n.status === "revoked" ? REV[revCat(n)] : n.status === "active" ? "#4a7fd4" : "#bbb";
+const CAT = {owner: "#e08000", control: "#5b2a86", officer: "#8f63c4", manager: "#b79ad9", address: "#4caf50", other: "#999"};
+// Display names in title case (CMS lists them in capitals; source rows keep CMS's spelling).
+const UPPER = new Set("LLC LLP LP PC PA PLLC LLLP II III IV VI VII VIII HHA HHS CMS USA US VNA RN LPN NP APRN MD DO DDS DMD DPM PHD MSN BSN CNA CEO CFO COO CMO CNO DON NPI PO SNF ALF ICF NE NW SE SW AZ CA CO CT DC FL GA IA IL KS KY MI MN MS MT NC ND NH NJ NM NV NY OH PR RI SC SD TN TX UT VA VT WA WI WV WY".split(" "));
+const SMALL = new Set("OF AND THE AT FOR TO ON BY DBA".split(" "));
+const ABBR = new Set("ST STE BLVD DR RD LN CT PL PKWY HWY FWY SQ TRL CTR PLZ BLDG FL APT JR SR MT FT CIR TER".split(" "));
+function nice(v) {
+  const t = String(v ?? "");
+  if (!t || /[a-z]/.test(t)) return t;
+  return t.split(/(\s+)/).map((w, i) => {
+    if (/^\s+$/.test(w) || !/[A-Z]/.test(w)) return w;
+    const core = w.replace(/[^A-Z0-9]/g, "");
+    if (UPPER.has(core) && !ABBR.has(core)) return w;
+    if (i > 0 && SMALL.has(core)) return w.toLowerCase();
+    if (/^\d+(ST|ND|RD|TH)$/.test(core)) return w.toLowerCase();
+    if (!ABBR.has(core) && core.length > 1 && !/[AEIOUY]/.test(core.replace(/\d/g, "")) && /[A-Z]/.test(core)) return w;   // acronyms without vowels
+    return w.toLowerCase().replace(/(^|[^a-z'])([a-z])/g, (m, p, c) => p + c.toUpperCase())
+      .replace(/\bMc([a-z])/g, (m, c) => "Mc" + c.toUpperCase()).replace(/'([a-z])(?=[a-z]{2})/g, (m, c) => "'" + c.toUpperCase())
+      .replace(/(\d)([a-z])/g, (m, d, c) => d + c.toUpperCase());
+  }).join("");
+}
+const money = v => v == null ? "" : v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "B" : v >= 1e6 ? "$" + Math.round(v / 1e6) + "M" : v >= 1e3 ? "$" + Math.round(v / 1e3) + "K" : "$" + Math.round(v);
+const INFO = {
+  set innerHTML(html) { $("infobody").innerHTML = html; $("infobody").scrollTop = 0; $("side").classList.add("detail");
+    $("infotitle").textContent = String(current).startsWith("solo-") ? "Single agency" : current != null ? "Network #" + current : ""; },
+  set textContent(text) { this.innerHTML = esc(text); }
+};
+const clip = (t, n) => t.length > n ? t.slice(0, n - 1).trimEnd() + "…" : t;
+const phone = matchMedia("(max-width: 700px)");
+function setView(v) {
+  document.body.dataset.view = v;
+  $("tableback").hidden = !tableBack;
+  $("back").textContent = phone.matches && v === "map" ? "✕ Close" : "← Networks";
+}
+function netMsg(html) { $("netmsg").innerHTML = html; $("netmsg").style.display = html ? "flex" : "none"; }
+// URL: #<network> or #<network>/<node id>. Changing network adds a history entry; picking a node replaces it.
+function setHash(gid, node, push) {
+  const solo = String(gid).startsWith("solo-"), eid = String(gid).slice(5);
+  const h = (solo ? "#/agency/" + encodeURIComponent(eid) : "#" + gid) + (node && !(solo && node.id === eid) ? "/" + encodeURIComponent(node.id) : "");
+  if (h !== location.hash) history[push ? "pushState" : "replaceState"](null, "", h);
+}
+function parseHash() {
+  if (location.hash.startsWith("#/agency/")) {
+    const [, , eid, node] = location.hash.slice(1).split("/");
+    try { return {id: "solo-" + decodeURIComponent(eid), node: node ? decodeURIComponent(node) : decodeURIComponent(eid)}; } catch { return {}; }
+  }
+  const [g, n] = location.hash.slice(1).split("/");
+  let node = null;
+  try { node = n ? decodeURIComponent(n) : null; } catch {}
+  return {id: parseInt(g), node};
+}
+function showList() { panelVersion++; $("side").classList.remove("detail"); }
+// Legend: hover highlights matching nodes / links (others dimmed), click keeps it.
+const NODE_F = {active: n => isEnr(n) && n.status === "active", revoked: n => isEnr(n) && n.status === "revoked",
+  rev_billing: n => isEnr(n) && n.status === "revoked" && revCat(n) === "billing", rev_affiliation: n => isEnr(n) && n.status === "revoked" && revCat(n) === "affiliation",
+  rev_other: n => isEnr(n) && n.status === "revoked" && revCat(n) === "other",
+  past: n => isEnr(n) && n.status !== "active" && n.status !== "revoked",
+  hospice: n => n.kind === "hospice", hha: n => n.kind === "hha", person: n => n.kind === "person", org: n => n.kind === "org", address: n => n.kind === "address" && !n.building, building: n => !!n.building};
+const EDGE_F = {owner: e => e.cat === "owner", control: e => e.cat === "control", officer: e => e.cat === "officer", manager: e => e.cat === "manager",
+  address_l: e => e.cat === "address", other: e => !CAT[e.cat] || e.cat === "other", pastlink: e => e.dashed};
+let legendHover = null, legendPin = null;
+// Search box -> the open network: matching nodes stay lit, the rest dim, and ‹ › steps through them.
+const find = {hits: [], set: new Set(), at: -1};
+const nodeText = n => [n.name, n.dba, n.city, n.ccn, n.id].filter(Boolean).join(" ").toUpperCase();
+function updateFind(zoom) {
+  const q = $("q").value.toUpperCase().trim();
+  find.hits = q && network ? network.nodes.filter(n => nodeText(n).includes(q)).sort((a, b) => b.size - a.size) : [];
+  find.set = new Set(find.hits); find.at = -1;
+  filterGraph();
+  findBar();
+  if (zoom && find.hits.length) network.fit(find.hits.map(n => n.id), true);
+}
+function findBar() {
+  $("findbar").style.display = find.hits.length ? "flex" : "none";
+  const n = find.hits.length, h = find.hits[find.at];
+  $("findtext").textContent = h ? `${find.at + 1} of ${n}: ${nice(h.dba || h.name)}` : `${n} match${n > 1 ? "es" : ""} in this network`;
+}
+function stepFind(d) {
+  const n = find.hits.length;
+  if (!n) return;
+  find.at = find.at < 0 ? (d > 0 ? 0 : n - 1) : (find.at + d + n) % n;
+  findBar(); select(find.hits[find.at]); network.focus(find.hits[find.at].id);
+}
+function applyDim() {
+  document.querySelectorAll(".lg").forEach(el => el.classList.toggle("on", el.dataset.f === legendPin));
+  if (!network) return;
+  const f = legendHover || legendPin, nf = f && NODE_F[f], ef = f && EDGE_F[f];
+  const keep = new Set();
+  if (ef) for (const e of network.edges) if (!e.hidden && ef(e)) { keep.add(e.from); keep.add(e.to); }
+  const hits = !f && find.hits.length ? find.set : null;
+  const near = new Set(hits);   // matches and what they link to stay readable
+  if (hits) for (const e of network.edges) if (!e.hidden) {
+    const from = network.nodeById.get(e.from), to = network.nodeById.get(e.to);
+    if (hits.has(from)) near.add(to);
+    if (hits.has(to)) near.add(from);
+  }
+  for (const n of network.nodes) n.dim = hits ? !near.has(n) : !!f && (nf ? !nf(n) : !keep.has(n.id));
+  for (const e of network.edges) e.dim = hits ? !(hits.has(network.nodeById.get(e.from)) || hits.has(network.nodeById.get(e.to))) : !!f && (ef ? !ef(e) : true);
+  network.refresh();
+}
+function legendCounts() {
+  for (const el of document.querySelectorAll(".lg .c")) {
+    const f = NODE_F[el.parentNode.dataset.f];
+    el.textContent = network && f ? network.nodes.filter(n => !n.hidden && f(n)).length : "";
+  }
+}
+let INDEX, LATEST, network, current, G = null, animate = false;
+const cache = {};
+let pathsPromise, pathEdgesPromise, pathsData, pathResult = null;
+const pathAdj = {}, pathKinds = {h: "hospice", H: "HHA", p: "person", o: "org", a: "address"};
+const pathCats = {o: "owner", c: "control", f: "officer/director", m: "manager", a: "address", x: "other",
+  s: "same name, different CMS ID (unconfirmed)"};
+const pathInputs = {pathfrom: {list: "frommatches", node: null, matches: [], version: 0},
+  pathto: {list: "tomatches", node: null, matches: [], version: 0}};
+
+function loadPaths(edges = false) {
+  if (!pathsPromise) pathsPromise = dataFile("path-names").then(p => pathsData = p)
+    .catch(e => { pathsPromise = null; throw e; });
+  if (!edges) return pathsPromise;
+  if (!pathEdgesPromise) pathEdgesPromise = pathsPromise.then(async p => {
+    Object.assign(p, await dataFile("path-edges"));
+    p.firstEdge = new Int32Array(p.names.length).fill(-1);
+    for (let i = 0; i < p.edges.length / 4; i++) for (let j = 0; j < 2; j++) {
+      const n = p.edges[i * 4 + j];
+      if (p.firstEdge[n] < 0 && p.edges[i * 4 + 2] >= 0) p.firstEdge[n] = i;
+    }
+    return p;
+  }).catch(e => { pathEdgesPromise = null; throw e; });
+  return pathEdgesPromise;
+}
+function pickPathName(id, node) {
+  const state = pathInputs[id];
+  state.node = node; state.matches = []; state.version++;
+  $(id).value = pathsData.names[node]; $(state.list).textContent = "";
+}
+async function suggestPathNames(id) {
+  const state = pathInputs[id], version = ++state.version, query = $(id).value;
+  state.node = null; state.matches = []; $(state.list).textContent = "";
+  if (!query.trim()) return;
+  const loading = loadPaths();
+  if (query.trim().length < 3) { loading.catch(() => {}); return; }
+  $(state.list).textContent = "Loading…";
+  try {
+    const p = await loadPaths();
+    if (version !== state.version) return;
+    state.matches = matchNames(p, query, 12);
+    $(state.list).innerHTML = state.matches.map(n => {
+      const group = p.sub[n] || "";
+      const detail = p.search[n].replace(p.names[n].toUpperCase(), "").trim();
+      return `<button type="button" data-match="${n}"><b>${esc(p.names[n])}</b> · ${esc(pathKinds[p.kinds[n]])} · ${esc(group)}<br><small>${esc(detail)}</small></button>`;
+    }).join("") || "No names match.";
+  } catch {
+    if (version === state.version) $(state.list).textContent = "Could not load connection data. Type again to retry.";
+  }
+}
+for (const [id, state] of Object.entries(pathInputs)) {
+  $(id).oninput = () => suggestPathNames(id);
+  $(state.list).onclick = ev => { const b = ev.target.closest("[data-match]"); if (b) pickPathName(id, +b.dataset.match); };
+  $(id).onkeydown = ev => {
+    if (ev.key === "Enter" && state.matches.length === 1) { ev.preventDefault(); pickPathName(id, state.matches[0]); }
+  };
+}
+function connectionInfo() {
+  if (!pathResult) return;
+  let node = pathResult.from;
+  INFO.innerHTML = `<b>${pathResult.edges.length} steps</b>` + pathResult.edges.map((i, step) => {
+    const [a, b, g, k] = pathsData.edges.slice(i * 4, i * 4 + 4), next = a === node ? b : a;
+    const e = cache[g]?.edges[k], label = e && roles(e) || pathCats[pathsData.cat[i]];
+    const nm = j => esc(nice(pathsData.names[j])) + (pathsData.sub?.[j] ? ` <small style="color:#888">${esc(pathsData.sub[j])}</small>` : "");
+    const line = `<button class="pathstep" data-step="${step}">${nm(node)} — ${esc(label)} — ${nm(next)} · network #${g}</button>`;
+    node = next; return line;
+  }).join("");
+}
+async function openPathStep(step) {
+  const result = pathResult;
+  if (!result || !Number.isInteger(step) || step < 0 || step >= result.edges.length) return;
+  const i = result.edges[step], g = pathsData.edges[i * 4 + 2], k = pathsData.edges[i * 4 + 3];
+  setView("map");
+  try {
+    if (current !== g || G !== cache[g]) await show(g);
+    if (current !== g || pathResult !== result) return;
+    const edges = result.edges.filter(e => pathsData.edges[e * 4 + 2] === g)
+      .map(e => network.edges[pathsData.edges[e * 4 + 3]]);
+    if (edges.some(e => !activeAt(e))) {
+      $("alltime").checked = true; $("rel").disabled = true;
+      $("rel").value = INDEX.releases.length - 1; $("relname").textContent = LATEST;
+    }
+    for (const e of edges) { revealed.add(e.from); revealed.add(e.to); }
+    filterGraph();
+    const edge = network.edges[k];
+    select(null, edge);
+    for (const e of edges) {
+      e.highlighted = true;
+      network.nodeById.get(e.from).highlighted = true; network.nodeById.get(e.to).highlighted = true;
+    }
+    network.refresh(); network.fit([edge.from, edge.to], true);
+    panelVersion++; connectionInfo();
+  } catch { INFO.textContent = `Could not open network #${g}. Click Find to retry.`; }
+}
+$("pathfind").onclick = async () => {
+  $("pathfind").disabled = true; INFO.textContent = "Finding connection…";
+  pathResult = null;
+  try {
+    const p = await loadPaths(true), nodes = [];
+    for (const [id, state] of Object.entries(pathInputs)) {
+      if (state.node == null) {
+        const matches = matchNames(p, $(id).value, 12);
+        if (matches.length === 1) pickPathName(id, matches[0]);
+      }
+      if (state.node == null) { INFO.textContent = "Pick a name from each suggestion list first."; return; }
+      nodes.push(state.node);
+    }
+    const [from, to] = nodes, strong = $("pathstrong").checked;
+    if (from === to) { INFO.textContent = "From and To are the same node (0 steps)."; return; }
+    const adj = pathAdj[strong] ||= buildAdjacency(p, strong), edges = shortestPath(adj, p, from, to);
+    if (!edges) { INFO.textContent = "No path found." + (strong ? " Try unticking ‘only owner / control / address links’." : ""); return; }
+    pathResult = {from, edges}; connectionInfo();
+  } catch { INFO.textContent = "Could not load connection data. Click Find to retry."; }
+  finally { $("pathfind").disabled = false; }
+};
+
+async function loadGroup(id) {
+  if (!cache[id]) {
+    const d = await shardItem("g", id);
+    d.byId = Object.fromEntries(d.nodes.map(n => [n.id, n]));
+    cache[id] = d;
+  }
+  return cache[id];
+}
+
+const SORTKEY = {n: g => g.n, paid: g => g.paid || 0, rev: g => g.n_revoked || 0, gone: g => g.n_gone || 0};
+function rowHtml(g) {
+  const st = g.states.length > 6 ? g.states.slice(0, 5).join(" ") + ` +${g.states.length - 5}` : g.states.join(" ");
+  const agencies = [g.n_hospice ? `${g.n_hospice} hospice${g.n_hospice > 1 ? "s" : ""}` : "", g.n_hha ? `${g.n_hha} home health` : ""].filter(Boolean).join(" · ");
+  return `<div class="grp${g.id === current ? " sel" : ""}" data-id="${esc(g.id)}" tabindex="0" role="button">` +
+    `<div class="r1"><b>#${esc(g.id)}</b> <span>${esc(agencies)}</span><span class="amt" title="2024 Medicare payments: ${esc(fmt$(g.paid))}">${esc(money(g.paid))}</span></div>` +
+    `<div class="r2">${g.n_revoked ? `<span class="badge rev" title="${g.n_affil ? esc(g.n_affil) + " cite 42 CFR 424.535(a)(19), revocation for affiliations" : "revoked by CMS"}">${esc(g.n_revoked)} revoked</span>` : ""}` +
+    `${g.n_gone ? `<span class="badge past" title="not in the latest enrollment file">${esc(g.n_gone)} past</span>` : ""}${esc(st)}</div>` +
+    `<div class="ppl">${esc(g.n_people || 0)} ${g.n_people === 1 ? "person" : "people"} · ${esc(g.n_orgs || 0)} ${g.n_orgs === 1 ? "company" : "companies"}</div></div>`;
+}
+const LIMIT = 300;
+function renderList() {
+  const st = $("state").value, q = $("q").value.toUpperCase().trim(), rev = $("onlyrev").checked;
+  if (!INDEX) return;
+  if (q && !searchData) { $("list").innerHTML = '<div class="empty" role="status">Loading search…</div>'; searchNow(); return; }
+  const gs = INDEX.groups.filter(g => (!st || g.states.includes(st)) && (!rev || g.n_revoked) && (!q || (searchData[g.id] || "").includes(q)));
+  const key = SORTKEY[$("sort").value], focused = document.activeElement?.closest?.(".grp")?.dataset.id;
+  gs.sort((a, b) => key(b) - key(a));
+  $("list").innerHTML = gs.length ? gs.slice(0, LIMIT).map(rowHtml).join("") +
+    (gs.length > LIMIT ? `<div class="note" style="padding:6px 8px">Showing ${LIMIT} of ${gs.length}; narrow with search or state.</div>` : "")
+    : '<div class="empty">No networks match. Try fewer letters or another state.</div>';
+  if (focused) document.querySelector(`.grp[data-id="${focused}"]`)?.focus({preventScroll: true});
+}
+let listTimer;
+const renderListSoon = () => { clearTimeout(listTimer); listTimer = setTimeout(() => { renderList(); updateFind(false); }, 120); };
+
+// Listed in the selected release: checked against the release files of the link's own records, so a link
+// missing from a release between its first and last listing is hidden there.
+function activeAt(e) {
+  if ($("alltime").checked || !e.first) return true;
+  const r = INDEX.releases[$("rel").value];
+  // A release without a file of the link's own dataset (2026-01-02 has no enrollment file, 2026-01-21 no owner
+  // files) says nothing about the link: fall back to its first..last range there.
+  return edgeInRelease(e, INDEX.files, r);
+}
+
+function nodeObj(n, maxPaid, deg = 0) {
+  return {...n, homeX: n.x, homeY: n.y,
+    label: n.building ? clip(`${n.building.agencies} agencies · ${nice(n.name)}`, 40) : clip(nice(n.dba || n.name || n.id), 32) + (n.weak ? ` [${n.n_enrollments}]` : ""),
+    shape: {hospice: 0, hha: 1, person: 2, org: 3, address: 4}[n.kind] ?? 0,
+    size: isEnr(n) ? 12 + 28 * Math.sqrt((n.paid || 0) / maxPaid) + 2.5 * Math.sqrt(deg) + (n.status === "revoked" ? 9 : 0)
+      : n.building ? 9 + 1.5 * Math.sqrt(n.building.agencies)
+      : Math.min(30, 6 + 3.5 * Math.sqrt(n.n_enrollments || 1)) * (n.weak ? 0.8 : 1),   // people, companies, addresses: by agencies listed on
+    color: isEnr(n) ? enrColor(n) : n.building ? "#1b5e20" : n.kind === "address" ? "#66bb66" : n.kind === "org" ? "#aa7700" : "#f0a030",
+    opacity: n.building ? 0.85 : n.weak ? 0.45 : 1,
+    halo: n.status === "revoked", labelColor: n.status === "revoked" ? "#a00000" : null, labelBold: n.status === "revoked"};
+}
+function edgeObj(e, i) {
+  return {...e, id: i, color: CAT[e.cat] || "#777", opacity: e.weak ? 0.4 : 0.9,
+    dashed: !!(e.last && e.last < LATEST), width: e.weak ? 1 : 2};
+}
+function roles(e) { return (e.roles || []).join(", "); }
+function roleText(e) { return roles(e).toLowerCase().replace(/w-2/g, "W-2").replace(/(unit|suite) ([\w/ ]+)/g, (m, k, u) => k + " " + u.toUpperCase().replace("NO SUITE", "no suite")).replace(/^./, c => c.toUpperCase()); }
+function spreadDots() {
+  const points = network.nodes.map(n => ({n, x: n.x, y: n.y, radius: n.size}));
+  if (separateDots(points, 12, 80)) for (const p of points) { p.n.x = p.x; p.n.y = p.y; }
+  network.refresh();
+}
+function layoutSpacing() { return +$("spacing").value * 130 / 0.35; }
+function setLayout(on) {
+  animate = on;
+  localStorage.setItem("animate", on ? "1" : "0");
+  $("animate").setAttribute("aria-pressed", String(on));
+  $("animate").textContent = on ? "Freeze layout" : "Animate layout";
+  if (!network) return;
+  if (on) network.startLayout(layoutSpacing());
+  else { network.stopLayout(); spreadDots(); }
+}
+function setSpacing() {
+  const scale = +$("spacing").value;
+  $("spacingname").textContent = scale + "x";
+  if (!network) return;
+  if (animate) { network.startLayout(layoutSpacing()); return; }
+  const ns = network.nodes, count = ns.length || 1;
+  const cx = ns.reduce((v, n) => v + n.homeX, 0) / count, cy = ns.reduce((v, n) => v + n.homeY, 0) / count;
+  for (const n of ns) { n.x = cx + (n.homeX - cx) * scale; n.y = cy + (n.homeY - cy) * scale; }
+  spreadDots();
+}
+const revealed = new Set(), expandedAgencies = new Set();
+function filterGraph() {
+  if (!network || !G) return;
+  const all = $("alltime").checked, dangling = $("dangling").checked, officers = $("officers").checked;
+  const used = new Set(), core = new Set(), expanded = new Set();
+  for (const e of G.edges) {
+    if (!activeAt(e)) continue;
+    used.add(e.from); used.add(e.to);
+    if (["owner", "control", "address"].includes(e.cat)) core.add(e.from);
+    if (expandedAgencies.has(e.to)) expanded.add(e.from);
+  }
+  let hidden = 0;
+  for (const n of network.nodes) {
+    const extra = revealed.has(n.id) || expanded.has(n.id) || find.set.has(n);
+    const joined = n.n_here > 1 || (n.building && n.building.agencies >= 5);
+    n.hidden = !extra && ((!isEnr(n) && (!(joined || dangling || (officers && !core.has(n.id))) || (!core.has(n.id) && !officers))) || (!all && !used.has(n.id)));
+    if (n.hidden) hidden++;
+  }
+  for (const e of network.edges) e.hidden = !activeAt(e) || !!network.nodeById.get(e.from)?.hidden || !!network.nodeById.get(e.to)?.hidden;
+  $("hiddencount").textContent = hidden ? `${hidden} nodes hidden · see Advanced or agency panels` : "";
+  network.refresh(); applyDim(); legendCounts();
+}
+function select(node = null, edge = null) {
+  for (const n of network.nodes) n.highlighted = n === node;
+  for (const e of network.edges) e.highlighted = e === edge;
+  network.refresh();
+  if (current != null && G === cache[current]) setHash(current, node, false);
+  if (node) info(node);
+  else if (edge) edgeInfo(edge);
+  else showList();
+}
+async function show(gid, push = false) {
+  await loadIndex();
+  panelVersion++;
+  current = gid;
+  document.body.dataset.section = "networks";
+  setHash(gid, null, push);
+  const title = String(gid).startsWith("solo-") ? "agency" : "network #" + gid;
+  const wait = cache[gid] ? 0 : setTimeout(() => current === gid && netMsg(`Loading ${title}…`), 150);
+  let d;
+  try { d = await loadGroup(gid); }
+  catch (e) {
+    clearTimeout(wait);
+    if (current === gid) { netMsg(`Could not load ${title}. <button id="netretry">Retry</button>`); $("netretry").onclick = () => show(gid).catch(() => {}); }
+    throw e;
+  }
+  clearTimeout(wait);
+  if (current !== gid) return;
+  netMsg("");
+  G = d;
+  if (!G.maxPaid) G.maxPaid = G.nodes.reduce((max, n) => Math.max(max, n.paid || 0), 1);
+  if (!network) {
+    network = new GraphRenderer($("net"), {tooltip: (kind, obj) => kind === "node"
+      ? `${nice(obj.dba || obj.name || obj.id)} (${{hospice: "hospice", hha: "home health", person: "person", org: "company", address: "address"}[obj.kind] || obj.kind})`
+      : `${roleText(obj)}${obj.cat === "owner" && obj.pct && +obj.pct ? " " + obj.pct + "%" : ""}\n${obj.first ? (obj.first === obj.last ? obj.first : obj.first + " – " + obj.last) : ""}`});
+    network.on("click", ({node, edge}) => select(node, edge));
+  }
+  network.stopLayout();
+  network.hovered = null; network._hideTip();
+  const deg = {};
+  for (const e of G.edges) { deg[e.from] = (deg[e.from] || 0) + 1; deg[e.to] = (deg[e.to] || 0) + 1; }
+  const objs = G.nodes.map(n => nodeObj(n, G.maxPaid, deg[n.id] || 0)), seen = {};
+  for (const o of objs) if (isEnr(o)) seen[o.label] = (seen[o.label] || 0) + 1;
+  for (const o of objs) if (isEnr(o) && seen[o.label] > 1 && o.city) o.label += " · " + nice(o.city);
+  objs.sort((a, b) => (a.status === "revoked") - (b.status === "revoked"));
+  network.setGraph(objs, G.edges.map(edgeObj));
+  filterGraph();
+  // Apply home coordinates and separate dots before any requested animation.
+  const resume = animate; animate = false; setSpacing(); animate = resume;
+  select(); network.fit();
+  updateFind(true);
+  if (animate) network.startLayout(layoutSpacing());
+  renderList();
+}
+let redrawQueued = false;
+const redrawSoon = () => { if (redrawQueued || current == null) return; redrawQueued = true;
+  requestAnimationFrame(() => { redrawQueued = false; filterGraph(); }); };
+
+const sourceLink = (url, text = "source") => url ? `<a class="source" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>` : "";
+function releaseLinks(indexes, urlFor) {
+  return [...(indexes || [])].sort((a, b) => String(INDEX.files?.[a]?.rel || "").localeCompare(String(INDEX.files?.[b]?.rel || "")))
+    .map(i => sourceLink(urlFor(i), INDEX.files?.[i]?.rel || "release")).join(" ");
+}
+function edgeInfo(e) { panelRecords(() => drawEdgeInfo(e)); }
+function drawEdgeInfo(e) {
+  const name = id => { const n = G.byId[id]; return nice(n?.dba || n?.name || id); };
+  const records = (e.recs || []).map(r => {
+    const pages = [...new Set((r.f || []).map(i => datasetUrl(INDEX.files, i)).filter(Boolean))];
+    return `<div class="record"><b>${esc(r.role || (r.addr ? "Address" : roles(e)))}</b>${r.code ? ` (${esc(r.code)})` : ""}
+      ${r.addr ? `<br>${esc(r.addr)}` : ""}
+      ${r.pct != null && r.pct !== "" ? `<br>Ownership: ${esc(r.pct)}%` : ""}
+      ${r.assoc ? `<br>Association date: ${esc(r.assoc)}` : ""}
+      <br>Releases: ${releaseLinks(r.f, i => recordUrl(INDEX.files, i, e, r))}
+      <br>${pages.map(url => sourceLink(url, "dataset page")).join(" ")}</div>`;
+  }).join("");
+  INFO.innerHTML = `<b>${esc(name(e.from))} — ${esc(name(e.to))}</b>` +
+    (records || `<p>${esc(roles(e))}${e.pct ? ` · ${esc(e.pct)}%` : ""}<br>${esc(e.first)} .. ${esc(e.last)}<br><small class="src">${esc(e.src)}</small></p>`) +
+    (records ? '<div class="note">Links open the matching rows in the CMS data API (JSON).</div>' : "");
+}
+
+function info(n) { panelRecords(() => drawInfo(n)); }
+function drawInfo(n) {
+  if (!G.adj) { G.adj = {}; G.edges.forEach(e => { (G.adj[e.from] ||= []).push(e); (G.adj[e.to] ||= []).push(e); }); }
+  const es = G.adj[n.id] || [];
+  const links = es.map(e => { const o = G.byId[e.from === n.id ? e.to : e.from];
+    const st = isEnr(o) ? ` <b style="color:${enrColor(o)}">${o.status === "revoked" ? "revoked " + esc(o.rev_date) : o.status === "active" ? "" : "past"}</b>` : "";
+    const latest = latestRecord(INDEX.files, e);
+    const role = roleText(e);
+    return `<a class="jump" tabindex="0" role="link" data-node="${esc(o.id)}">${esc(nice(o.dba || o.name || o.id))}</a>${st}<br><small class="src">${esc(role)}${e.cat === "owner" && e.pct && +e.pct ? " " + esc(e.pct) + "%" : ""}${e.first ? " · " + esc(e.first === e.last ? e.first : e.first + " – " + e.last) : ""}</small>` +
+      (latest ? sourceLink(recordUrl(INDEX.files, latest.i, e, latest.record), "rows") : `<br><small class="src">${esc(e.src)}</small>`); });
+  const linkList = links.slice(0, 12).map(l => `<div class="linked">${l}</div>`).join("") +
+    (links.length > 12 ? `<details><summary>Show all ${links.length}</summary>${links.slice(12).map(l => `<div class="linked">${l}</div>`).join("")}</details>` : "");
+  const row = (k, v, url) => v == null || v === "" ? "" : `<tr><td style="color:#666;padding-right:6px;vertical-align:top">${esc(k)}</td><td>${v}${sourceLink(url)}</td></tr>`;
+  const pct = v => v == null ? "—" : v + "%";
+  if (isEnr(n)) {
+    const ef = latestFile(INDEX.files, n.ef), enrollment = ef == null ? null : enrollmentUrl(INDEX.files, ef, n.id);
+    const care = careCompareUrl(n), payments = paymentsUrl(INDEX.files, INDEX.ext, n);
+    INFO.innerHTML = `<b style="font-size:14px">${esc(nice(n.name))}</b> <small>(${n.kind === "hha" ? "home health agency" : "hospice"})</small>${sourceLink(enrollment)}${n.dba ? "<br>dba " + esc(nice(n.dba)) + sourceLink(enrollment) : ""}<h3>Summary</h3><table>
+      ${row("Status", n.status === "revoked" ? `<b style="color:${enrColor(n)}">revoked ${esc(n.rev_date)}</b><br>${esc(n.rev_reason)}<br><small class="src">CMS reason text, as published in the CMS Revocation Extract 2026-10-21</small>` : n.status === "active" ? "listed in latest enrollment file; no revocation row found" : esc(n.status) + "<br><small>This does not establish that the agency closed.</small>", n.status === "revoked" ? revocationUrl(INDEX.files, INDEX.ext, n.id) : enrollment)}
+      ${row("Re-enrollment bar", esc(n.rev_bar || (n.status === "revoked" ? "Not supplied in the published field used here; check the CMS row" : "")), revocationUrl(INDEX.files, INDEX.ext, n.id))}
+      ${row("Enrollment / CCN", esc(n.id + " / " + (n.ccn || "—")), enrollment)}
+      ${row("In enrollment file", n.ef?.length ? releaseLinks(n.ef, i => enrollmentUrl(INDEX.files, i, n.id)) : n.first_seen ? esc(n.first_seen + " .. " + n.last_seen) : null)}
+      ${row("Address", esc(nice([n.address, n.city].filter(Boolean).join(", ")) + (n.state ? ", " + n.state : "")), enrollment)}
+      ${row("Phone", esc(n.phone), care)}
+      ${row("Certified", esc(n.certified), care)}
+      ${row("2024 Medicare paid", fmt$(n.paid), payments)}
+      ${row("2024 patients", esc(n.benes_2024), payments)}
+      ${n.paid_prev == null ? "" : row("Medicare paid in " + n.paid_year, fmt$(n.paid_prev) + (n.benes_prev ? " (" + esc(n.benes_prev) + " patients)" : ""),
+          apiUrl(INDEX.files[n.pf], {PRVDR_ID: n.ccn, SMRY_CTGRY: "PROVIDER"}))}
+      ${row("Hospice Care Index", n.hci_score == null ? null : esc(n.hci_score) + " / 10", care)}
+      ${row("Early / late live disch.", n.pct_early_live_discharge == null ? null : esc(pct(n.pct_early_live_discharge) + " / " + pct(n.pct_late_live_discharge)), care)}
+      </table><div id="agency-extra"><small role="status">Loading metrics…</small></div>
+      <h3>Timeline</h3><p class="note">Dates are the first/last CMS release seen, not event dates, unless labelled as an event date. Missing from the latest file does not establish closure.</p>${agencyTimeline(n, es)}
+      <button data-case-toggle="${esc(n.id)}">Add to case</button>
+      <h3>Links (${es.length})</h3><button data-expand="${esc(n.id)}">Show all people on this agency</button>${linkList}
+      <h3>Sources</h3>${sourceLink(enrollment, "Latest enrollment rows")} ${sourceLink(care, "Care Compare")} ${sourceLink(payments, "2024 payments")} ${n.status === "revoked" ? sourceLink(revocationUrl(INDEX.files, INDEX.ext, n.id), "CMS revocation row") : ""}`;
+    fillAgencyExtra(n, panelVersion); window.caseRefresh?.();
+  } else {
+    const other = n.other_networks || [];
+    INFO.innerHTML = `<b style="font-size:14px">${esc(nice(n.name))}</b> <small>(${n.kind === "org" ? "company" : esc(n.kind)})</small>${n.kind === "person" || /^Entity /.test(n.name || "") ? `<br><small class="src">Pseudonymized: the same code stands for the same CMS ID across the whole site.</small>` : ""}
+      ${n.weak ? `<br><i>Weak node (${esc(n.weak_reason)}); shown but not used to join networks.</i>` : ""}
+      ${n.multitenant ? `<br><small class="src">Building checked ${sourceLink(n.multitenant.source, "source")}</small>` : ""}
+      ${n.merged?.length ? `<p><b>Merged spellings</b> <small>(treated as this building; each link below shows the spelling CMS used)</small>:<br>` +
+        n.merged.map(m => `${esc(m.spelling)}<br><small class="src">${esc(m.rule)}; Census geocoder: ${esc(m.census === "not found" ? "neither spelling found (unverified)" : m.census)}</small>`).join("<br>") + "</p>" : ""}
+      ${n.virtual ? `<br><small>Suite numbers written as "Office n" are merged into one executive-suite node.</small>` : ""}
+      ${other.length ? `<br>Also in networks: ${other.map(g => `<a class="jump" tabindex="0" role="link" data-group="${esc(g)}">#${esc(g)}</a>`).join(" ")}` : ""}
+      <p><b>Linked (${es.length} here, ${esc(n.n_enrollments)} enrollments total)</b></p>${linkList}`;
+  }
+}
+$("info").onclick = ev => {
+  const expand = ev.target.closest("[data-expand]");
+  if (expand) { expandedAgencies.add(expand.dataset.expand); filterGraph(); expand.textContent = "All people on this agency shown"; return; }
+  const step = ev.target.closest("[data-step]");
+  if (step) { openPathStep(+step.dataset.step); return; }
+  const entry = ev.target.closest("[data-node], [data-group]");
+  if (!entry) return;
+  if (entry.dataset.group != null) { openCms(+entry.dataset.group, entry.dataset.cms, true).catch(() => {}); return; }
+  const n = network.nodeById.get(entry.dataset.node);
+  if (n) openNode(n.id);
+};
+
+// Open a node from a deep link, un-hiding it if it is a one-link person.
+function openNode(id) {
+  const n = network.nodeById.get(id);
+  if (!n) return;
+  if (n.hidden) { revealed.add(n.id); filterGraph(); }
+  select(n); network.focus(n.id, 1.2, false);
+}
+let routeVersion = 0;
+async function route() {
+  const version = ++routeVersion;
+  if (await tableRoute()) return;
+  document.body.dataset.section = "networks";
+  document.querySelectorAll("#topnav a").forEach(a => a.setAttribute("aria-current", a.hash === "#/networks" ? "page" : "false"));
+  setView("map");
+  try { await loadIndex(); } catch { netMsg('Could not load networks. <button onclick="route()">Retry</button>'); return; }
+  if (version !== routeVersion) return;
+  const {id, node} = parseHash();
+  if (location.hash === "#/networks") {
+    current = null; G = null; network?.stopLayout(); network?.setGraph([], []);
+    showList(); renderList(); setView("list");
+    (window.requestIdleCallback || (fn => setTimeout(fn, 100)))(searchNow);
+    return;
+  }
+  if (!String(id).startsWith("solo-") && !INDEX.groups.some(g => g.id === id)) return;
+  if (id !== current || G !== cache[id]) { try { await show(id); } catch { return; } }
+  if (version !== routeVersion || current !== id) return;
+  if (node) openNode(node); else select();
+  (window.requestIdleCallback || (fn => setTimeout(fn, 100)))(searchNow);
+}
+async function openCms(g, cms, push = false) {
+  await show(g, push);
+  const n = cms && current === g && network.nodes.find(x => x.id === cms);
+  if (n) {
+    if (n.hidden) { revealed.add(n.id); filterGraph(); }
+    select(n); network.focus(n.id);
+  }
+}
+
+function drag(handle, apply) {
+  handle.onpointerdown = ev => {
+    ev.preventDefault(); handle.setPointerCapture(ev.pointerId);
+    handle.onpointermove = m => apply(m);
+    handle.onpointerup = () => { handle.onpointermove = null; network?.refresh();
+      localStorage.setItem("layout", JSON.stringify({w: $("side").style.width})); };
+  };
+}
+drag($("vsplit"), m => $("side").style.width = Math.max(240, m.clientX) + "px");
+try { const l = JSON.parse(localStorage.getItem("layout") || "{}"); if (l.w) $("side").style.width = l.w; } catch {}
+
+(async () => {
+  for (const el of document.querySelectorAll(".lg")) {
+    el.onmouseenter = () => { legendHover = el.dataset.f; applyDim(); };
+    el.onmouseleave = () => { legendHover = null; applyDim(); };
+    el.onclick = () => { legendPin = legendPin === el.dataset.f ? null : el.dataset.f; applyDim(); };
+  }
+  $("back").onclick = () => select();
+  for (const [id, key] of [["legendwrap", "legend"], ["advanced", "advanced"], ["connection", "connection"]]) {
+    const el = $(id); el.open = localStorage.getItem(key) === "1";
+    el.addEventListener("toggle", () => localStorage.setItem(key, el.open ? "1" : "0"));
+  }
+  $("tableback").onclick = () => { if (tableBack) location.hash = tableBack; };
+  for (const el of document.querySelectorAll(".lg")) el.tabIndex = 0;
+  $("tab-list").onclick = () => { setView("list"); };
+  $("tab-map").onclick = () => setView("map");
+  $("zoomin").onclick = () => network?.zoomBy(1.5);
+  $("zoomout").onclick = () => network?.zoomBy(1 / 1.5);
+  $("findnext").onclick = () => stepFind(1);
+  $("findprev").onclick = () => stepFind(-1);
+  [$("state"), $("sort"), $("onlyrev")].forEach(e => e.onchange = renderList);
+  $("q").onfocus = searchNow;
+  $("q").oninput = () => { searchNow(); renderListSoon(); };
+  $("list").onclick = ev => { const d = ev.target.closest(".grp"); if (!d) return;
+    document.querySelectorAll(".grp.sel").forEach(e => e.classList.remove("sel")); d.classList.add("sel"); setView("map"); show(+d.dataset.id, true).catch(() => {}); };
+  $("dangling").onchange = redrawSoon;
+  $("officers").onchange = redrawSoon;
+  setLayout(localStorage.getItem("animate") === "1");
+  $("animate").onclick = () => setLayout(!animate);
+  $("spacing").oninput = setSpacing;
+  $("fit").onclick = () => network?.fit(null, true);
+  document.addEventListener("keydown", ev => {
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target.matches?.(".grp, .jump, .lg")) { ev.preventDefault(); ev.target.click(); return; }
+    if (!network || document.body.dataset.section !== "networks") return;
+    if (ev.key === "Escape") { select(); return; }
+    if (/^(INPUT|SELECT|TEXTAREA)$/.test(ev.target.tagName) || ev.target.isContentEditable) return;
+    if (ev.key.toLowerCase() === "f") { ev.preventDefault(); network.fit(null, true); }
+  });
+  addEventListener("hashchange", route);
+  $("alltime").onchange = () => { $("rel").disabled = $("alltime").checked; redrawSoon(); };
+  $("rel").oninput = () => { $("relname").textContent = INDEX.releases[$("rel").value]; redrawSoon(); };
+  await route();
+})();
+</script>
+</body>
+</html>
