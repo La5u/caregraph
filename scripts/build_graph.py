@@ -253,6 +253,21 @@ for e, ns_ in latest_listed.items():
     latest_listed[e] = {merge_to.get(n, n) for n in ns_}
 print(f"merged {len(merge_to)} CMS IDs into {len(merged_ids)} nodes (same name + same enrollment)")
 
+# Retention (public site only, i.e. when scripts/build_site.py runs this file): a person is published, with all their
+# links, while CMS listed them on any hospice or home health agency in a release from the last RETAIN_YEARS years.
+# People absent from every release in that window are dropped, with their links, before networks are formed.
+RETAIN_YEARS = 6
+if __name__ == "build_graph":
+    _l = dt.date.fromisoformat(LATEST)
+    cutoff = _l.replace(year=_l.year - RETAIN_YEARS, day=min(_l.day, 28)).isoformat()
+    last_seen_person = defaultdict(str)
+    for (n, e), x in links.items():
+        if ntype.get(n) == "I": last_seen_person[n] = max(last_seen_person[n], x["last"])
+    expired = {n for n, last in last_seen_person.items() if last < cutoff}
+    for k in [k for k in links if k[0] in expired]:
+        del links[k]
+    print(f"retention: {len(expired)} people last listed before {cutoff} dropped ({len(last_seen_person)} people)")
+
 # ---------- addresses (hospice and HHA enrollment history) ----------
 addr_links = {}
 for akey, label, e, snap, virt, raw in db.execute(r"""
