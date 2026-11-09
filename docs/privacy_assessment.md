@@ -11,9 +11,9 @@ source or published field, and at least once a year.
 | Controller | Lasu Shin, private individual, France. Contact: lasushin@proton.me |
 | Purpose | Public transparency about who owns and runs Medicare-enrolled hospices and home health agencies, to help the public, journalists, researchers and oversight bodies spot ownership patterns associated with fraud |
 | Legal basis | Legitimate interest, Art. 6(1)(f) (section 2) |
-| People concerned | Individuals listed by CMS as owners, partners, officers, directors or managing employees of U.S. hospices and home health agencies (about 73,000 in the 2023-2026 CMS files); site visitors (network data only) |
-| Data | Per person: a pseudonymous code, role(s), ownership percentage, the agencies listed against them, the CMS release dates they were listed in. No names, CMS IDs, addresses, contact details or dates of birth. No special-category data (Art. 9). No criminal-offence data (Art. 10): revocation reasons citing felonies or exclusions are replaced with "Other grounds; see the CMS record", and indicators apply to agencies, never people |
-| Source | Public U.S. government files: CMS Hospice and Home Health Agency All Owners and Enrollments, CMS Revocation Extract, CMS Post-Acute Care Utilization, Care Compare. Not collected from the people concerned |
+| People concerned | Individuals listed by CMS as owners, partners, officers, directors or managing employees of U.S. hospices and home health agencies (about 73,000 in the 2023-2026 CMS files, 67,748 of them on the site as built 2026-11-09); site visitors (network data only) |
+| Data | Per person: a pseudonymous code, role(s), ownership percentage, the agencies listed against them, the association date CMS reports, the CMS release dates they were listed in. No names, CMS IDs, addresses, contact details or dates of birth. No special-category data (Art. 9). No criminal-offence data (Art. 10): revocation reasons citing felonies or exclusions are replaced with "Other grounds; see the CMS record", and indicators apply to agencies, never people |
+| Source | Public U.S. government files: CMS Hospice and Home Health Agency All Owners and Enrollments, CMS Revocation Extract, CMS Post-Acute Care Utilization, Care Compare, NPPES (agency records only). Not collected from the people concerned |
 | Recipients | The public (anyone visiting the site). Processor: Cloudflare, Inc. (hosting and delivery) |
 | Transfers | Cloudflare, Inc., USA: EU-U.S. Data Privacy Framework certification and the standard contractual clauses in Cloudflare's data processing addendum |
 | Retention | A person is published while CMS lists them on any agency in a release from the last six years (`RETAIN_YEARS` in `scripts/build_graph.py`); each update replaces the previous one, and old deployments are deleted. Removal requests are kept in a local suppression list for as long as the site exists, so removed entries stay removed |
@@ -34,8 +34,13 @@ It does not need names, so people are pseudonymized. Less intrusive alternatives
 - Per-agency random codes: hides that one person is behind several agencies. Rejected.
 - Same code across agencies, no names (chosen): keeps the connections, removes direct identification.
 
-Re-identification remains possible by looking an agency up in the public CMS file. The site does not facilitate it:
-no names, no CMS IDs, no search by name, and data files are excluded from search engines.
+Re-identification remains possible, and the site does not prevent it: each source record links to the agency's rows in
+the CMS data API, which show the names of everyone listed on that agency. For an agency with one listed owner, that is
+one click from code to name. These links are kept deliberately, because investigators, journalists and the people
+concerned must be able to check every link against the source, and a claim that cannot be checked is itself an accuracy
+risk (Art. 5(1)(d)). They are filtered by enrollment, never by person. What pseudonymization does achieve: nobody can
+search the site by name, names and CMS IDs are not on the site, and neither pages nor data files are indexed by search
+engines, so a person's name does not lead to the site.
 
 **Balance.**
 
@@ -57,7 +62,12 @@ public-interest purpose is not overridden by the interests or rights of the peop
 
 **Why one was done.** Two of the EDPB/CNIL criteria apply: datasets matched and combined (quarterly owner, enrollment,
 payment and revocation files), and large scale (tens of thousands of people). Evaluation or scoring applies only to
-agencies, not people.
+agencies, not people. Tracking listings quarterly may also count as systematic monitoring, which is a further reason.
+
+**Data protection officer (Art. 37).** Not appointed. The controller is not a public body, and the site republishes
+filed business roles; it does not observe people's behaviour. If that reading changes, Art. 37(1)(b) must be revisited.
+
+**Journalism exemption (Art. 85).** Not relied on; this assessment applies the GDPR in full.
 
 **Processing.** Public CMS files are downloaded and loaded into a local DuckDB database. Agencies are linked by shared
 owner or managing-employee IDs and shared building addresses. People are replaced by keyed codes, then a static site
@@ -69,13 +79,27 @@ at https://github.com/La5u/caregraph; the data and the key are not.
 | Risk | Likelihood / severity before | Measures | Residual |
 |---|---|---|---|
 | Person wrongly perceived as a fraudster through an agency link | Possible / significant | Pseudonymization; indicators on agencies only; neutral wording ("indicator", never "fraud" or "suspicious" about an agency); disclaimers in indicator panels, About and exports; revocations described as appealable administrative actions | Low |
-| Re-identification by combining with the CMS file | Likely for a determined visitor / limited (the same data is already public with names at CMS) | No names, no IDs, no search by name; no search-engine indexing of data; codes not reversible without the key | Accepted: inherent to keeping connections |
+| Re-identification through the CMS file | Likely for anyone following a source link / limited (the same data is already public with names at CMS) | No names, no IDs, no search by name; no search-engine indexing; codes not reversible without the key; source links filtered by enrollment, not person | Accepted: verifiable sources and connections require it |
+| Identifying agency details (a small agency's practice address may be its owner's home; surnames in business names) | Possible / limited | Only details CMS publishes about the enrollment; agencies whose name contains the full name of a person listed on them are shown under a trade or generic name; About says an address may be a residence. Surname-only business names (about 270) are kept as the agency's public trading identity | Accepted |
 | Wrong links (two people merged, address merged wrongly) | Possible / significant | IDs merged only with same full name on a shared agency; address merges recorded with reason and Census check; corrections address | Low |
 | Exposure of criminal-offence data | Possible / severe | Felony and exclusion reasons removed; publication check fails on any such text | Low |
 | Leak of real names (sole proprietorships, trusts, estates) | Possible / significant | Agencies named after a listed person shown under a trade name; person-revealing companies coded as "Entity"; publication check scans every published file for every owner name | Low |
 | Key compromise (codes linkable to CMS IDs by brute force over IDs) | Unlikely / limited | Key never in any repository or deployment; mode 600; rotation possible (changes all codes) | Low |
-| Old copies after an update or removal | Possible / limited | Previous Cloudflare deployments deleted after each update; site not archived (checked 2026-11-09) | Low |
+| Old copies after an update or removal | Possible / limited | Previous Cloudflare deployments deleted after each update and Cloudflare cache purged after a removal; site not archived (checked 2026-11-09). Versioned files may remain in a past visitor's own browser cache for up to a year, outside the controller's reach | Low |
 | Visitor data | Unlikely / minimal | No cookies, analytics or third-party requests; case notes stay in the visitor's browser | Minimal |
 
-**Conclusion.** Residual risks are low or accepted with justification; prior consultation with the CNIL (Art. 36) is not
+## 4. Handling requests
+
+1. A request may give a code, or a name and an agency. For a name, open the agency in the local database, then find the
+   person's code on that agency's site panel by role, percentage and date. Ask for identity documents only if there is
+   reasonable doubt that the requester is the person listed (Art. 12(6)), and delete them after the check.
+2. Reply within one month. Under Art. 14(5)(b) people are informed through the published notice, because CMS publishes
+   no contact details for them.
+3. Removal or objection: add the code, enrollment ID or CCN to `data/suppress.txt`, rebuild, run `scripts/site_sanity.py`,
+   deploy, delete the previous deployment and purge the Cloudflare cache.
+4. Errors in the source file are for CMS (PECOS); errors from matching are corrected here.
+
+## 5. Conclusion
+
+Residual risks are low or accepted with justification; prior consultation with the CNIL (Art. 36) is not
 required. Review when published fields, data sources or indicators change.
