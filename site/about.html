@@ -84,12 +84,12 @@ CMS data</a> before relying on it.</p>
   <li>CMS Post-Acute Care Utilization by Provider, CY2024 (payments, patients; for agencies without 2024 claims, the latest of CY2021-2023 is shown with its year):
     <a href="https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-hospice-by-geography-and-provider">hospice</a>,
     <a href="https://data.cms.gov/provider-summary-by-type-of-service/medicare-post-acute-care-hospice/medicare-post-acute-care-utilization-home-health-agency-by-geography-and-provider">home health</a></li>
-  <li><a href="https://data.cms.gov/provider-data/topics/hospice-care">CMS Care Compare hospice data</a> (phone, certification date, Hospice Care Index, live discharges), Aug 2026</li>
+  <li><a href="https://data.cms.gov/provider-data/topics/hospice-care">CMS Care Compare hospice data</a> (certification date, Hospice Care Index, live discharges), Aug 2026</li>
   <li><a href="https://npiregistry.cms.hhs.gov/">NPPES NPI Registry</a> (authorized official), Oct 2026</li>
 </ul>
 <p>All sources are public U.S. government data. Every link lists the CMS records behind it: one entry per distinct row
 (role, ownership %, association date), with every quarterly release it appears in. Each release links to the matching
-rows in the CMS data API (JSON), filtered by enrollment ID and associate ID. Agency fields link to their public source:
+rows in the CMS data API (JSON), filtered by enrollment ID, so anyone can check them at the source. Those CMS rows show the names of everyone listed on the agency. Agency fields link to their public source:
 the Care Compare page for the CCN, the NPPES page for the NPI, the revocation row, and the payment row.
 The data may contain errors from the source files or from address and ID matching. A missing "revoked" marker does not mean an agency
 was never sanctioned: only the CMS Revocation Extract is checked.</p>
@@ -142,13 +142,13 @@ Care and Hospice file by provider (2024) and Care Compare hospice measures (2023
 <p><b>Who is responsible.</b> This site is published by <a href="https://lasu.dev/">Lasu Shin</a>, a data scientist
 in France, acting as a private individual and as the controller for the personal data it contains. Contact: <a href="mailto:lasushin@proton.me">lasushin@proton.me</a>.</p>
 <p><b>What personal data, and from where.</b> Pseudonymized records of people listed in the public CMS Hospice and Home Health
-Agency All Owners files (their role on an agency, ownership percentage, and the CMS release dates they were listed in).
-No names, CMS IDs, contact details or other identifiers of people are published. The data is not collected from the people concerned.</p>
+Agency All Owners files (their role on an agency, ownership percentage, the association date CMS reports, and the CMS release dates they were listed in).
+No names, CMS IDs, contact details or other identifiers of people are published. The data is not collected from the people concerned. Agencies are shown with the name and practice address CMS publishes for them; for a small agency these can relate to its owner. Phone numbers are not shown. Because CMS publishes no contact details for these people, they are not told individually; this notice informs them (Article 14(5)(b) GDPR).</p>
 <p><b>Why, and on what basis.</b> To help the public, journalists and oversight bodies understand who owns and runs Medicare
 hospices and home health agencies, a sector with documented problems of hidden ownership. The legal basis is legitimate
 interest (Article 6(1)(f) GDPR), limited by pseudonymization, by leaving out people's names and identifiers, and by keeping the
 site out of search engines.</p>
-<p><b>Who receives it.</b> Anyone who visits the site. The site sets no cookies, uses no analytics and makes no third-party requests.
+<p><b>Who receives it.</b> Anyone who visits the site. The site sets no cookies, uses no analytics and loads nothing from third parties; Cloudflare, its host, may receive network error reports from browsers.
 Your browser's local storage keeps only your display choices and any case notes you make; they never leave your browser.</p>
 <p><b>Hosting.</b> Cloudflare, Inc. (101 Townsend St, San Francisco, CA 94107, USA, +1 650 319 8930) hosts and delivers the
 whole site, and processes visitors' network data (such as IP addresses) to do so, as a processor under its data processing

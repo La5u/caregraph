@@ -73,6 +73,12 @@ const delay=()=>new Promise(r=>setTimeout(r,20));
   // Selecting an agency uses the same hydrated row sources and builds the requested sections.
   vm.runInContext('select(network.nodeById.get("O1"))',context);
   for(const text of ['Summary','Timeline','Sources','Show all people on this agency']) assert(ids.get('infobody').innerHTML.includes(text),text);
+  assert(ids.get('infobody').innerHTML.includes('data-export="O1"'));
+  vm.runInContext('downloadFile=(t,ty,n)=>{globalThis.dl={t,n}}',context);   // the export is a pure text build plus one download
+  ids.get('info').onclick({target:{closest:s=>s==='[data-export]'?{dataset:{export:'O1'}}:null}});
+  assert.equal(context.dl.n,'caregraph-O1.md'); assert(context.dl.t.startsWith('# Alpha Care')); assert(context.dl.t.includes('## Connections (1)')); assert(context.dl.t.includes('Person One'));
+  vm.runInContext('select(network.nodeById.get("I1@1"))',context);
+  assert(ids.get('infobody').innerHTML.includes('data-export="I1@1"'));
   ids.get('q').value = 'PERSON'; vm.runInContext('renderList()',context);
   assert(ids.get('list').innerHTML.includes('Loading search'));
   holdSearch=false; searchResolve(); await delay();

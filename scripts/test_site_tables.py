@@ -13,7 +13,7 @@ class PublicTables(unittest.TestCase):
         self.files += [{"ds": "Hospice All Owners", "rel": d} for d in ("2024-01-01", "2024-07-01")]
         self.files += [{"ds": "Revoked Medicare Providers and Suppliers", "rel": "2024-10-01"}]
         self.enr = {
-            "O1": {"id": "O1", "name": "A CARE", "kind": "hospice", "state": "CA", "status": "active", "ef": [0, 1, 2], "paid": 50, "carrier": ["never publish"], "official_phone": "never publish"},
+            "O1": {"id": "O1", "name": "A CARE", "kind": "hospice", "state": "CA", "status": "active", "ef": [0, 1, 2], "paid": 50, "carrier": ["never publish"], "phone": "5551234567", "official_phone": "never publish"},
             "O2": {"id": "O2", "name": "B CARE", "kind": "hospice", "state": "CA", "status": "revoked", "ef": [1], "paid": 20, "rev_date": "2024-05-02"}}
         self.names = {"I1": "FIRST PERSON", "O9": "COMPANY", "a1": "1 MAIN ST", "a2": "2 MAIN ST"}
         self.links = {
@@ -50,7 +50,7 @@ class PublicTables(unittest.TestCase):
         result = make_catalog(graph, self.files, {"O1": 1, "O2": "solo-O2"}, ind)
         self.assertEqual(result["tables"]["indicator_counts"], {"new_biller": 1})
         self.assertFalse(any("ind" in n for n in result["agencies"]))
-        self.assertFalse(any("carrier" in n or "official_phone" in n for n in result["agencies"]))
+        self.assertFalse(any("carrier" in n or "official_phone" in n or "phone" in n for n in result["agencies"]))
         address = result["addresses"][0]
         self.assertEqual((address["ever"], address["current"], address["revoked"], address["paid"]), (2, 0, 1, 70))
         self.assertEqual(address["flags"], ["Multi-tenant checked", "Executive suite"])

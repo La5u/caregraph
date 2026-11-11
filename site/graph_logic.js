@@ -161,7 +161,50 @@ function edgeInRelease(edge, files, release) {
     : edge.first <= release && release <= edge.last;
 }
 
+// Positions for neighbours gathered around a centre in non-touching rings (ported from the sibling viewer).
+// centre {x, y, radius}; neighbours [{id, radius}] -> [{id, x, y}]; ring spacing keeps `gap` between dot edges.
+function ringPositions(center, neighbors, gap = 20) {
+  if (!neighbors.length) return [];
+  const largest = Math.max(...neighbors.map(n => n.radius)), pitch = 2 * largest + gap;
+  let ring = center.radius + largest + gap, index = 0;
+  const out = [];
+  while (index < neighbors.length) {
+    // Chord spacing keeps neighbouring dots on one ring from touching.
+    const capacity = Math.max(1, Math.floor(Math.PI / Math.asin(Math.min(1, pitch / (2 * ring)))));
+    const count = Math.min(capacity, neighbors.length - index);
+    for (let slot = 0; slot < count; slot++) {
+      const angle = -Math.PI / 2 + slot * 2 * Math.PI / count;
+      out.push({id: neighbors[index++].id, x: center.x + ring * Math.cos(angle), y: center.y + ring * Math.sin(angle)});
+    }
+    ring += pitch;
+  }
+  return out;
+}
+
+// Markdown text for one node. Pure: index.html passes what the panel already shows.
+// d: {name, kind, date, dataDate, notes[], facts[{label, value, url}], timeline[{date, label, url}],
+//     connections[{name, agency, status, role, pct, first, last, rows[{label, url}], src}]}
+const mdText = v => String(v ?? "").replace(/\s+/g, " ").trim().replace(/[\\`*_\[\]<>|~]/g, "\\$&");
+const mdUrl = u => typeof u === "string" && u.startsWith("https://") ? " <" + u.replace(/[<>\s]/g, encodeURIComponent) + ">" : "";
+function nodeMarkdown(d) {
+  const out = ["# " + mdText(d.name), "",
+    `${mdText(d.kind)} · exported ${d.date} from CareGraph (public CMS records, data as of ${mdText(d.dataDate)}).`, "",
+    "Links are listings in CMS records, not evidence of a current relationship, common control or wrongdoing. Check each source row.", ""];
+  for (const note of d.notes || []) out.push(mdText(note), "");
+  if ((d.facts || []).length) out.push("## Summary", "", ...d.facts.map(f => `- ${mdText(f.label)}: ${mdText(f.value)}${mdUrl(f.url)}`), "");
+  if ((d.timeline || []).length) out.push("## Timeline", "", ...d.timeline.map(t => `- ${mdText(t.date)} · ${mdText(t.label)}${mdUrl(t.url)}`), "");
+  const links = [...d.connections || []].sort((a, b) => !!b.agency - !!a.agency || String(a.name).localeCompare(String(b.name)));
+  out.push(`## Connections (${links.length})`, "");
+  for (const c of links) {
+    const dates = c.first ? (c.first === c.last ? c.first : c.first + " – " + (c.last || "?")) : "";
+    const parts = [mdText(c.role), c.pct ? mdText(c.pct) + "%" : "", mdText(dates),
+      c.rows?.length ? "rows: " + c.rows.map(r => mdText(r.label) + mdUrl(r.url)).join("; ") : c.src ? mdText(c.src) : ""].filter(Boolean);
+    out.push(`- ${mdText(c.name)}${c.status ? " (" + mdText(c.status) + ")" : ""}${parts.length ? " — " + parts.join(" — ") : ""}`);
+  }
+  return out.join("\n") + "\n";
+}
+
 if (typeof module !== "undefined") {
   module.exports = {shardKey, shardPath, apiUrl, enrollmentUrl, recordUrl, revocationUrl, paymentsUrl, careCompareUrl, nppesUrl,
-    datasetUrl, latestFile, latestRecord, separateDots, buildAdjacency, shortestPath, matchNames, compareTableValues, csvRows, edgeInRelease, timelineDateKey};
+    datasetUrl, latestFile, latestRecord, separateDots, buildAdjacency, shortestPath, matchNames, compareTableValues, csvRows, edgeInRelease, timelineDateKey, ringPositions, nodeMarkdown};
 }

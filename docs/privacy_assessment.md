@@ -64,8 +64,22 @@ public-interest purpose is not overridden by the interests or rights of the peop
 payment and revocation files), and large scale (tens of thousands of people). Evaluation or scoring applies only to
 agencies, not people. Tracking listings quarterly may also count as systematic monitoring, which is a further reason.
 
-**Data protection officer (Art. 37).** Not appointed. The controller is not a public body, and the site republishes
-filed business roles; it does not observe people's behaviour. If that reading changes, Art. 37(1)(b) must be revisited.
+**Data protection officer (Art. 37).** Not appointed. The controller is not a public body (Art. 37(1)(a)) and
+publishes no special-category or offence data (Art. 37(1)(c)). Art. 37(1)(b) requires a DPO where core activities
+consist of regular and systematic monitoring of people on a large scale. The scale is large, but the processing is not
+monitoring in the sense of the EDPB guidelines on DPOs (WP 243), whose examples are tracking and profiling of behaviour
+(location tracking, behavioural advertising, loyalty programmes, fitness devices):
+
+- The site observes nothing about what a person does. It republishes registry entries that the people concerned filed
+  with CMS themselves (a role on an agency, a percentage, a date).
+- It collects nothing of its own. Updates follow the quarterly publication of the source and only replace one copy of
+  the registry with the next.
+- It builds no profile of a person: no score, indicator or ranking applies to people, and nobody can be looked up by
+  name.
+
+The quarterly comparison of releases is the closest point to monitoring, and it records changes in filings, not
+behaviour. A DPO must be appointed if the site ever adds person-level indicators, name search, or data about people from
+sources other than the CMS registry files.
 
 **Journalism exemption (Art. 85).** Not relied on; this assessment applies the GDPR in full.
 
@@ -80,7 +94,7 @@ at https://github.com/La5u/caregraph; the data and the key are not.
 |---|---|---|---|
 | Person wrongly perceived as a fraudster through an agency link | Possible / significant | Pseudonymization; indicators on agencies only; neutral wording ("indicator", never "fraud" or "suspicious" about an agency); disclaimers in indicator panels, About and exports; revocations described as appealable administrative actions | Low |
 | Re-identification through the CMS file | Likely for anyone following a source link / limited (the same data is already public with names at CMS) | No names, no IDs, no search by name; no search-engine indexing; codes not reversible without the key; source links filtered by enrollment, not person | Accepted: verifiable sources and connections require it |
-| Identifying agency details (a small agency's practice address may be its owner's home; surnames in business names) | Possible / limited | Only details CMS publishes about the enrollment; agencies whose name contains the full name of a person listed on them are shown under a trade or generic name; About says an address may be a residence. Surname-only business names (about 270) are kept as the agency's public trading identity | Accepted |
+| Identifying agency details (a small agency's practice address may be its owner's home; surnames in business names) | Possible / limited | Only details CMS publishes about the enrollment; agency phone numbers are not published (a small agency's number may be its owner's personal one); agencies whose name contains the full name of a person listed on them are shown under a trade or generic name; About says an address may be a residence. Surname-only business names (about 270) are kept as the agency's public trading identity | Accepted |
 | Wrong links (two people merged, address merged wrongly) | Possible / significant | IDs merged only with same full name on a shared agency; address merges recorded with reason and Census check; corrections address | Low |
 | Exposure of criminal-offence data | Possible / severe | Felony and exclusion reasons removed; publication check fails on any such text | Low |
 | Leak of real names (sole proprietorships, trusts, estates) | Possible / significant | Agencies named after a listed person shown under a trade name; person-revealing companies coded as "Entity"; publication check scans every published file for every owner name | Low |

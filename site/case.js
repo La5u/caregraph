@@ -65,8 +65,10 @@ async function caseRecord(r) {
   }
   return out;
 }
-const CASE_DISCLAIMER = "Public CMS records. A link, a metric or an indicator is not evidence of wrongdoing. " + IND_SENTENCE +
-  " People are shown as pseudonymous codes. Revocations are CMS administrative actions; they can be appealed and are not findings against any person listed.";
+// A private build (scripts/build_site.py --private) marks <body data-private> and shows real names.
+const caseDisclaimer = () => "Public CMS records. A link, a metric or an indicator is not evidence of wrongdoing. " + IND_SENTENCE +
+  (document.body?.dataset?.private != null ? " Private local build: people are shown by the names CMS lists." : " People are shown as pseudonymous codes.") +
+  " Revocations are CMS administrative actions; they can be appealed and are not findings against any person listed.";
 
 async function caseCSV() {
   const recs = await Promise.all((await caseRows()).map(caseRecord));
@@ -77,7 +79,7 @@ async function caseCSV() {
     lines.push([a.id, a.name, a.dba, a.kind, a.city, a.state, a.ccn, agencyStatus(a), a.paid, a.benes_2024, a.group,
       c.links.map(l => `${l.other} (${l.roles}${l.pct ? " " + l.pct + "%" : ""}, ${l.first}-${l.last})`).join("; "),
       c.metrics.map(m => `${m.label}: ${m.value} (p${m.pct})`).join("; "),
-      c.indicators.map(i => i.label).join("; "), c.notAssessed.join("; "), MARKS[c.note.mark || ""], c.note.note || "", CASE_DISCLAIMER]);
+      c.indicators.map(i => i.label).join("; "), c.notAssessed.join("; "), MARKS[c.note.mark || ""], c.note.note || "", caseDisclaimer()]);
   }
   downloadFile("\ufeff" + csvRows(lines), "text/csv;charset=utf-8", "caregraph-case.csv");
 }
@@ -94,7 +96,7 @@ async function casePrint() {
     </section>`; }).join("");
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>CareGraph case</title><style>body{font:12px/1.4 system-ui,sans-serif;margin:20px}section{break-inside:avoid-page;border-top:1px solid #999;margin-top:12px}small{color:#555;word-break:break-all}td{padding:1px 8px 1px 0}</style></head><body>
     <h1>CareGraph case</h1><p>Printed ${esc(new Date().toISOString().slice(0, 10))} from caregraph.lasu.dev. Data: CMS enrollment and owner files to ${esc(LATEST || "")}, CMS payments 2024, Care Compare 2023-24.</p>
-    <p><b>${esc(CASE_DISCLAIMER)}</b></p>${body}</body></html>`;
+    <p><b>${esc(caseDisclaimer())}</b></p>${body}</body></html>`;
   const frame = document.createElement("iframe");
   frame.style.cssText = "position:fixed;width:0;height:0;border:0;right:0;bottom:0";
   document.body.append(frame);
@@ -120,7 +122,7 @@ const caseRun = fn => () => { $("casestatus").textContent = "Preparing…";
 
 addEventListener("DOMContentLoaded", () => {
   document.body.insertAdjacentHTML("beforeend", `<button id="casebtn" hidden></button>
-    <details id="casetray"><summary>Case</summary><p class="note">Stays in this browser only; not in shared links. People appear as codes.</p>
+    <details id="casetray"><summary>Case</summary><p class="note">Stays in this browser only; not in shared links. ${document.body.dataset.private != null ? "Private local build: real names." : "People appear as codes."}</p>
     <div id="casebody"></div><div class="caseactions"><button id="casecsv">Export CSV</button> <button id="caseprint">Print / PDF</button>
     <button id="casenotesout">Export notes</button> <label class="filebtn">Import notes <input id="casenotesin" type="file" accept="application/json,.json" hidden></label></div>
     <div id="casestatus" class="note" role="status"></div></details>`);

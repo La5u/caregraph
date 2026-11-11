@@ -1,5 +1,6 @@
 """Offline browser checks of site/dist; run ONLY under the requested memory cap:
-  systemd-run --user --scope -p MemoryMax=1500M -p MemorySwapMax=0 /usr/bin/python3 -P scripts/site_smoke.py
+  systemd-run --user --scope -p MemoryMax=1500M -p MemorySwapMax=0 /usr/bin/python3 -P scripts/site_smoke.py [--dist DIR] [network ids]
+--dist private/site_dist checks the private build (scripts/build_site.py --private) instead of site/dist.
 No third-party requests are allowed. Chromium is always headless and must use a real GPU.
 """
 import functools
@@ -16,8 +17,12 @@ from urllib.parse import quote, urlparse
 
 from playwright.sync_api import sync_playwright
 
+args = sys.argv[1:]
 dist = Path(__file__).resolve().parent.parent / "site" / "dist"
-ids = [int(a) for a in sys.argv[1:]] or [1, 2, 50, 500]
+if "--dist" in args:
+    k = args.index("--dist"); dist = Path(args[k + 1]).resolve(); del args[k:k + 2]
+PRIVATE = (dist / "PRIVATE_DO_NOT_DEPLOY.txt").is_file()
+ids = [int(a) for a in args] or [1, 2, 50, 500]
 handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(dist))
 http.server.SimpleHTTPRequestHandler.log_message = lambda *a: None
 server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
@@ -67,6 +72,9 @@ try:
         page.goto(base)
         wait_table(page)
         assert page.locator("body").get_attribute("data-section") == "agencies"
+        # The private build is marked on every view; the public page has no marker at all.
+        assert (page.locator("body").get_attribute("data-private") is not None) == PRIVATE
+        assert page.locator("#private-badge").count() == PRIVATE and (not PRIVATE or page.locator("#private-badge").is_visible())
         assert page.locator("#table-results tbody > tr").count() <= 100
         initial = {"index.html"} | {p.lstrip("/") for p in requests if p.endswith((".json", ".js"))}
         assert all(re.search(r"/[a-f0-9]{20}/", p) for p in requests if p.endswith(".json"))
@@ -113,16 +121,30 @@ try:
             wait_panel(page)
             node_sources = page.locator('#infobody a[href^="http"]').count()
             assert node_sources > 0
+            with page.expect_download() as export:
+                page.click('#infobody [data-export]')
+            assert export.value.suggested_filename.startswith("caregraph-") and export.value.suggested_filename.endswith(".md")
             page.evaluate("() => select(null, network.edges.find(e => !e.hidden))")
             wait_panel(page)
             edge_sources = page.locator('#infobody a[href*="data-api"]').count()
             assert edge_sources > 0
+            # Double-click a dot: its shown neighbours ring it, the dot stays, the layout is frozen.
+            spot = page.evaluate("""() => { const n = network.nodes.find(n => !n.hidden && isEnr(n) && network.edges.some(e => !e.hidden && (e.from === n.id || e.to === n.id)));
+              const r = network.canvas.getBoundingClientRect(), p = network.worldToScreen(n.x, n.y); return {id: n.id, x: r.left + p.x, y: r.top + p.y, wx: n.x, wy: n.y}; }""")
+            page.mouse.dblclick(spot["x"], spot["y"])
+            after = page.evaluate("id => { const n = network.nodeById.get(id); return {x: n.x, y: n.y, msg: document.getElementById('netmsg').textContent}; }", spot["id"])
+            assert after["msg"].startswith(("Gathered", "No ")) and (after["x"], after["y"]) == (spot["wx"], spot["wy"]), (gid, after)
+            assert page.locator("#animate").get_attribute("aria-pressed") == "false"
             print(f"#{gid}: {ov['visible']} dots, no overlaps; {node_sources} node / {edge_sources} edge sources; {time.time() - t0:.2f}s; GPU {renderer}")
         # A hidden officer / one-link node must be revealed by a deep link.
         node = page.evaluate("() => network.nodes.find(n => n.hidden)?.id || network.nodes.find(n => n.kind === 'person').id")
         page.goto("about:blank"); page.goto(f"{base}#{ids[-1]}/{quote(node, safe='')}")
         page.wait_for_function("id => network && network.nodes.some(n => n.id === id && n.highlighted && !n.hidden)", arg=node)
         wait_panel(page)
+        if PRIVATE:
+            person = page.evaluate("() => { const n = network.nodes.find(n => n.kind === 'person'); select(n); return n.name; }")
+            wait_panel(page)
+            assert not person.startswith(("Person ", "Entity ")) and "Pseudonymized" not in page.locator("#infobody").inner_text(), person
         assert not page.locator("#legendwrap").evaluate("el => el.open")
         assert not page.locator("#advanced").evaluate("el => el.open")
         # Fail a record download once, then use the visible Retry.
@@ -167,6 +189,6 @@ try:
         assert not external, external
         assert not errors, errors
         browser.close()
-        print("site_smoke: passed")
+        print(f"site_smoke: passed ({dist}{', private build' if PRIVATE else ''})")
 finally:
     server.shutdown()

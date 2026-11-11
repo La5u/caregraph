@@ -1,6 +1,8 @@
-"""Build the public static site (site/dist/) from the same data as scripts/build_graph.py.
+"""Build both CareGraph sites from the same data as scripts/build_graph.py:
+  - private/site_dist/: the private real-name site for local investigation (gitignored, never deployed);
+  - site/dist/: the public pseudonymized site, the only directory that is ever deployed.
 
-Differences from out/graph.html:
+Differences of the public site from out/graph.html:
   - Only whitelisted fields from public CMS files are published. Derived flags are dropped: "carrier",
     LEIE name-only matches, same-name/different-ID links, CMS beneficiary risk score, NPPES official phone.
   - Node positions are precomputed (a numpy port of the original page's vis-network physics), so the page opens
@@ -11,7 +13,14 @@ Differences from out/graph.html:
   - Data is split into content-versioned table, network, search, path and record files,
     loaded on demand, so the page stays small.
 
-Usage: .venv/bin/python -I scripts/build_site.py [project_dir]
+Usage: .venv/bin/python -I scripts/build_site.py [--private | --public] [project_dir]
+
+No flag: builds the private site, then the public site, each in its own child process run one after the other (the
+build mutates the graph in place and memory is tight); stops with a non-zero exit if either fails.
+--private: only private/site_dist/ (never site/dist). It skips the publication boundary below (person/entity tokens,
+agency renaming, revocation reason rewriting, record name stripping, data/suppress.txt), so it shows the real names and
+IDs the private graph has, and marks the page as private.
+--public: only site/dist/, with the publication boundary applied.
 """
 import gc
 import csv
@@ -25,6 +34,17 @@ import sys
 import subprocess
 from collections import defaultdict
 from pathlib import Path
+
+MODES = [a for a in sys.argv[1:] if a in ("--private", "--public")]
+if len(MODES) > 1:
+    raise SystemExit("Use at most one of --private / --public")
+if not MODES:   # both, private first; each child exits (and frees its memory) before the next starts
+    for mode in ("--private", "--public"):
+        if subprocess.run([sys.executable, "-I", __file__, mode, *sys.argv[1:]]).returncode:
+            raise SystemExit(f"build_site.py {mode} failed")
+    raise SystemExit(0)
+PRIVATE = MODES[0] == "--private"
+sys.argv.remove(MODES[0])   # build_graph.py, run below with this sys.argv, reads sys.argv[1] as the project dir
 
 import igraph
 import numpy as np
@@ -43,8 +63,8 @@ graph = runpy.run_path(str(root / "scripts" / "build_graph.py"), run_name="build
 data = graph["data"]
 
 ENR_KEEP = ["id", "kind", "name", "dba", "state", "city", "ccn", "address", "first_seen", "last_seen", "status",
-            "rev_date", "rev_reason", "benes_2024", "paid", "phone",
-            "certified", "benes_prev", "paid_prev", "paid_year", "pf", "hci_score", "pct_early_live_discharge", "pct_late_live_discharge", "group", "npi", "ef", "rev_bar"]
+            "rev_date", "rev_reason", "benes_2024", "paid",
+            "certified", "benes_prev", "paid_prev", "paid_year", "pf", "hci_score", "pct_early_live_discharge", "pct_late_live_discharge", "group", "npi", "ef", "rev_bar"] + (["phone"] if PRIVATE else [])   # a small agency's phone is often its owner's mobile: private build only
 OTHER_KEEP = ["id", "kind", "name", "group", "weak", "weak_reason", "n_enrollments", "n_here", "building",
               "other_networks", "virtual", "merged", "multitenant"]
 EDGE_KEEP = ["from", "to", "roles", "cat", "first", "last", "pct", "weak", "recs"]
@@ -105,82 +125,94 @@ for (key, eid), link in graph["links"].items():
                        "weak": (key, eid) not in graph["joins"],
                        "recs": graph["recs_of"](link["recs"])})
 # Publication boundary: graph construction and its canonical merge keys stay private and unchanged.
-name_index, individual_ids, org_names, individual_orgs = helpers["owner_identities"](graph["db"])
-secret = helpers["person_secret"]()
-private_keys = {key for key, typ in graph["ntype"].items() if typ == "I"}
-org_keys = {key for key, typ in graph["ntype"].items() if typ == "O" and
-            helpers["person_like"](graph["names"][key], name_index, individual_orgs)}
-# Check every historic spelling, including names hidden by the private graph's display-name choice.
-for (key, eid), link in graph["links"].items():
-    if graph["ntype"][key] == "O" and any(helpers["person_like"](r[5], name_index, individual_orgs) for r in link["recs"]):
-        org_keys.add(key)
-private_keys |= org_keys
-tokens = {key: helpers["public_token"](key, secret) for key in private_keys}
-assert len(set(tokens.values())) == len(tokens), "Public person/entity token collision"
-assert not set(tokens.values()).intersection(graph["enr"]), "Token/enrollment collision"
-public_names = {key: ("Entity " if key in org_keys else "Person ") + token for key, token in tokens.items()}
-print(f"Person-like organizations tokenized: {len(org_keys)}; sample: " +
-      repr([graph["names"][k] for k in sorted(org_keys)[:10]]))
-print("Agency names containing a listed person's full name:", sum(
-    any(helpers["contains_name"](n.get(f), name_index) for f in ("name", "dba")) for n in graph["enr"].values()))
-# A type field is not present in every CMS enrollment release. Count only explicit individual classifications.
-individual_enrollments = set()
-for table in ("hist_hospice_enrollments", "hist_hha_enrollments", "hospice_enrollments", "hha_enrollments"):
-    columns = {r[0] for r in graph["db"].execute(f'DESCRIBE {table}').fetchall()}
-    for col in sorted(columns & {"PROVIDER TYPE", "ORGANIZATION TYPE", "ENTITY TYPE", "IS SOLE PROPRIETOR"}):
-        individual_enrollments.update(r[0] for r in graph["db"].execute(
-            f'SELECT DISTINCT "ENROLLMENT ID" FROM {table} WHERE upper("{col}") IN (\'I\', \'INDIVIDUAL\', \'SOLE PROPRIETOR\', \'SOLE PROPRIETORSHIP\', \'YES\', \'Y\')').fetchall())
-print("Agency enrollments explicitly classified as individuals (CMS business name retained):", len(individual_enrollments))
-suppressed = helpers["suppressions"](root / "data/suppress.txt")
-suppressed_keys = {k for k, t in tokens.items() if t in suppressed or public_names[k] in suppressed}
-suppressed_enr = {eid for eid, n in graph["enr"].items() if eid in suppressed or n.get("ccn") in suppressed}
-print(f"Suppression: {len(suppressed_enr)} enrollments, {len(suppressed_keys)} person/entity nodes")
-for eid in suppressed_enr:
-    del graph["enr"][eid]
-graph["links"] = {(k, e): v for (k, e), v in graph["links"].items() if e not in suppressed_enr and k not in suppressed_keys}
-graph["addr_enr"] = {k: set(es) - suppressed_enr for k, es in graph["addr_enr"].items()}
-graph["names"].update(public_names)
-def is_person_name(text):
-    """The whole field is exactly a listed person's name: a sole proprietor's agency under the owner's own name."""
-    t = tuple(helpers["words"](text))
-    return len(t) >= 2 and t in name_index.get(t[:2], ())
-def public_agency_names(n):
-    if is_person_name(n.get("dba")):
-        n.pop("dba")
-    if is_person_name(n.get("name")):
-        n["name"] = n.pop("dba", None) or ("Hospice" if n["kind"] == "hospice" else "Home health agency") + " (individual owner)"
-        return True
-    return False
-renamed = 0
-for n in graph["enr"].values():
-    renamed += public_agency_names(n)
-    if n.get("rev_reason"):
-        n["rev_reason"] = helpers["public_reason"](n["rev_reason"])
-for ns in nodes.values():
-    for n in ns:
-        if n["kind"] in ("hospice", "hha"):
-            public_agency_names(n)
-print("Agencies listed under an individual owner's own name, published under their trade name:", renamed)
-for gid_, ns in list(nodes.items()):
-    old_keys = {n["id"]: n["id"].split("@")[0] for n in ns}
-    ns = [n for n in ns if n["id"] not in suppressed_enr and old_keys[n["id"]] not in suppressed_keys]
-    kept_ids = {n["id"] for n in ns}
-    es = [e for e in edges[gid_] if e["from"] in kept_ids and e["to"] in kept_ids]
-    for e in es:
-        key = old_keys[e["from"]]
-        e["recs"] = helpers["public_records"](e.get("recs", []))
-        e["from"] = tokens.get(key, e["from"])
-    for n in ns:
-        key = old_keys[n["id"]]
-        if key in tokens:
-            n["id"], n["name"] = tokens[key], public_names[key]
+if not PRIVATE:
+    name_index, individual_ids, org_names, individual_orgs = helpers["owner_identities"](graph["db"])
+    secret = helpers["person_secret"]()
+    private_keys = {key for key, typ in graph["ntype"].items() if typ == "I"}
+    org_keys = {key for key, typ in graph["ntype"].items() if typ == "O" and
+                helpers["person_like"](graph["names"][key], name_index, individual_orgs)}
+    # Check every historic spelling, including names hidden by the private graph's display-name choice.
+    for (key, eid), link in graph["links"].items():
+        if graph["ntype"][key] == "O" and any(helpers["person_like"](r[5], name_index, individual_orgs) for r in link["recs"]):
+            org_keys.add(key)
+    private_keys |= org_keys
+    tokens = {key: helpers["public_token"](key, secret) for key in private_keys}
+    assert len(set(tokens.values())) == len(tokens), "Public person/entity token collision"
+    assert not set(tokens.values()).intersection(graph["enr"]), "Token/enrollment collision"
+    public_names = {key: ("Entity " if key in org_keys else "Person ") + token for key, token in tokens.items()}
+    print(f"Person-like organizations tokenized: {len(org_keys)}; sample: " +
+          repr([graph["names"][k] for k in sorted(org_keys)[:10]]))
+    print("Agency names containing a listed person's full name:", sum(
+        any(helpers["contains_name"](n.get(f), name_index) for f in ("name", "dba")) for n in graph["enr"].values()))
+    # A type field is not present in every CMS enrollment release. Count only explicit individual classifications.
+    individual_enrollments = set()
+    for table in ("hist_hospice_enrollments", "hist_hha_enrollments", "hospice_enrollments", "hha_enrollments"):
+        columns = {r[0] for r in graph["db"].execute(f'DESCRIBE {table}').fetchall()}
+        for col in sorted(columns & {"PROVIDER TYPE", "ORGANIZATION TYPE", "ENTITY TYPE", "IS SOLE PROPRIETOR"}):
+            individual_enrollments.update(r[0] for r in graph["db"].execute(
+                f'SELECT DISTINCT "ENROLLMENT ID" FROM {table} WHERE upper("{col}") IN (\'I\', \'INDIVIDUAL\', \'SOLE PROPRIETOR\', \'SOLE PROPRIETORSHIP\', \'YES\', \'Y\')').fetchall())
+    print("Agency enrollments explicitly classified as individuals (CMS business name retained):", len(individual_enrollments))
+    suppressed = helpers["suppressions"](root / "data/suppress.txt")
+    suppressed_keys = {k for k, t in tokens.items() if t in suppressed or public_names[k] in suppressed}
+    suppressed_enr = {eid for eid, n in graph["enr"].items() if eid in suppressed or n.get("ccn") in suppressed}
+    print(f"Suppression: {len(suppressed_enr)} enrollments, {len(suppressed_keys)} person/entity nodes")
+    for eid in suppressed_enr:
+        del graph["enr"][eid]
+    graph["links"] = {(k, e): v for (k, e), v in graph["links"].items() if e not in suppressed_enr and k not in suppressed_keys}
+    graph["addr_enr"] = {k: set(es) - suppressed_enr for k, es in graph["addr_enr"].items()}
+    graph["names"].update(public_names)
+    def is_person_name(text):
+        """The whole field is exactly a listed person's name: a sole proprietor's agency under the owner's own name."""
+        t = tuple(helpers["words"](text))
+        return len(t) >= 2 and t in name_index.get(t[:2], ())
+    # Names of the people CMS lists on each enrollment, so "JANE DOE HOSPICE LLC" is caught on Jane Doe's own agency.
+    listed_on = defaultdict(set)
+    for table in ("hist_hospice_owners", "hist_hha_owners", "hospice_owners", "hha_owners"):
+        cur = graph["db"].execute(f'SELECT DISTINCT "ENROLLMENT ID", "FIRST NAME - OWNER", "LAST NAME - OWNER" FROM {table} WHERE "TYPE - OWNER" = \'I\'')
+        while batch := cur.fetchmany(8192):
+            for eid, first, last in batch:
+                if first and last:
+                    listed_on[eid].add(frozenset(helpers["name_pairs"](first, last)))
+    def names_listed_person(text, eid):
+        t = set(helpers["words"](text))
+        return is_person_name(text) or any(len(c) >= 2 and c <= t for c in listed_on.get(eid, ()))
+    def public_agency_names(n, eid):
+        if names_listed_person(n.get("dba"), eid):
+            n.pop("dba")
+        if names_listed_person(n.get("name"), eid):
+            n["name"] = n.pop("dba", None) or ("Hospice" if n["kind"] == "hospice" else "Home health agency") + " (individual owner)"
+            return True
+        return False
+    renamed = 0
+    for eid, n in graph["enr"].items():
+        renamed += public_agency_names(n, eid)
         if n.get("rev_reason"):
             n["rev_reason"] = helpers["public_reason"](n["rev_reason"])
-    nodes[gid_], edges[gid_] = ns, es
-    if not any(n["kind"] in ("hospice", "hha") for n in ns):
-        del nodes[gid_]; del edges[gid_]
+    for ns in nodes.values():
+        for n in ns:
+            if n["kind"] in ("hospice", "hha"):
+                public_agency_names(n, n["id"])
+    print("Agencies named after a person listed on them, published under a trade or generic name:", renamed)
+    for gid_, ns in list(nodes.items()):
+        old_keys = {n["id"]: n["id"].split("@")[0] for n in ns}
+        ns = [n for n in ns if n["id"] not in suppressed_enr and old_keys[n["id"]] not in suppressed_keys]
+        kept_ids = {n["id"] for n in ns}
+        es = [e for e in edges[gid_] if e["from"] in kept_ids and e["to"] in kept_ids]
+        for e in es:
+            key = old_keys[e["from"]]
+            e["recs"] = helpers["public_records"](e.get("recs", []))
+            e["from"] = tokens.get(key, e["from"])
+        for n in ns:
+            key = old_keys[n["id"]]
+            if key in tokens:
+                n["id"], n["name"] = tokens[key], public_names[key]
+            if n.get("rev_reason"):
+                n["rev_reason"] = helpers["public_reason"](n["rev_reason"])
+        nodes[gid_], edges[gid_] = ns, es
+        if not any(n["kind"] in ("hospice", "hha") for n in ns):
+            del nodes[gid_]; del edges[gid_]
 groups = [grp for grp in groups if grp["id"] in nodes]
-if suppressed_enr:
+if not PRIVATE and suppressed_enr:
     for grp in groups:
         agencies = [n for n in nodes[grp["id"]] if n["kind"] in ("hospice", "hha")]
         grp.update(n=len(agencies), n_hospice=sum(n["kind"] == "hospice" for n in agencies),
@@ -201,12 +233,16 @@ for c, rec in catalog["metrics"].items():
     if rec.get("k") == "hha":
         for field in ("ind", "ind_na", "bldg_n"):
             rec.pop(field, None)
-del secret, tokens, public_names, name_index, individual_ids, org_names, individual_orgs, private_keys
+if not PRIVATE:
+    del secret, tokens, public_names, name_index, individual_ids, org_names, individual_orgs, private_keys
 
 del data, graph, group_of, known
 gc.collect()
 
 dist = root / "site" / "dist"
+if PRIVATE:   # real names: never the deployable site/dist, always the gitignored private/ tree
+    dist = root / "private" / "site_dist"
+assert PRIVATE == (dist.parent.name == "private") and PRIVATE != (dist.parent.name == "site"), dist
 if dist.exists():
     shutil.rmtree(dist)
 payload = dist / "data" / "pending"
@@ -368,6 +404,20 @@ payload.rename(dist / "data" / version)
 for name in runtime:
     text = (root / "site" / name).read_text().replace("__VERSION__", version)
     (dist / name).write_text(text)
+if PRIVATE:   # data-private on <body> makes the page drop its "pseudonymized" wording (index.html, case.js)
+    badge = '<span id="private-badge" style="background:#b00020;color:white;font-weight:700;padding:2px 8px;border-radius:3px">PRIVATE · real names · local only</span>'
+    marks = {"index.html": [('<body data-view=', '<body data-private data-view='),
+                            ('<nav id="topnav" aria-label="Views"><b>CareGraph</b>', '<nav id="topnav" aria-label="Views"><b>CareGraph</b>' + badge)],
+             "about.html": [('<body>', '<body data-private><p>' + badge + ' This local build shows the real names and IDs in the CMS files; '
+                             'the text below describes the public, pseudonymized site.</p>')]}
+    for name, pairs in marks.items():
+        text = (dist / name).read_text()
+        for old, new in pairs:
+            assert text.count(old) == 1, (name, old)
+            text = text.replace(old, new)
+        (dist / name).write_text(text)
+    (dist / "PRIVATE_DO_NOT_DEPLOY.txt").write_text("Private CareGraph build with real names (scripts/build_site.py --private).\n"
+                                                    "Local investigation use only: never deploy, upload or copy to the public repo.\n")
 # Cloudflare rules match actual hashed JS paths (query-string rules do not select cache headers).
 for name in ("renderer.js", "graph_logic.js", "tables.js", "case.js"):
     (dist / f"{name[:-3]}.{version}.js").write_text((root / "site" / name).read_text())

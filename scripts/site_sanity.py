@@ -102,7 +102,7 @@ def check_site(root):
     assert json.loads((dist / 'agencies-first.json').read_text()) == agencies[:100]
     assert all(n.get('kind') == 'hospice' or not n.get('ind') for n in agencies)
     forbidden = {'carrier', 'leie_name_match', 'official_phone', 'official', 'official_title', 'risk_score',
-                 'bene_avg_risk_scre', 'cms_id', 'listed_names', 'merged_ids', 'same_name', 'same_name_ids', 'middle', 'title'}
+                 'bene_avg_risk_scre', 'cms_id', 'listed_names', 'merged_ids', 'same_name', 'same_name_ids', 'middle', 'title', 'phone'}
     suppressed = helpers['suppressions'](root / 'data/suppress.txt')
     def check_node(n):
         assert not forbidden.intersection(n), 'Private field in published node'

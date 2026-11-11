@@ -118,7 +118,6 @@
   #advanced > summary { cursor: pointer; }
   #advanced > button, #advanced > label { margin: 4px 0; }
   #advanced > label:has(#spacing) { display: block; }
-  #advanced #rel { max-width: 100%; }
   .tablefilters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
   .tablefilters input, .tablefilters select, .tablefilters button, .pager button { font: inherit; padding: 5px; }
   .table-scroll { overflow-x: auto; }
@@ -166,9 +165,6 @@
     <details id="advanced"><summary>Advanced</summary>
     <button id="animate" aria-pressed="false">Animate layout</button>
     <label>Spacing <input type="range" id="spacing" min="0.5" max="3" step="0.1" value="1" style="width:80px;vertical-align:middle"> <span id="spacingname">1x</span></label>
-    <label><input type="checkbox" id="alltime" checked> All releases</label>
-    <input type="range" id="rel" min="0" value="0" style="width:220px;vertical-align:middle" disabled>
-    <span id="relname"></span><br>
       <label><input type="checkbox" id="dangling"> Show one-link people</label><br>
       <label><input type="checkbox" id="officers"> Show officers and managers</label>
     </details>
@@ -208,6 +204,7 @@
       <span class="lg" data-f="other"><i class="ln" style="border-color:#999"></i>Other</span>
       <span class="lg" data-f="pastlink"><i class="ln" style="border-top-style:dashed;border-color:#888"></i>Past</span></span>
     <span></span><details id="legendhelp"><summary>Hover or click an item to highlight it · ⓘ What these mean</summary><dl>
+      <dt>Using the map</dt><dd>Click a dot or line for its panel. Double-click a dot to gather the nodes linked to it around it (shown ones only; the layout is frozen). Double-click empty space to zoom in. Scroll or pinch to zoom, drag to pan or move a dot, F fits all, Esc closes the panel.</dd>
       <dt>Size</dt><dd>Agencies: 2024 Medicare payments plus number of links. People, companies and addresses: number of agencies CMS lists them on, across all networks. Buildings: number of agencies there.</dd>
       <dt>Active</dt><dd>In the latest CMS enrollment file, with no revocation found.</dd>
       <dt>Past</dt><dd>In an earlier enrollment file but not the latest, with no revocation found. This does not by itself mean the agency closed.</dd>
@@ -234,6 +231,11 @@
   <div id="timebar">
     <button id="tableback" hidden>← Back to the table</button>
     <button id="fit" title="Fit network (F)">Fit</button>
+    <span class="sep"></span>
+    <label><input type="checkbox" id="alltime" checked> All releases</label>
+    <input type="range" id="rel" min="0" value="0" style="width:220px;vertical-align:middle" disabled>
+    <span id="relname"></span>
+    <span class="sep"></span>
     <span id="hiddencount" class="note" role="status"></span>
     <a id="srcs" href="about.html#sources" title="">Sources</a>
   </div>
@@ -256,6 +258,8 @@ async function shardItem(folder, stem) {
   if (!(String(stem) in bucket)) throw new Error(folder + "/" + stem);
   return bucket[String(stem)];
 }
+// Set by scripts/build_site.py --private only: real names, so no "pseudonymized" wording.
+const PRIVATE_VIEW = document.body.dataset.private != null;
 function downloadFile(text, type, name) {
   const url = URL.createObjectURL(new Blob([text], {type})), link = document.createElement("a");
   link.href = url; link.download = name; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -595,14 +599,37 @@ function spreadDots() {
   network.refresh();
 }
 function layoutSpacing() { return +$("spacing").value * 130 / 0.35; }
-function setLayout(on) {
+// keep: stop the animation for a gather (not remembered, no dot separation that could move the gathered rings).
+function setLayout(on, keep = false) {
   animate = on;
-  localStorage.setItem("animate", on ? "1" : "0");
+  if (!keep) localStorage.setItem("animate", on ? "1" : "0");
   $("animate").setAttribute("aria-pressed", String(on));
   $("animate").textContent = on ? "Freeze layout" : "Animate layout";
   if (!network) return;
   if (on) network.startLayout(layoutSpacing());
-  else { network.stopLayout(); spreadDots(); }
+  else { network.stopLayout(); if (!keep) spreadDots(); }
+}
+// Double-click a dot: move its shown neighbours into non-touching rings around it. The centre stays put; the layout is
+// frozen (a running animation would pull them straight back). Hidden neighbours are not revealed.
+let gatherTimer;
+function gatherNeighbors(id) {
+  const centre = network.nodeById.get(id);
+  if (!centre || centre.hidden) return;
+  const ids = new Set(), hidden = new Set();
+  for (const e of network.edges) {
+    if (e.from !== id && e.to !== id) continue;
+    const other = e.from === id ? e.to : e.from, n = network.nodeById.get(other);
+    if (n && other !== id) (e.hidden || n.hidden ? hidden : ids).add(other);
+  }
+  for (const h of ids) hidden.delete(h);
+  const note = text => { netMsg(esc(text)); clearTimeout(gatherTimer); gatherTimer = setTimeout(() => { if ($("netmsg").textContent === text) netMsg(""); }, 4000); };
+  if (!ids.size) return note(hidden.size ? `No shown linked nodes (${hidden.size} hidden by filters).` : "No linked nodes to gather.");
+  if (animate) setLayout(false, true);
+  const placed = ringPositions({x: centre.x, y: centre.y, radius: centre.size || 7}, [...ids].map(i => network.nodeById.get(i))
+    .sort((a, b) => (b.size || 7) - (a.size || 7) || (a.id < b.id ? -1 : 1)).map(n => ({id: n.id, radius: n.size || 7})), 26);   // gap leaves room for labels
+  for (const p of placed) { const n = network.nodeById.get(p.id); n.x = p.x; n.y = p.y; }
+  network.refresh();
+  note(`Gathered ${placed.length} linked node${placed.length === 1 ? "" : "s"}${hidden.size ? ` (shown ones only; ${hidden.size} hidden by filters)` : ""}. Layout frozen.`);
 }
 function setSpacing() {
   const scale = +$("spacing").value;
@@ -670,6 +697,7 @@ async function show(gid, push = false) {
       ? `${nice(obj.dba || obj.name || obj.id)} (${{hospice: "hospice", hha: "home health", person: "person", org: "company", address: "address"}[obj.kind] || obj.kind})`
       : `${roleText(obj)}${obj.cat === "owner" && obj.pct && +obj.pct ? " " + obj.pct + "%" : ""}\n${obj.first ? (obj.first === obj.last ? obj.first : obj.first + " – " + obj.last) : ""}`});
     network.on("click", ({node, edge}) => select(node, edge));
+    network.on("doubleclick", ({node}) => { if (node) gatherNeighbors(node.id); });   // on empty space the renderer zooms in
   }
   network.stopLayout();
   network.hovered = null; network._hideTip();
@@ -703,7 +731,7 @@ function drawEdgeInfo(e) {
   const records = (e.recs || []).map(r => {
     const pages = [...new Set((r.f || []).map(i => datasetUrl(INDEX.files, i)).filter(Boolean))];
     return `<div class="record"><b>${esc(r.role || (r.addr ? "Address" : roles(e)))}</b>${r.code ? ` (${esc(r.code)})` : ""}
-      ${r.addr ? `<br>${esc(r.addr)}` : ""}
+      ${r.addr ? `<br>${esc(r.addr)}` : ""}${r.nm || r.aid ? `<br>Listed as: ${esc([r.nm, r.aid && "CMS associate ID " + r.aid].filter(Boolean).join(" · "))}` : ""}
       ${r.pct != null && r.pct !== "" ? `<br>Ownership: ${esc(r.pct)}%` : ""}
       ${r.assoc ? `<br>Association date: ${esc(r.assoc)}` : ""}
       <br>Releases: ${releaseLinks(r.f, i => recordUrl(INDEX.files, i, e, r))}
@@ -747,23 +775,79 @@ function drawInfo(n) {
       ${row("Early / late live disch.", n.pct_early_live_discharge == null ? null : esc(pct(n.pct_early_live_discharge) + " / " + pct(n.pct_late_live_discharge)), care)}
       </table><div id="agency-extra"><small role="status">Loading metrics…</small></div>
       <h3>Timeline</h3><p class="note">Dates are the first/last CMS release seen, not event dates, unless labelled as an event date. Missing from the latest file does not establish closure.</p>${agencyTimeline(n, es)}
-      <button data-case-toggle="${esc(n.id)}">Add to case</button>
+      <button data-case-toggle="${esc(n.id)}">Add to case</button> <button data-export="${esc(n.id)}">Export node (Markdown)</button>
       <h3>Links (${es.length})</h3><button data-expand="${esc(n.id)}">Show all people on this agency</button>${linkList}
       <h3>Sources</h3>${sourceLink(enrollment, "Latest enrollment rows")} ${sourceLink(care, "Care Compare")} ${sourceLink(payments, "2024 payments")} ${n.status === "revoked" ? sourceLink(revocationUrl(INDEX.files, INDEX.ext, n.id), "CMS revocation row") : ""}`;
     fillAgencyExtra(n, panelVersion); window.caseRefresh?.();
   } else {
     const other = n.other_networks || [];
-    INFO.innerHTML = `<b style="font-size:14px">${esc(nice(n.name))}</b> <small>(${n.kind === "org" ? "company" : esc(n.kind)})</small>${n.kind === "person" || /^Entity /.test(n.name || "") ? `<br><small class="src">Pseudonymized: the same code stands for the same CMS ID across the whole site.</small>` : ""}
+    INFO.innerHTML = `<b style="font-size:14px">${esc(nice(n.name))}</b> <small>(${n.kind === "org" ? "company" : esc(n.kind)})</small>${!PRIVATE_VIEW && (n.kind === "person" || /^Entity /.test(n.name || "")) ? `<br><small class="src">Pseudonymized: the same code stands for the same CMS ID across the whole site.</small>` : ""}
       ${n.weak ? `<br><i>Weak node (${esc(n.weak_reason)}); shown but not used to join networks.</i>` : ""}
       ${n.multitenant ? `<br><small class="src">Building checked ${sourceLink(n.multitenant.source, "source")}</small>` : ""}
       ${n.merged?.length ? `<p><b>Merged spellings</b> <small>(treated as this building; each link below shows the spelling CMS used)</small>:<br>` +
         n.merged.map(m => `${esc(m.spelling)}<br><small class="src">${esc(m.rule)}; Census geocoder: ${esc(m.census === "not found" ? "neither spelling found (unverified)" : m.census)}</small>`).join("<br>") + "</p>" : ""}
       ${n.virtual ? `<br><small>Suite numbers written as "Office n" are merged into one executive-suite node.</small>` : ""}
       ${other.length ? `<br>Also in networks: ${other.map(g => `<a class="jump" tabindex="0" role="link" data-group="${esc(g)}">#${esc(g)}</a>`).join(" ")}` : ""}
+      <p><button data-export="${esc(n.id)}">Export node (Markdown)</button></p>
       <p><b>Linked (${es.length} here, ${esc(n.n_enrollments)} enrollments total)</b></p>${linkList}`;
   }
 }
+// Markdown for one node and every link it has in the loaded network (shown or hidden by filters), built synchronously
+// from what the panel already holds (records are loaded before drawInfo runs), so it cannot land in another node's panel.
+function exportNode(n) {
+  const es = (G.adj ||= (() => { const a = {}; G.edges.forEach(e => { (a[e.from] ||= []).push(e); (a[e.to] ||= []).push(e); }); return a; })())[n.id] || [];
+  const pct = v => v == null ? "—" : v + "%", files = INDEX.files, fact = (label, value, url) => value == null || value === "" ? null : {label, value, url};
+  let facts, notes = [], timeline = [];
+  if (isEnr(n)) {
+    const ef = latestFile(files, n.ef), enrollment = ef == null ? null : enrollmentUrl(files, ef, n.id), care = careCompareUrl(n), payments = paymentsUrl(files, INDEX.ext, n);
+    const rev = revocationUrl(files, INDEX.ext, n.id), rel = n.ef?.length ? [...n.ef].sort((a, b) => String(files[a]?.rel).localeCompare(String(files[b]?.rel))) : [];
+    facts = [fact("Status", n.status === "revoked" ? `revoked ${n.rev_date}; ${n.rev_reason} (CMS reason text, as published in the CMS Revocation Extract 2026-10-21)`
+        : n.status === "active" ? "listed in latest enrollment file; no revocation row found" : n.status + ". This does not establish that the agency closed.", n.status === "revoked" ? rev : enrollment),
+      n.dba ? fact("dba", nice(n.dba), enrollment) : null,
+      fact("Re-enrollment bar", n.rev_bar || (n.status === "revoked" ? "Not supplied in the published field used here; check the CMS row" : ""), rev),
+      fact("Enrollment / CCN", n.id + " / " + (n.ccn || "—"), enrollment),
+      fact("In enrollment file (first / last release seen)", rel.length ? files[rel[0]]?.rel + " .. " + files[rel.at(-1)]?.rel : n.first_seen ? n.first_seen + " .. " + n.last_seen : null, enrollment),
+      fact("Address", nice([n.address, n.city].filter(Boolean).join(", ")) + (n.state ? ", " + n.state : ""), enrollment),
+      fact("Phone", n.phone, care), fact("Certified", n.certified, care),
+      fact("2024 Medicare paid", fmt$(n.paid), payments), fact("2024 patients", n.benes_2024, payments),
+      n.paid_prev == null ? null : fact("Medicare paid in " + n.paid_year, fmt$(n.paid_prev) + (n.benes_prev ? " (" + n.benes_prev + " patients)" : ""), apiUrl(files[n.pf], {PRVDR_ID: n.ccn, SMRY_CTGRY: "PROVIDER"})),
+      fact("Hospice Care Index", n.hci_score == null ? null : n.hci_score + " / 10", care),
+      fact("Early / late live disch.", n.pct_early_live_discharge == null ? null : pct(n.pct_early_live_discharge) + " / " + pct(n.pct_late_live_discharge), care)].filter(Boolean);
+    const rec = METRICS_DATA?.[n.ccn], meta = tableMeta?.metrics || {};   // only if the panel has already loaded them
+    if (rec) {
+      for (const [k, [v, p]] of Object.entries(rec.m || {})) facts.push({label: meta[k]?.label || k, value: `${metricValue(meta[k], v)} (${ordinal(p)} percentile nationally)`});
+      if (n.kind === "hospice") notes.push("Indicators: " + ((rec.ind || []).map(indLabel).join("; ") || "none apply") + ". " + IND_SENTENCE);
+    }
+    notes.push("Dates in the timeline are the first/last CMS release seen, not event dates, unless labelled as an event date. Missing from the latest file does not establish closure.");
+    timeline = timelineEvents(n, es, G.byId).map(({date, label, url}) => ({date, label, url}));
+  } else {
+    if (!PRIVATE_VIEW && (n.kind === "person" || /^Entity /.test(n.name || ""))) notes.push("Pseudonymized: the same code stands for the same CMS ID across the whole site.");
+    if (n.weak) notes.push(`Weak node (${n.weak_reason}); shown but not used to join networks.`);
+    if (n.multitenant) notes.push("Building checked: " + (n.multitenant.source || ""));
+    if (n.virtual) notes.push('Suite numbers written as "Office n" are merged into one executive-suite node.');
+    if (n.merged?.length) notes.push("Merged spellings (treated as this building; each link shows the spelling CMS used): " +
+      n.merged.map(m => `${m.spelling} (${m.rule}; Census geocoder: ${m.census === "not found" ? "neither spelling found (unverified)" : m.census})`).join("; "));
+    if ((n.other_networks || []).length) notes.push("Also in networks: " + n.other_networks.map(g => "#" + g).join(", "));
+    facts = [fact("Linked", `${es.length} here, ${n.n_enrollments} enrollments total`)].filter(Boolean);
+  }
+  const connections = es.map(e => {
+    const o = G.byId[e.from === n.id ? e.to : e.from], indexes = [...new Set((e.recs || []).flatMap(r => r.f || []))].filter(i => files[i])
+      .sort((a, b) => String(files[a].rel).localeCompare(String(files[b].rel)));
+    return {name: nice(o.dba || o.name || o.id), agency: isEnr(o), status: isEnr(o) ? (o.status === "revoked" ? "revoked " + o.rev_date : o.status === "active" ? "active" : "past") : "",
+      role: roleText(e), pct: e.cat === "owner" && e.pct && +e.pct ? e.pct : "", first: e.first, last: e.last, src: e.src,
+      rows: indexes.map(i => ({label: files[i].rel || "release", url: recordUrl(files, i, e)})).filter(r => r.url)};
+  });
+  const name = nice(n.name || n.id), kind = isEnr(n) ? (n.kind === "hha" ? "home health agency" : "hospice") : n.kind === "org" ? "company" : n.kind;
+  const text = nodeMarkdown({name, kind, date: new Date().toISOString().slice(0, 10), dataDate: LATEST, notes, facts, timeline, connections});
+  downloadFile(text, "text/markdown;charset=utf-8", "caregraph-" + (isEnr(n) ? n.id : name).replace(/[^\w.-]+/g, "_").slice(0, 60) + ".md");
+}
 $("info").onclick = ev => {
+  const exp = ev.target.closest("[data-export]");
+  if (exp) {
+    const n = G?.byId[exp.dataset.export];
+    try { if (n) exportNode(n); } catch { exp.textContent = "Could not export · Retry"; }
+    return;
+  }
   const expand = ev.target.closest("[data-expand]");
   if (expand) { expandedAgencies.add(expand.dataset.expand); filterGraph(); expand.textContent = "All people on this agency shown"; return; }
   const step = ev.target.closest("[data-step]");

@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const {shardKey, shardPath, apiUrl, enrollmentUrl, recordUrl, revocationUrl, paymentsUrl, careCompareUrl, nppesUrl,
-  datasetUrl, latestFile, latestRecord, separateDots, buildAdjacency, shortestPath, matchNames, compareTableValues, csvRows, edgeInRelease, timelineDateKey} = require("./graph_logic.js");
+  datasetUrl, latestFile, latestRecord, separateDots, buildAdjacency, shortestPath, matchNames, compareTableValues, csvRows, edgeInRelease, timelineDateKey, ringPositions, nodeMarkdown} = require("./graph_logic.js");
 
 const files = [
   {ds: "Hospice All Owners", rel: "2026-01-21", api: "https://data.cms.gov/data-api/v1/dataset/owners-old/data", page: "https://data.cms.gov/owners"},
@@ -97,4 +97,34 @@ assert.ok(compareTableValues("alpha", "Beta", true) > 0);
 assert.equal(csvRows([['a,"b', '=1+1', null, -2]]), '\"a,\"\"b\",\"\'=1+1\",\"\",\"-2\"\r\n');
 assert.equal(timelineDateKey("1/2/2001"), "2001-01-02");
 assert.equal(timelineDateKey("2024-01-01"), "2024-01-01");
+// Gathered rings: centre untouched by construction, no two dots (or the centre) touch, deterministic.
+{
+  const centre = {x: 10, y: -5, radius: 30}, around = Array.from({length: 40}, (_, i) => ({id: "n" + i, radius: 6 + (i % 5) * 4}));
+  const placed = ringPositions(centre, around, 20), again = ringPositions(centre, around, 20);
+  assert.equal(placed.length, 40); assert.deepEqual(placed, again);
+  const all = placed.map(p => ({...p, radius: around.find(a => a.id === p.id).radius}));
+  for (const a of all) assert.ok(Math.hypot(a.x - centre.x, a.y - centre.y) >= centre.radius + a.radius + 20 - 1e-6);
+  for (let i = 0; i < all.length; i++) for (let j = i + 1; j < all.length; j++)
+    assert.ok(Math.hypot(all[i].x - all[j].x, all[i].y - all[j].y) >= all[i].radius + all[j].radius + 20 - 1e-6, `${all[i].id} touches ${all[j].id}`);
+  assert.deepEqual(ringPositions(centre, []), []);
+  assert.equal(ringPositions(centre, [{id: "a", radius: 5}]).length, 1);
+}
+// Node export: heading, caution, a connection with its source URL; Markdown characters in names stay literal.
+{
+  const md = nodeMarkdown({name: "Care *Plus* [LLC] #1", kind: "hospice", date: "2026-11-10", dataDate: "2026-09-29",
+    notes: ["Pseudonymized."], facts: [{label: "Status", value: "active", url: files[2].api}],
+    timeline: [{date: "2024-01-01", label: "First", url: "http://insecure.example/x"}],
+    connections: [{name: "Zed_Person", role: "Officer", first: "2024-01-01", last: "2024-01-01", rows: [{label: "2024-01-21", url: files[1].api + "?filter%5BENROLLMENT%20ID%5D=O1 x>"}]},
+      {name: "Beta | Home\nHealth", agency: true, status: "revoked 2025-01-01", role: "Owner", pct: "15", first: "2023-01-01", last: "2025-01-01", src: "x"}]});
+  const lines = md.split("\n");
+  assert.equal(lines[0], "# Care \\*Plus\\* \\[LLC\\] #1");
+  assert.ok(lines[2].startsWith("hospice · exported 2026-11-10 from CareGraph (public CMS records, data as of 2026-09-29)."));
+  assert.ok(md.includes("Links are listings in CMS records, not evidence of a current relationship, common control or wrongdoing. Check each source row."));
+  assert.ok(md.includes("## Connections (2)"));
+  const bullets = lines.filter(l => l.startsWith("- ") && l.includes(" — "));
+  assert.equal(bullets.length, 2);
+  assert.ok(bullets[0].startsWith("- Beta \\| Home Health (revoked 2025-01-01) — Owner — 15% — 2023-01-01 – 2025-01-01"), bullets[0]);   // agencies first
+  assert.ok(bullets[1].includes("Zed\\_Person — Officer — 2024-01-01 — rows: 2024-01-21 <https://data.cms.gov/data-api/v1/dataset/owners/data?filter%5BENROLLMENT%20ID%5D=O1%20x%3E>"), bullets[1]);
+  assert.ok(!md.includes("insecure.example"));   // only https links are written
+}
 console.log("test_logic: passed (sources, paths, release gaps, sorting, CSV)");
