@@ -4,7 +4,7 @@
 
 Differences of the public site from out/graph.html:
   - Only whitelisted fields from public CMS files are published. Derived flags are dropped: "carrier",
-    LEIE name-only matches, same-name/different-ID links, CMS beneficiary risk score, NPPES official phone.
+    same-name/different-ID links, CMS beneficiary risk score, NPPES official phone.
   - Node positions are precomputed (a numpy port of the original page's vis-network physics), so the page opens
     frozen; the browser draws with site/renderer.js (WebGL) and runs a layout only on request.
   - Every link has deferred source records (one per distinct CMS row, with the release files it appears in) and every
@@ -96,7 +96,7 @@ for e in data["edges"]:
     if e["cat"] == "samename":
         continue
     edges[group_of[e["to"]]].append(pick(e, EDGE_KEEP))
-groups, releases, sources = data["groups"], data["releases"], [s for s in data["sources"] if "LEIE" not in s]
+groups, releases, sources = data["groups"], data["releases"],data["sources"]
 files = [{k: f[k] for k in ("ds", "rel", "api", "page", "csv")} for f in data["files"]]
 ext = {key: next(i for i, f in enumerate(data["files"]) if pat in f["name"])
        for key, pat in (("rev", "Revocation_Extract"), ("pac_hospice", "PACPUF_HOS"), ("pac_hha", "PACPUF_HH_"))}

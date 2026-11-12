@@ -18,7 +18,6 @@ fetch hha_enrollments     https://data.cms.gov/sites/default/files/2026-10/0089f
 fetch hha_pac_2024        https://data.cms.gov/sites/default/files/2026-07/839da318-d963-435c-8709-35c5820c50a4/RY26_PACPUF_HH_2024_main_S.csv
 fetch hospice_general     https://data.cms.gov/provider-data/sites/default/files/resources/18afea60c672e37d2f0d6e8ed984eaa6_1787169953/Hospice_General-Information_Aug2026_2.csv
 fetch hospice_measures    https://data.cms.gov/provider-data/sites/default/files/resources/55feed84280900d392830eea2f2426de_1786385144/Hospice_Provider_Aug2026.csv
-fetch leie                https://oig.hhs.gov/exclusions/downloadables/UPDATED.csv
 
 # History (one directory, many snapshots) and owners of other provider types. Pass --history to fetch.
 if [ "${1:-}" = "--history" ]; then

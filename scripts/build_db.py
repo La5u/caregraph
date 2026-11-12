@@ -163,29 +163,6 @@ SELECT addr_key, any_value(upper(city)) AS city, any_value(state) AS state,
 FROM (SELECT 'hospice' AS kind, * FROM hospice UNION ALL BY NAME SELECT 'hha' AS kind, * FROM hha)
 WHERE addr_key IS NOT NULL
 GROUP BY addr_key HAVING count(DISTINCT enrollment_id) > 1;
-
--- LEIE exclusions matched to enrolled agencies by NPI (strong match).
-CREATE OR REPLACE VIEW leie_npi_hits AS
-SELECT x.*, l.EXCLTYPE AS excl_type, l.EXCLDATE AS excl_date, l.REINDATE AS rein_date
-FROM (SELECT 'hospice' AS kind, enrollment_id, npi, org_name, state FROM hospice
-      UNION ALL SELECT 'hha', enrollment_id, npi, org_name, state FROM hha) x
-JOIN leie l ON l.NPI = x.npi AND l.NPI <> '0000000000';
-
--- LEIE exclusions matched to individual owners by first+last name and the agency's state
--- (CMS publishes no address for individual owners). WEAK: common names collide, verify by hand.
-CREATE OR REPLACE VIEW leie_owner_name_hits AS
-SELECT o.kind, o."ORGANIZATION NAME" AS agency, a.state AS agency_state, o."ROLE TEXT - OWNER" AS role,
-       o."FIRST NAME - OWNER" AS first, o."MIDDLE NAME - OWNER" AS middle, o."LAST NAME - OWNER" AS last,
-       l.MIDNAME AS excl_middle, l.EXCLTYPE AS excl_type, l.EXCLDATE AS excl_date, l.REINDATE AS rein_date,
-       l.GENERAL AS excl_general, l.CITY AS excl_city,
-       left(upper(o."MIDDLE NAME - OWNER"), 1) = left(upper(l.MIDNAME), 1) AS middle_initial_match
-FROM owners o
-JOIN (SELECT enrollment_id, state FROM hospice UNION ALL SELECT enrollment_id, state FROM hha) a
-  ON a.enrollment_id = o."ENROLLMENT ID"
-JOIN leie l ON upper(l.LASTNAME) = upper(o."LAST NAME - OWNER")
-           AND upper(l.FIRSTNAME) = upper(o."FIRST NAME - OWNER")
-           AND l.STATE = a.state
-WHERE o."TYPE - OWNER" = 'I';
 """)
 
 # NPPES registry records (from scripts/fetch_nppes.py), flattened to one row per NPI.
@@ -302,8 +279,7 @@ SELECT h.*, g."Telephone Number" AS phone, g."County/Parish" AS county, g."Owner
        n.official, n.official_title, n.official_phone, n.loc_phone AS npi_phone,
        concat_ws(', ', n.mail_address, n.mail_city, n.mail_state) AS mailing_address, n.enumerated AS npi_enumerated,
        n.other_names AS npi_other_names, ppl.people, ppl.owner_orgs, sa.n_at_address, sa.n_in_building,
-       s.* EXCLUDE (ccn),
-       (SELECT count(*) FROM leie_owner_name_hits x WHERE x.kind = 'hospice' AND x.agency = h.org_name) AS leie_name_hits
+       s.* EXCLUDE (ccn)
 FROM hospice h
 LEFT JOIN hospice_general g ON g."CMS Certification Number (CCN)" = h.ccn
 LEFT JOIN nppes n ON n.npi = h.npi
@@ -355,4 +331,4 @@ UNION ALL SELECT 'hospital', "ASSOCIATE ID - OWNER", "ORGANIZATION NAME", "ROLE 
 UNION ALL SELECT 'FQHC', "ASSOCIATE ID - OWNER", "ORGANIZATION NAME", "ROLE TEXT - OWNER" FROM fqhc_owners
 UNION ALL SELECT 'rural clinic', "ASSOCIATE ID - OWNER", "ORGANIZATION NAME", "ROLE TEXT - OWNER" FROM rhc_owners;
 """)
-print("views: owner_key, hospice_billing, owner_history, enrollment_history, owner_holdings, hospice_profile, hospice_scores, hospice, hha, owners, multi_owners, shared_addresses, leie_npi_hits, leie_owner_name_hits")
+print("views: owner_key, hospice_billing, owner_history, enrollment_history, owner_holdings, hospice_profile, hospice_scores, hospice, hha, owners, multi_owners, shared_addresses")

@@ -433,7 +433,6 @@ def listed_names(n):
     return sorted(out, key=lambda r: (r["first"], r["nm"]))
 
 
-leie = {r[0] for r in db.execute("SELECT DISTINCT upper(first || ' ' || last) FROM leie_owner_name_hits").fetchall()}
 for (n, e), x in links.items():
     if e not in enr_group or len(per[n]) < 2: continue
     g = enr_group[e]
@@ -446,7 +445,7 @@ for (n, e), x in links.items():
                       "kind": {"I": "person", "O": "org", "A": "address"}[ntype[n]], "name": names[n], "group": g,
                       "weak": why is not None, "weak_reason": why, "n_enrollments": len(per[n]), "n_here": here,
                       "other_networks": sorted({enr_group[y] for y in elsewhere[n]} - {g}),
-                      "virtual": n in virt_addr, "building": bldg.get(n), "leie_name_match": pname.get(n, "~") in leie}
+                      "virtual": n in virt_addr, "building": bldg.get(n)}
         if listed_names(n): nodes[nid]["listed_names"] = listed_names(n)
         if merged_ids.get(n): nodes[nid]["merged_ids"] = merged_ids[n]
         if same_agency_other.get(n): nodes[nid]["same_name_ids"] = same_agency_other[n]
@@ -512,7 +511,7 @@ releases = sorted({x["first"] for x in links.values()} | {x["last"] for x in lin
 data = {"nodes": list(nodes.values()), "edges": edges, "samename_pairs": samename_pairs, "groups": groups, "releases": releases,
         "files": [{"name": f, **CMS_FILES[f]} for f in FILES],
         "sources": [f"{SRC_HOS} / {SRC_HHA} releases {releases[0]}..{releases[-1]}", SRC_ENR, SRC_REV,
-                    "CMS PAC PUF Hospice and HHA 2024", "OIG LEIE (name match only)"]}
+                    "CMS PAC PUF Hospice and HHA 2024"]}
 vendor = root / "scripts" / "vendor" / "vis-network-9.1.2.min.js"  # vis-network 9.1.2 (Apache-2.0 / MIT)
 html = (root / "scripts" / "graph_template.html").read_text()
 html = html.replace("__VIS__", vendor.read_text().replace("</script", "<\\/script"))
